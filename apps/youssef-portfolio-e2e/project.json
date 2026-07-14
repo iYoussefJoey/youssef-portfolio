@@ -1,0 +1,11 @@
+{
+  "name": "youssef-portfolio-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/youssef-portfolio-e2e/src",
+  "implicitDependencies": [
+    "youssef-portfolio"
+  ],
+  "// targets": "to see all targets run: nx show project youssef-portfolio-e2e --web",
+  "targets": {}
+}
