@@ -14,7 +14,15 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": false,
-    "paths": {}
+    "paths": {
+      "@youssef-portfolio/portfolio-features": [
+        "./libs/portfolio/features/src/index.ts"
+      ],
+      "@youssef-portfolio/portfolio-ui": ["./libs/portfolio/ui/src/index.ts"],
+      "@youssef-portfolio/portfolio-data": [
+        "./libs/portfolio/data/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
