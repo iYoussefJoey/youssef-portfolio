@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ThemeService } from '@youssef-portfolio/portfolio-ui';
 import { NxWelcome } from './nx-welcome';
 
 @Component({
@@ -10,4 +11,9 @@ import { NxWelcome } from './nx-welcome';
 })
 export class App {
   protected title = 'youssef-portfolio';
+
+  constructor() {
+    // Apply persisted / OS theme on bootstrap (CSS uses light-dark()).
+    inject(ThemeService);
+  }
 }
