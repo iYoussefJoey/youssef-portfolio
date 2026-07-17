@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+
+/*
+ * Header shell — sticky app bar.
+ * sticky/top/z-index keep it above page content while scrolling.
+ */
+.header {
+  @apply sticky top-0 z-50 border-b;
+
+  /*
+   * Pushes the theme control to the right edge of the toolbar.
+   * flex: 1 1 auto grows to fill space between brand and actions.
+   */
+  &__spacer {
+    flex: 1 1 auto;
+  }
+
+  /*
+   * Brand row: Youssef | YK | Khamis.
+   * inline-flex + gap lays the three pieces in one baseline row.
+   */
+  &__brand {
+    @apply inline-flex items-baseline gap-1.5 font-bold no-underline text-inherit;
+  }
+
+  /*
+   * First / last name text nodes inside the brand.
+   * inline-block so transform animations can move them on the X axis.
+   */
+  &__name {
+    @apply inline-block;
+  }
+
+  /*
+   * Start state for Youssef (must match keyframe "from" in tailwind.css).
+   * Shifted toward center so the pair looks close before spreading left.
+   * Motion class on HTML: animate-name-left (custom utils cannot be @apply'd here).
+   */
+  &__name--left {
+    transform: translateX(0.7rem);
+  }
+
+  /*
+   * Start state for Khamis (must match keyframe "from" in tailwind.css).
+   * Shifted toward center so the pair looks close before spreading right.
+   * Motion class on HTML: animate-name-right.
+   */
+  &__name--right {
+    transform: translateX(-0.7rem);
+  }
+
+  /*
+   * Initials between the names. Starts invisible (opacity-0);
+   * enter motion is animate-yk-in on the HTML (defined in tailwind.css).
+   * Primary token color so YK reads as the brand accent.
+   */
+  &__yk {
+    @apply inline-block opacity-0;
+    color: var(--md-sys-color-primary);
+  }
+
+  /*
+   * Contrast icon only — hover micro-interaction (rotate + scale).
+   * Do not put this class on mat-menu items (scale causes menu scrollbars).
+   */
+  &__theme-toggle {
+    @apply transition-transform duration-200 hover:rotate-12 hover:scale-110;
+  }
+
+  /*
+   * Theme menu rows (Light / Dark / System).
+   * Soft nudge on hover instead of scale — safe inside Material overlays.
+   */
+  &__theme-item {
+    @apply transition-all duration-150;
+
+    &:hover {
+      padding-inline-start: 1.25rem;
+    }
+  }
+}
+
+/*
+ * Accessibility: if the user prefers reduced motion, skip brand animations
+ * and show the final state immediately (names in place, YK visible).
+ */
+@media (prefers-reduced-motion: reduce) {
+  .header__name--left,
+  .header__name--right,
+  .header__yk {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+
+/*
+ * Brand intro animations (used as HTML classes: animate-*)
+ * File: apps/youssef-portfolio/src/tailwind.css
+ *
+ * Timeline:
+ *  0–450ms  → Youssef moves left, Khamis moves right (spread)
+ *  450ms+   → YK fades / slides in between them
+ */
+@theme {
+  --animate-name-left: name-left 450ms ease-out forwards;
+  --animate-name-right: name-right 450ms ease-out forwards;
+  --animate-yk-in: yk-in 500ms ease-out 450ms forwards;
+}
+
+/* Youssef: start shifted toward center, end in place (spreads left) */
+@keyframes name-left {
+  from {
+    transform: translateX(0.7rem);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Khamis: start shifted toward center, end in place (spreads right) */
+@keyframes name-right {
+  from {
+    transform: translateX(-0.7rem);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* YK: wait until names have spread, then appear */
+@keyframes yk-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

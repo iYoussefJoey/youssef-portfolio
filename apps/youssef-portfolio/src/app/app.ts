@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ThemeService } from '@youssef-portfolio/portfolio-ui';
-import { NxWelcome } from './nx-welcome';
+import { ThemeService, HeaderComponent } from '@youssef-portfolio/portfolio-ui';
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [RouterModule, HeaderComponent],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',

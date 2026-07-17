@@ -58,14 +58,4 @@ export class ThemeService {
   setPreference(preference: ThemePreference): void {
     this.preference.set(preference);
   }
-
-  /**
-   * Cycles preference: light → dark → system → light.
-   * Created for a single header toggle when a full three-option control is not used yet.
-   */
-  cyclePreference(): void {
-    const order: ThemePreference[] = ['light', 'dark', 'system'];
-    const i = order.indexOf(this.preference());
-    this.preference.set(order[(i + 1) % order.length]);
-  }
 }

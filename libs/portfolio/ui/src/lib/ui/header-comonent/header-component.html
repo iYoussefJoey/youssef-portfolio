@@ -1,0 +1,32 @@
+<mat-toolbar class="header">
+  <button matIconButton aria-label="Open menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a class="header__brand" routerLink="/" aria-label="Youssef Khamis">
+    <span class="header__name header__name--left animate-name-left">Youssef</span>
+    <span class="header__yk animate-yk-in" aria-hidden="true">YK</span>
+    <span class="header__name header__name--right animate-name-right">Khamis</span>
+  </a>
+  <span class="header__spacer"></span>
+  <button
+    matIconButton
+    aria-label="Toggle theme"
+    [matMenuTriggerFor]="menu"
+  >
+    <mat-icon class="header__theme-toggle">contrast</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (item of themeMenuItems; track item.preference) {
+
+    <button
+      mat-menu-item
+      class="header__theme-item"
+      (click)="systemTheme.setPreference(item.preference)"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span>{{ item.label }}</span>
+    </button>
+
+    }
+  </mat-menu>
+</mat-toolbar>
