@@ -1,4 +1,4 @@
 import { Route } from '@angular/router';
-import { Features } from './features/features';
+import { Intro } from './intro/intro';
 
-export const featuresRoutes: Route[] = [{ path: '', component: Features }];
+export const featuresRoutes: Route[] = [{ path: '', component: Intro }];

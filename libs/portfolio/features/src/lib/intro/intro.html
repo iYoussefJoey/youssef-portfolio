@@ -1,0 +1,40 @@
+<section class="intro">
+  <aside class="intro__rail">
+    <nav class="intro__nav" aria-label="On this page">
+      @for (section of sections; track section.id) {
+      <a
+        class="intro__link"
+        [class.intro__link--active]="scrollSpy.isActive(section.id)"
+        [href]="'#' + section.id"
+        (click)="onNavClick(section.id, $event)"
+      >
+        <span class="intro__link-bar" aria-hidden="true"></span>
+        <span class="intro__link-label">{{ section.label }}</span>
+      </a>
+      }
+    </nav>
+  </aside>
+
+  <div class="intro__content">
+    <section id="about" class="intro__section">
+      <h2>About</h2>
+      <p>Placeholder — CV summary goes here later.</p>
+    </section>
+    <section id="technologies" class="intro__section">
+      <h2>Technologies</h2>
+      <p>Placeholder — tech list goes here later.</p>
+    </section>
+    <section id="skills" class="intro__section">
+      <h2>Skills</h2>
+      <p>Placeholder — skills details go here later.</p>
+    </section>
+    <section id="education" class="intro__section">
+      <h2>Education</h2>
+      <p>Placeholder — education goes here later.</p>
+    </section>
+    <section id="contact" class="intro__section">
+      <h2>Contact</h2>
+      <p>Placeholder — email / LinkedIn / GitHub go here later.</p>
+    </section>
+  </div>
+</section>
