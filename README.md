@@ -40,8 +40,9 @@ Header nav sits beside the brand (Josh Comeau–style). Sub-pages show an animat
 apps/youssef-portfolio/     # Shell app (header + router-outlet)
 libs/portfolio/
   features/                 # Pages: Intro, Experience, Projects, Resume
-  ui/                       # Header, ThemeService, ScrollSpyService
+  ui/                       # Header, IntroAside, ThemeService, ScrollSpyService
   data/                     # PROFILE (CV content — single source of truth)
+  styles/                   # Shared theme tokens + brand animations (yk-*)
 ```
 
 Path aliases (see `tsconfig.base.json`):
@@ -89,6 +90,16 @@ Import that file after `@import 'tailwindcss'` in any SCSS that `@apply`s these 
 - Preferences: **Light** / **Dark** / **System** (header contrast menu)
 - Stored in `localStorage` key `yk-theme`
 - Tokens live in `apps/youssef-portfolio/src/tokens-theme.scss`
+- Theme `mat-menu` colors use Material `menu-overrides` in `apps/youssef-portfolio/src/styles.scss` (must be global — the menu renders in a CDK overlay)
+
+Brand name / YK motion keyframes live in `libs/portfolio/styles/yk-animations.css`.
+
+---
+
+## Intro sticky rail
+
+`yk-intro-aside` (`libs/portfolio/ui`) owns the sticky section links + socials.
+The Intro page owns `PROFILE` content and `ScrollSpyService` observe/disconnect.
 
 ---
 
@@ -111,6 +122,35 @@ Tune once in `apps/youssef-portfolio/src/yk-chip.scss`:
 ## Updating content
 
 Edit `libs/portfolio/data/src/lib/profile.ts` — Intro, Experience, Projects, and Resume all read from `PROFILE`.
+
+---
+
+## Deploy (GitHub Pages)
+
+Live URL after the first successful run:
+
+**https://iyoussefjoey.github.io/youssef-portfolio/**
+
+Workflow: `.github/workflows/deploy-pages.yml`  
+On every push to `master` (or manual **Run workflow**), GitHub builds the app and publishes Pages. No separate “release” step.
+
+### One-time setup
+
+1. Repo **Settings → Pages → Build and deployment → Source** = **GitHub Actions** (you already did this).
+2. Do **not** use the suggested Jekyll / Static HTML templates — this repo uses the custom workflow above.
+3. Commit + push the workflow (and any pending app changes) to `master`.
+4. Open **Actions**, wait for **Deploy GitHub Pages** to finish green.
+5. Open the live URL above.
+
+Note: if the repo is private, the **published site is still public** (GitHub’s warning on the Pages settings page).
+
+### Manual / local production build
+
+```sh
+npx nx build youssef-portfolio --configuration=production --base-href=/youssef-portfolio/
+```
+
+Output: `dist/apps/youssef-portfolio/browser`
 
 ---
 

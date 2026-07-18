@@ -2,3 +2,13 @@
 @use './tokens-theme';
 @use './yk-chip';
 @use '@angular/material' as mat;
+
+:root {
+  @include mat.menu-overrides(
+    (
+      container-color: var(--md-sys-color-primary),
+      item-label-text-color: var(--md-sys-color-on-primary),
+      item-icon-color: var(--md-sys-color-on-primary),
+    )
+  );
+}

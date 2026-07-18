@@ -1,0 +1,57 @@
+# Build NX Angular app and publish to GitHub Pages on every push to master.
+# Site URL: https://iyoussefjoey.github.io/youssef-portfolio/
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        # Project Pages need the repo name as base href so assets/routes resolve.
+        run: npx nx build youssef-portfolio --configuration=production --base-href=/youssef-portfolio/
+
+      - name: SPA fallback for deep links
+        # GH Pages serves 404.html for unknown paths; copy index so Angular router can boot.
+        run: cp dist/apps/youssef-portfolio/browser/index.html dist/apps/youssef-portfolio/browser/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/apps/youssef-portfolio/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

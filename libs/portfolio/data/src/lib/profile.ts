@@ -8,7 +8,6 @@ export const PROFILE = {
   title: 'Front-End Angular Developer',
   location: 'Alexandria, Egypt',
   email: 'iyoussef.khamis@gmail.com',
-  phone: '+201096980049',
   links: {
     github: 'https://github.com/iYoussefJoey',
     linkedin: 'https://www.linkedin.com/in/iyoussef-khamis/',
