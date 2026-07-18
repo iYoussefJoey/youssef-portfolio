@@ -1,49 +1,37 @@
 import { AfterViewInit, Component, inject, OnDestroy } from '@angular/core';
 import { PROFILE } from '@youssef-portfolio/portfolio-data';
-import { ScrollSpyService } from '@youssef-portfolio/portfolio-ui';
-import { provideIcons, NgIcon } from '@ng-icons/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {
+  IntroAside,
+  IntroAsideSection,
+  IntroAsideSocial,
+  ScrollSpyService,
+} from '@youssef-portfolio/portfolio-ui';
 import { MatChipsModule } from '@angular/material/chips';
 
-import {
-  tablerBrandGithub,
-  tablerBrandLinkedin,
-  tablerMail,
-} from '@ng-icons/tabler-icons';
-
 /**
- * Intro page (`/`) — Brittany-style sticky left rail + scrolling sections.
- * Hosts About, Technologies, Skills, and Education; socials live in the rail.
- * Uses ScrollSpyService to highlight the active section while scrolling.
+ * Intro page (`/`) — Brittany-style layout: sticky rail (UI) + scrolling sections.
+ * Owns PROFILE content and ScrollSpy observe/disconnect; rail is `yk-intro-aside`.
  */
 @Component({
   selector: 'yk-intro',
-  imports: [NgIcon, MatTooltipModule, MatChipsModule],
+  imports: [IntroAside, MatChipsModule],
   templateUrl: './intro.html',
   styleUrl: './intro.scss',
-  providers: [
-    provideIcons({ tablerBrandGithub, tablerBrandLinkedin, tablerMail }),
-  ],
 })
 export class Intro implements AfterViewInit, OnDestroy {
   readonly scrollSpy: ScrollSpyService = inject(ScrollSpyService);
   readonly profile = PROFILE;
 
   /** Section ids in page order — must match id="..." in the template. */
-  readonly sections: ReadonlyArray<{ id: string; label: string }> = [
+  readonly sections: ReadonlyArray<IntroAsideSection> = [
     { id: 'about', label: 'About' },
     { id: 'technologies', label: 'Technologies' },
     { id: 'skills', label: 'Skills' },
     { id: 'education', label: 'Education' },
   ];
 
-  /** Brittany-style rail socials (bottom of aside). Contact lives here, not a section. */
-  readonly socials: ReadonlyArray<{
-    id: 'github' | 'linkedin' | 'email';
-    label: string;
-    href: string;
-    icon: string;
-  }> = [
+  /** Rail socials — Contact lives here, not as a page section. */
+  readonly socials: ReadonlyArray<IntroAsideSocial> = [
     {
       id: 'github',
       label: 'GitHub',
@@ -68,8 +56,8 @@ export class Intro implements AfterViewInit, OnDestroy {
     this.scrollSpy.observe(this.sections.map((s) => s.id));
   }
 
-  onNavClick(sectionId: string, event: Event): void {
-    event.preventDefault();
+  /** Rail nav click → smooth-scroll + set active section. */
+  onSectionClick(sectionId: string): void {
     this.scrollSpy.scrollTo(sectionId);
   }
 

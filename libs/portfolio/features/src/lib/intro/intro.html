@@ -1,36 +1,9 @@
 <section class="intro">
-  <aside class="intro__rail">
-    <nav class="intro__nav" aria-label="On this page">
-      @for (section of sections; track section.id) {
-      <a
-        class="intro__link"
-        [class.intro__link--active]="scrollSpy.isActive(section.id)"
-        [href]="'#' + section.id"
-        (click)="onNavClick(section.id, $event)"
-      >
-        <span class="intro__link-bar" aria-hidden="true"></span>
-        <span class="intro__link-label">{{ section.label }}</span>
-      </a>
-      }
-    </nav>
-
-    <ul class="intro__socials" aria-label="Social links">
-      @for (social of socials; track social.id) {
-      <li>
-        <a
-          class="intro__social"
-          [href]="social.href"
-          [matTooltip]="social.label"
-          [attr.aria-label]="social.label"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <ng-icon class="intro__social-icon" [name]="social.icon" />
-        </a>
-      </li>
-      }
-    </ul>
-  </aside>
+  <yk-intro-aside
+    [sections]="sections"
+    [socials]="socials"
+    (sectionClick)="onSectionClick($event)"
+  />
 
   <div class="intro__content">
     <section id="about" class="intro__section">

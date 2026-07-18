@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header-component';
-import { ThemePreference } from '../../theme/theme.model';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;

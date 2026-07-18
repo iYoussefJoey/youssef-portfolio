@@ -1,151 +1,164 @@
 @import 'tailwindcss';
+@import '../../../../../styles/yk-theme.css';
+@import '../../../../../styles/yk-animations.css';
 
 /*
- * Header shell — sticky app bar.
- * sticky/top/z-index keep it above page content while scrolling.
+ * Header — sticky bar + mobile drawer.
+ *
+ * Note: custom animate-* + max-yk-nav: cannot be @apply'd together (unknown utility).
+ * Use animation: + @variant max-yk-nav for compact name motion instead.
  */
 .header {
-  @apply sticky top-0 z-[100];
-  /* Plain white in light mode; page canvas uses --color-page (soft grey) */
+  @apply sticky top-0 z-[100] border-b border-[var(--md-sys-color-outline-variant)];
   background: var(--color-header);
   color: var(--md-sys-color-on-background);
-  /* SafeSys-style soft divider (not stark white) */
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
 
-  /*
-   * Pushes theme (and Back) to the right edge of the toolbar.
-   */
-  &__spacer {
-    flex: 1 1 auto;
+  &__bar {
+    @apply bg-transparent text-inherit;
   }
 
-  /*
-   * Primary page links — Josh-style, directly beside the brand.
-   */
+  &__spacer {
+    @apply flex-auto;
+  }
+
   &__nav {
-    @apply inline-flex items-center gap-5 ml-6;
+    @apply hidden items-center gap-5 ml-6 yk-nav:inline-flex;
   }
 
   &__nav-link {
-    @apply text-sm font-semibold no-underline tracking-wide;
+    @apply text-sm font-semibold no-underline tracking-wide transition-colors duration-150;
     color: color-mix(
       in srgb,
       var(--md-sys-color-on-background) 60%,
       transparent
     );
-    transition: color 150ms ease;
 
     &:hover {
-      color: var(--md-sys-color-on-background);
+      @apply text-[var(--md-sys-color-on-background)];
     }
 
     &--active {
-      color: var(--md-sys-color-primary);
+      @apply text-[var(--md-sys-color-primary)];
     }
   }
 
-  /*
-   * Sub-page only: arrow + “Back” → Intro (`/`).
-   * Hover: icon grows. Click: icon slides left, then we navigate home.
-   */
+  &__menu-btn {
+    @apply inline-flex yk-nav:hidden;
+  }
+
+  &__menu-icon {
+    @apply transition-transform duration-200;
+
+    &--open {
+      @apply rotate-90;
+    }
+  }
+
+  &__mobile {
+    @apply flex flex-col gap-1 overflow-hidden max-h-0 px-4;
+    @apply transition-[max-height,padding,border-color] duration-300 ease-out;
+    @apply border-t border-transparent;
+    @apply yk-nav:hidden;
+
+    &--open {
+      @apply max-h-64 py-3 pb-4 border-[var(--md-sys-color-outline-variant)];
+    }
+  }
+
+  &__mobile-link {
+    @apply block text-sm font-semibold no-underline tracking-wide py-3 transition-colors duration-150;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 70%,
+      transparent
+    );
+
+    &:hover {
+      @apply text-[var(--md-sys-color-on-background)];
+    }
+
+    &--active {
+      @apply text-[var(--md-sys-color-primary)];
+    }
+  }
+
   &__back {
-    @apply inline-flex items-center gap-1 mr-1 text-sm font-semibold no-underline;
+    @apply inline-flex items-center gap-1 mr-1 text-sm font-semibold no-underline transition-colors duration-150;
     color: color-mix(
       in srgb,
       var(--md-sys-color-on-background) 65%,
       transparent
     );
-    transition: color 150ms ease;
 
     &:hover:not(.header__back--leaving) {
-      color: var(--md-sys-color-primary);
+      @apply text-[var(--md-sys-color-primary)];
 
       .header__back-icon {
-        transform: scale(1.25);
+        @apply scale-125;
       }
     }
 
     &--leaving {
-      color: var(--md-sys-color-primary);
-      pointer-events: none;
+      @apply text-[var(--md-sys-color-primary)] pointer-events-none;
 
       .header__back-icon {
-        transform: translateX(-0.65rem) scale(1.15);
+        @apply -translate-x-2.5 scale-110;
       }
     }
   }
 
   &__back-icon {
-    @apply text-lg leading-none;
-    width: 1.15rem;
-    height: 1.15rem;
-    font-size: 1.15rem;
-    transition: transform 280ms ease;
+    @apply text-lg leading-none size-[1.15rem] text-[1.15rem] transition-transform duration-300;
   }
 
-  /*
-   * Brand row: Youssef | YK | Khamis.
-   * No flex gap — margins on names avoid a double-gap when YK width is 0.
-   */
+  &__back-label {
+    @apply max-yk-nav:hidden;
+  }
+
   &__brand {
-    @apply inline-flex items-baseline font-bold no-underline text-inherit;
+    @apply inline-flex items-baseline gap-3 font-bold no-underline text-inherit;
+    @apply max-yk-nav:gap-2 max-yk-nav:text-[0.9rem];
   }
 
-  /*
-   * First / last name text nodes inside the brand.
-   * inline-block so transform animations can move them on the X axis.
-   */
   &__name {
     @apply inline-block;
   }
 
   /*
-   * Start state for Youssef (must match keyframe "from" in tailwind.css).
-   * Shifted toward center so the pair looks close before spreading left.
-   * Motion class on HTML: animate-name-left (custom utils cannot be @apply'd here).
+   * Desktop: settle at translate 0 — gap on __brand keeps names clear of YK.
+   * Compact: end further outward (names were covering YK before).
    */
   &__name--left {
-    margin-inline-end: 0.35rem;
-    transform: translateX(0.7rem);
+    @apply translate-x-[0.7rem];
+    animation: name-left 450ms ease-out forwards;
+
+    @variant max-yk-nav {
+      @apply translate-x-[0.35rem];
+      animation: name-left-compact 450ms ease-out forwards;
+    }
   }
 
-  /*
-   * Start state for Khamis (must match keyframe "from" in tailwind.css).
-   * Shifted toward center so the pair looks close before spreading right.
-   * Motion class on HTML: animate-name-right.
-   */
   &__name--right {
-    margin-inline-start: 0.35rem;
-    transform: translateX(-0.7rem);
+    @apply -translate-x-[0.7rem];
+    animation: name-right 450ms ease-out forwards;
+
+    @variant max-yk-nav {
+      @apply -translate-x-[0.35rem];
+      animation: name-right-compact 450ms ease-out forwards;
+    }
   }
 
-  /*
-   * YK monogram slot between the names.
-   * Starts at width 0; animate-yk-expand grows it so Khamis eases right.
-   * Color starts inherited; animate-yk-color → primary after the draw.
-   */
   &__yk {
-    @apply inline-block overflow-hidden align-baseline;
-    width: 0;
+    @apply inline-block overflow-hidden align-baseline w-0 shrink-0;
   }
 
-  /*
-   * SVG monogram — fixed intrinsic size; parent clips while expanding.
-   * Color inherits until animate-yk-color runs on this element.
-   */
   &__yk-svg {
-    display: block;
-    flex-shrink: 0;
-    color: inherit;
+    @apply block shrink-0 text-inherit;
+    @apply max-yk-nav:w-[1.4em] max-yk-nav:h-[0.9em];
   }
 
-  /*
-   * Stroke paths use pathLength="1" so dasharray/offset stay 0–1.
-   * Handwritten feel: round caps/joins + stroke draw (Josh-style).
-   */
   &__yk-path {
-    fill: none;
-    stroke: currentColor;
+    @apply fill-none stroke-current;
     stroke-width: 2.75;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -153,50 +166,53 @@
     stroke-dashoffset: 1;
   }
 
-  /*
-   * Contrast icon only — hover micro-interaction (rotate + scale).
-   * Do not put this class on mat-menu items (scale causes menu scrollbars).
-   */
   &__theme-toggle {
     @apply transition-transform duration-200 hover:rotate-12 hover:scale-110;
   }
 
-  /*
-   * Theme menu rows (Light / Dark / System).
-   * Soft nudge on hover instead of scale — safe inside Material overlays.
-   */
   &__theme-item {
     @apply transition-all duration-150;
 
     &:hover {
-      padding-inline-start: 1.25rem;
+      @apply ps-5;
     }
   }
 }
 
-/*
- * Accessibility: if the user prefers reduced motion, skip brand animations
- * and show the final state immediately (names in place, YK visible).
- */
 @media (prefers-reduced-motion: reduce) {
   .header__name--left,
   .header__name--right {
     animation: none !important;
-    transform: none;
+    transform: translateX(0);
+  }
+
+  .header__name--left {
+    @variant max-yk-nav {
+      transform: translateX(-0.65rem);
+    }
+  }
+
+  .header__name--right {
+    @variant max-yk-nav {
+      transform: translateX(0.65rem);
+    }
   }
 
   .header__yk {
-    animation: none !important;
-    width: 1.85em;
+    @apply animate-none! w-[1.85em];
   }
 
   .header__yk-svg {
-    animation: none !important;
-    color: var(--md-sys-color-primary);
+    @apply animate-none! text-[var(--md-sys-color-primary)];
   }
 
   .header__yk-path {
     animation: none !important;
     stroke-dashoffset: 0;
+  }
+
+  .header__menu-icon,
+  .header__mobile {
+    @apply transition-none!;
   }
 }

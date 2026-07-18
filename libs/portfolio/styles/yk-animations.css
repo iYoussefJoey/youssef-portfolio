@@ -1,0 +1,88 @@
+/*
+ * Brand animations — shared so app HTML classes AND component @apply / animation
+ * rules can see the same keyframes (avoid “unknown utility” in lib SCSS).
+ */
+@theme {
+  --animate-name-left: name-left 450ms ease-out forwards;
+  --animate-name-right: name-right 450ms ease-out forwards;
+  --animate-name-left-compact: name-left-compact 450ms ease-out forwards;
+  --animate-name-right-compact: name-right-compact 450ms ease-out forwards;
+  --animate-yk-expand: yk-expand 750ms cubic-bezier(0.22, 1, 0.36, 1) 480ms
+    forwards;
+  --animate-yk-draw-y: yk-draw 400ms cubic-bezier(0.4, 0, 0.2, 1) 500ms forwards;
+  --animate-yk-draw-k: yk-draw 380ms cubic-bezier(0.4, 0, 0.2, 1) 900ms forwards;
+  --animate-yk-color: yk-color 380ms ease-out 1320ms forwards;
+}
+
+/* Desktop: nudge from center → settle at 0 */
+@keyframes name-left {
+  from {
+    transform: translateX(0.7rem);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes name-right {
+  from {
+    transform: translateX(-0.7rem);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Compact: end further left/right without covering YK */
+@keyframes name-left-compact {
+  from {
+    transform: translateX(0.35rem);
+  }
+
+  to {
+    transform: translateX(-0.65rem);
+  }
+}
+
+@keyframes name-right-compact {
+  from {
+    transform: translateX(-0.35rem);
+  }
+
+  to {
+    transform: translateX(0.65rem);
+  }
+}
+
+@keyframes yk-expand {
+  from {
+    width: 0;
+  }
+
+  to {
+    /* Slightly wider than the SVG so strokes don’t clip into the names */
+    width: 2em;
+  }
+}
+
+@keyframes yk-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes yk-color {
+  from {
+    color: inherit;
+  }
+
+  to {
+    color: var(--md-sys-color-primary);
+  }
+}

@@ -1,109 +1,25 @@
 @import 'tailwindcss';
+@import '../../../../styles/yk-theme.css';
 
 /*
- * Intro page layout (Brittany-style shell).
- * Left rail = sticky nav; content = scrolling sections with ids for scroll-spy.
- *
- * Sticky note:
- *  - top must match “under the header” so the rail does not travel before locking
- *  - height/max-height capped to the viewport so sticky never scrolls itself
+ * Intro page — content column.
+ * Rail: yk-intro-aside. Grid collapses below yk-aside via shared breakpoint.
  */
 .intro {
-  /* No top padding on the grid — rail/content pad themselves (avoids sticky drift) */
-  @apply grid grid-cols-[minmax(12rem,18rem)_1fr] gap-8 min-h-[calc(100vh-4rem)] px-8;
-
-  &__rail {
-    @apply sticky self-start flex flex-col top-16 h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] p-8;
-    /* Same soft grey divider as the header bottom border */
-    border-right: 1px solid var(--md-sys-color-outline-variant);
-  }
-
-  &__nav {
-    @apply flex flex-col gap-4;
-  }
-
-  /*
-   * Social row pinned to the bottom of the sticky rail.
-   */
-  &__socials {
-    @apply flex list-none items-center gap-4 mt-auto pt-10 p-0 m-0;
-  }
-
-  &__social {
-    @apply inline-flex opacity-55 transition-opacity duration-150;
-    color: var(--md-sys-color-on-background);
-
-    &:hover {
-      @apply opacity-100;
-    }
-  }
-
-  &__social-icon {
-    font-size: 1.35rem;
-  }
-
-  /*
-   * Brittany-style spy link:
-   * short bar + muted label → active: bar grows, label brightens.
-   * font-weight stays 600 always so switching active section doesn’t nudge layout.
-   */
-  &__link {
-    @apply flex items-center gap-4 no-underline uppercase tracking-widest text-xs font-semibold;
-    color: color-mix(
-      in srgb,
-      var(--md-sys-color-on-background) 55%,
-      transparent
-    );
-    transition: color 200ms ease;
-
-    &:hover {
-      color: var(--md-sys-color-on-background);
-
-      .intro__link-bar {
-        width: 3rem;
-        background: var(--md-sys-color-on-background);
-      }
-    }
-
-    &--active {
-      color: var(--md-sys-color-on-background);
-
-      .intro__link-bar {
-        width: 4rem;
-        background: var(--md-sys-color-on-background);
-      }
-    }
-  }
-
-  /* The “—” line: short by default, longer when active/hover */
-  &__link-bar {
-    @apply inline-block h-[1px] w-2 flex-shrink-0;
-    background: color-mix(
-      in srgb,
-      var(--md-sys-color-on-background) 45%,
-      transparent
-    );
-    transition:
-      width 200ms ease,
-      background-color 200ms ease;
-  }
-
-  &__link-label {
-    @apply transition-none;
-  }
+  @apply grid min-h-[calc(100vh-4rem)] gap-0 px-4;
+  @apply grid-cols-1;
+  @apply yk-aside:grid-cols-[minmax(12rem,18rem)_1fr] yk-aside:gap-8 yk-aside:px-8;
 
   &__content {
     @apply flex flex-col gap-16 pt-8 max-w-3xl;
   }
 
-  /* Tall enough to scroll so spy can be tested */
   &__section {
     @apply min-h-[70vh];
   }
 
   &__heading {
-    @apply text-sm font-semibold uppercase tracking-widest mb-6;
-    color: var(--md-sys-color-primary);
+    @apply text-sm font-semibold uppercase tracking-widest mb-6 text-[var(--md-sys-color-primary)];
   }
 
   &__lede {
@@ -116,19 +32,14 @@
   }
 
   &__copy {
-    @apply text-base leading-relaxed mb-4 max-w-prose;
+    @apply text-base leading-relaxed mb-4 max-w-prose last:mb-0;
     color: color-mix(
       in srgb,
       var(--md-sys-color-on-background) 78%,
       transparent
     );
-
-    &:last-child {
-      @apply mb-0;
-    }
   }
 
-  /* Material chips — hover lives on global `.yk-chip` (yk-chip.scss) */
   &__chips {
     @apply flex flex-wrap gap-2;
   }
@@ -138,13 +49,11 @@
   }
 
   &__skill-title {
-    @apply text-base font-semibold mb-3;
-    color: var(--md-sys-color-on-background);
+    @apply text-base font-semibold mb-3 text-[var(--md-sys-color-on-background)];
   }
 
   &__edu-school {
-    @apply text-lg font-semibold m-0 mb-1;
-    color: var(--md-sys-color-on-background);
+    @apply text-lg font-semibold m-0 mb-1 text-[var(--md-sys-color-on-background)];
   }
 
   &__edu-degree {

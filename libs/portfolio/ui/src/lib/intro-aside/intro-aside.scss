@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+@import '../../../../styles/yk-theme.css';
+
+/*
+ * Intro sticky rail — host participates in Intro’s CSS grid.
+ * Mobile-first: hidden below yk-aside (431px); sticky flex from there up.
+ * Why not raw @media? @apply flex on :host was winning over display:none.
+ */
+:host.intro-aside {
+  @apply hidden;
+  @apply yk-aside:sticky yk-aside:flex yk-aside:self-start yk-aside:flex-col;
+  @apply yk-aside:top-16 yk-aside:h-[calc(100dvh-4rem)] yk-aside:max-h-[calc(100dvh-4rem)];
+}
+
+.intro-aside {
+  &__rail {
+    @apply flex flex-col flex-1 min-h-0 p-8;
+    @apply border-r border-[var(--md-sys-color-outline-variant)];
+  }
+
+  &__nav {
+    @apply flex flex-col gap-4;
+  }
+
+  &__socials {
+    @apply flex list-none items-center gap-4 mt-auto pt-10 p-0 m-0;
+  }
+
+  &__social {
+    @apply inline-flex opacity-55 transition-opacity duration-150 text-[var(--md-sys-color-on-background)];
+
+    &:hover {
+      @apply opacity-100;
+    }
+  }
+
+  &__social-icon {
+    @apply text-[1.35rem];
+  }
+
+  &__link {
+    @apply flex items-center gap-4 no-underline uppercase tracking-widest text-xs font-semibold;
+    @apply transition-colors duration-200;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 55%,
+      transparent
+    );
+
+    &:hover {
+      @apply text-[var(--md-sys-color-on-background)];
+
+      .intro-aside__link-bar {
+        @apply w-12 bg-[var(--md-sys-color-on-background)];
+      }
+    }
+
+    &--active {
+      @apply text-[var(--md-sys-color-on-background)];
+
+      .intro-aside__link-bar {
+        @apply w-16 bg-[var(--md-sys-color-on-background)];
+      }
+    }
+  }
+
+  &__link-bar {
+    @apply inline-block h-px w-2 shrink-0 transition-[width,background-color] duration-200;
+    background: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 45%,
+      transparent
+    );
+  }
+
+  &__link-label {
+    @apply transition-none;
+  }
+}

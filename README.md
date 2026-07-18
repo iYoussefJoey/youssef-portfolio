@@ -71,6 +71,19 @@ npx nx graph
 
 ---
 
+## Shared breakpoints (DRY)
+
+Defined once in `libs/portfolio/styles/yk-theme.css`:
+
+| Token | Min width | Use |
+| --- | --- | --- |
+| `yk-nav` | 431px | Desktop header tabs (`yk-nav:` / `max-yk-nav:`) |
+| `yk-aside` | 431px | Intro sticky rail (`yk-aside:` / `max-yk-aside:`) |
+
+Import that file after `@import 'tailwindcss'` in any SCSS that `@apply`s these variants.
+
+---
+
 ## Theme
 
 - Preferences: **Light** / **Dark** / **System** (header contrast menu)
