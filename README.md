@@ -1,101 +1,107 @@
-# YoussefPortfolio
+# Youssef Khamis — Portfolio
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Personal portfolio for **Youssef Khamis**, Front-End Angular Developer.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+Built as an **NX monorepo** with Angular standalone components, Angular Material, Tailwind CSS v4, and a light/dark theme.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+**Live goal:** present Intro (about / skills), Experience, Projects, and Resume in a clean, interview-ready codebase.
 
-## Run tasks
+---
 
-To run the dev server for your app, use:
+## Stack
+
+| Layer | Choice |
+| --- | --- |
+| Framework | Angular 22 (standalone) |
+| Workspace | NX |
+| UI | Angular Material + Tailwind CSS v4 |
+| Icons | `@ng-icons/tabler-icons` |
+| Theme | M3 tokens via `light-dark()` + `ThemeService` |
+| Content | Shared `PROFILE` data in `libs/portfolio/data` |
+
+---
+
+## App routes
+
+| Path | Page |
+| --- | --- |
+| `/` | Intro — sticky rail, scroll-spy, about / tech / skills / education |
+| `/experience` | GAMP role + highlights |
+| `/projects` | Safesys, Emitum, Pogotowie |
+| `/resume` | Web resume (summary, experience, education, skills) |
+
+Header nav sits beside the brand (Josh Comeau–style). Sub-pages show an animated **Back** control to return home.
+
+---
+
+## Workspace structure
+
+```text
+apps/youssef-portfolio/     # Shell app (header + router-outlet)
+libs/portfolio/
+  features/                 # Pages: Intro, Experience, Projects, Resume
+  ui/                       # Header, ThemeService, ScrollSpyService
+  data/                     # PROFILE (CV content — single source of truth)
+```
+
+Path aliases (see `tsconfig.base.json`):
+
+- `@youssef-portfolio/portfolio-features`
+- `@youssef-portfolio/portfolio-ui`
+- `@youssef-portfolio/portfolio-data`
+
+---
+
+## Getting started
 
 ```sh
+npm install
 npx nx serve youssef-portfolio
 ```
 
-To create a production bundle:
+Other useful commands:
 
 ```sh
 npx nx build youssef-portfolio
+npx nx test features
+npx nx test ui
+npx nx test data
+npx nx graph
 ```
 
-To see all available targets to run for a project, run:
+---
 
-```sh
-npx nx show project youssef-portfolio
+## Theme
+
+- Preferences: **Light** / **Dark** / **System** (header contrast menu)
+- Stored in `localStorage` key `yk-theme`
+- Tokens live in `apps/youssef-portfolio/src/tokens-theme.scss`
+
+---
+
+## Shared chip hover
+
+All Material chips use the global class `yk-chip`.
+
+Tune once in `apps/youssef-portfolio/src/yk-chip.scss`:
+
+```scss
+:root {
+  --yk-chip-hover-rotate: 6deg;
+  --yk-chip-hover-scale: 1.05;
+  --yk-chip-hover-duration: 200ms;
+}
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+---
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Updating content
 
-## Add new projects
+Edit `libs/portfolio/data/src/lib/profile.ts` — Intro, Experience, Projects, and Resume all read from `PROFILE`.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+---
 
-Use the plugin's generator to create new projects.
+## Author
 
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Youssef Khamis** — Front-End Angular Developer  
+Alexandria, Egypt · [GitHub](https://github.com/iYoussefJoey) · [LinkedIn](https://www.linkedin.com/in/iyoussef-khamis/)

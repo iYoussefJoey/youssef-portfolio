@@ -1,0 +1,37 @@
+<section class="experience">
+  <header class="experience__header">
+    <p class="experience__eyebrow">{{ job.company }} · {{ job.employment }}</p>
+    <h1 class="experience__title">{{ job.role }}</h1>
+    <p class="experience__meta">
+      {{ job.period }} · {{ job.place }}
+    </p>
+    <p class="experience__summary">{{ job.summary }}</p>
+  </header>
+
+  <div class="experience__projects">
+    <h2 class="experience__section-title">Projects</h2>
+
+    @for (project of projects; track project.id) {
+    <article class="experience__project">
+      <div class="experience__project-top">
+        <h3 class="experience__project-name">{{ project.name }}</h3>
+        <p class="experience__project-period">{{ project.period }}</p>
+      </div>
+      <p class="experience__project-summary">{{ project.summary }}</p>
+      <mat-chip-set
+        class="experience__chips"
+        [attr.aria-label]="project.name + ' tech stack'"
+      >
+        @for (tech of project.stack; track tech) {
+        <mat-chip class="yk-chip">{{ tech }}</mat-chip>
+        }
+      </mat-chip-set>
+      <ul class="experience__bullets">
+        @for (bullet of project.bullets; track bullet) {
+        <li>{{ bullet }}</li>
+        }
+      </ul>
+    </article>
+    }
+  </div>
+</section>

@@ -1,7 +1,17 @@
 # features
 
-This library was generated with [Nx](https://nx.dev).
+Portfolio **page** library — route-level components for the site.
 
-## Running unit tests
+| Export | Route | Role |
+| --- | --- | --- |
+| `Intro` | `/` | Sticky rail + scroll-spy sections |
+| `Experience` | `/experience` | GAMP role & highlights |
+| `Projects` | `/projects` | Safesys, Emitum, Pogotowie |
+| `Resume` | `/resume` | Web CV |
+| `featuresRoutes` | — | Lazy route table consumed by the app |
 
-Run `nx test features` to execute the unit tests.
+Content comes from `@youssef-portfolio/portfolio-data` (`PROFILE`).
+
+```sh
+npx nx test features
+```

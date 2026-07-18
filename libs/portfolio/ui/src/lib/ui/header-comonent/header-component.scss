@@ -5,22 +5,90 @@
  * sticky/top/z-index keep it above page content while scrolling.
  */
 .header {
-  @apply sticky top-0 z-50 border-b;
+  @apply sticky top-0 z-[100];
+  /* Plain white in light mode; page canvas uses --color-page (soft grey) */
+  background: var(--color-header);
+  color: var(--md-sys-color-on-background);
+  /* SafeSys-style soft divider (not stark white) */
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
 
   /*
-   * Pushes the theme control to the right edge of the toolbar.
-   * flex: 1 1 auto grows to fill space between brand and actions.
+   * Pushes theme (and Back) to the right edge of the toolbar.
    */
   &__spacer {
     flex: 1 1 auto;
   }
 
   /*
+   * Primary page links — Josh-style, directly beside the brand.
+   */
+  &__nav {
+    @apply inline-flex items-center gap-5 ml-6;
+  }
+
+  &__nav-link {
+    @apply text-sm font-semibold no-underline tracking-wide;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 60%,
+      transparent
+    );
+    transition: color 150ms ease;
+
+    &:hover {
+      color: var(--md-sys-color-on-background);
+    }
+
+    &--active {
+      color: var(--md-sys-color-primary);
+    }
+  }
+
+  /*
+   * Sub-page only: arrow + “Back” → Intro (`/`).
+   * Hover: icon grows. Click: icon slides left, then we navigate home.
+   */
+  &__back {
+    @apply inline-flex items-center gap-1 mr-1 text-sm font-semibold no-underline;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 65%,
+      transparent
+    );
+    transition: color 150ms ease;
+
+    &:hover:not(.header__back--leaving) {
+      color: var(--md-sys-color-primary);
+
+      .header__back-icon {
+        transform: scale(1.25);
+      }
+    }
+
+    &--leaving {
+      color: var(--md-sys-color-primary);
+      pointer-events: none;
+
+      .header__back-icon {
+        transform: translateX(-0.65rem) scale(1.15);
+      }
+    }
+  }
+
+  &__back-icon {
+    @apply text-lg leading-none;
+    width: 1.15rem;
+    height: 1.15rem;
+    font-size: 1.15rem;
+    transition: transform 280ms ease;
+  }
+
+  /*
    * Brand row: Youssef | YK | Khamis.
-   * inline-flex + gap lays the three pieces in one baseline row.
+   * No flex gap — margins on names avoid a double-gap when YK width is 0.
    */
   &__brand {
-    @apply inline-flex items-baseline gap-1.5 font-bold no-underline text-inherit;
+    @apply inline-flex items-baseline font-bold no-underline text-inherit;
   }
 
   /*
@@ -37,6 +105,7 @@
    * Motion class on HTML: animate-name-left (custom utils cannot be @apply'd here).
    */
   &__name--left {
+    margin-inline-end: 0.35rem;
     transform: translateX(0.7rem);
   }
 
@@ -46,17 +115,42 @@
    * Motion class on HTML: animate-name-right.
    */
   &__name--right {
+    margin-inline-start: 0.35rem;
     transform: translateX(-0.7rem);
   }
 
   /*
-   * Initials between the names. Starts invisible (opacity-0);
-   * enter motion is animate-yk-in on the HTML (defined in tailwind.css).
-   * Primary token color so YK reads as the brand accent.
+   * YK monogram slot between the names.
+   * Starts at width 0; animate-yk-expand grows it so Khamis eases right.
+   * Color starts inherited; animate-yk-color → primary after the draw.
    */
   &__yk {
-    @apply inline-block opacity-0;
-    color: var(--md-sys-color-primary);
+    @apply inline-block overflow-hidden align-baseline;
+    width: 0;
+  }
+
+  /*
+   * SVG monogram — fixed intrinsic size; parent clips while expanding.
+   * Color inherits until animate-yk-color runs on this element.
+   */
+  &__yk-svg {
+    display: block;
+    flex-shrink: 0;
+    color: inherit;
+  }
+
+  /*
+   * Stroke paths use pathLength="1" so dasharray/offset stay 0–1.
+   * Handwritten feel: round caps/joins + stroke draw (Josh-style).
+   */
+  &__yk-path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
   }
 
   /*
@@ -86,10 +180,23 @@
  */
 @media (prefers-reduced-motion: reduce) {
   .header__name--left,
-  .header__name--right,
+  .header__name--right {
+    animation: none !important;
+    transform: none;
+  }
+
   .header__yk {
     animation: none !important;
-    opacity: 1;
-    transform: none;
+    width: 1.85em;
+  }
+
+  .header__yk-svg {
+    animation: none !important;
+    color: var(--md-sys-color-primary);
+  }
+
+  .header__yk-path {
+    animation: none !important;
+    stroke-dashoffset: 0;
   }
 }

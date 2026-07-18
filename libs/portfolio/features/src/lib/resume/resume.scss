@@ -1,0 +1,93 @@
+@import 'tailwindcss';
+
+.resume {
+  @apply mx-auto max-w-3xl px-8 py-10;
+
+  &__name {
+    @apply text-2xl font-bold m-0 mb-1;
+    color: var(--md-sys-color-on-background);
+  }
+
+  &__title {
+    @apply text-base font-semibold m-0 mb-2;
+    color: var(--md-sys-color-primary);
+  }
+
+  &__meta {
+    @apply text-sm m-0;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 60%,
+      transparent
+    );
+  }
+
+  &__link {
+    color: inherit;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: var(--md-sys-color-primary);
+    }
+  }
+
+  &__block {
+    @apply mt-10;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  &__heading {
+    @apply text-sm font-semibold uppercase tracking-widest m-0 mb-4;
+    color: var(--md-sys-color-primary);
+  }
+
+  &__job {
+    @apply text-lg font-semibold m-0 mb-1;
+    color: var(--md-sys-color-on-background);
+  }
+
+  &__period {
+    @apply text-sm m-0 mb-3;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 55%,
+      transparent
+    );
+  }
+
+  &__copy {
+    @apply text-base leading-relaxed mb-3 max-w-prose;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 78%,
+      transparent
+    );
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  &__bullets {
+    @apply m-0 pl-5 flex flex-col gap-2 text-base leading-relaxed;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 78%,
+      transparent
+    );
+  }
+
+  &__skill-group {
+    @apply mb-5;
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  &__skill-title {
+    @apply text-base font-semibold m-0 mb-2;
+    color: var(--md-sys-color-on-background);
+  }
+}

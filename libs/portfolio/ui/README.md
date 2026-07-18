@@ -1,7 +1,14 @@
 # ui
 
-This library was generated with [Nx](https://nx.dev).
+Shared **UI shell** for the portfolio (not page content).
 
-## Running unit tests
+| Export | Role |
+| --- | --- |
+| `HeaderComponent` | Brand animation, nav, Back, theme menu |
+| `ThemeService` | Light / dark / system + localStorage |
+| `ScrollSpyService` | Intro section highlight while scrolling |
+| `THEME_PREFERENCE` / theme types | Strongly typed theme preferences |
 
-Run `nx test ui` to execute the unit tests.
+```sh
+npx nx test ui
+```

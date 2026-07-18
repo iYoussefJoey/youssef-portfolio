@@ -3,18 +3,65 @@
     <span class="header__name header__name--left animate-name-left"
       >Youssef</span
     >
-    <span class="header__yk animate-yk-in" aria-hidden="true">YK</span>
+    <span class="header__yk animate-yk-expand" aria-hidden="true">
+      <svg
+        class="header__yk-svg animate-yk-color"
+        viewBox="0 0 48 32"
+        width="1.85em"
+        height="1.15em"
+        fill="none"
+      >
+        <!-- Handwritten Y: left arm → crotch → stem, then right arm -->
+        <path
+          class="header__yk-path animate-yk-draw-y"
+          pathLength="1"
+          d="M5 4 C10 11 12 15 14 18 L14 28 M24 4 C18 11 15 15 14 18"
+        />
+        <!-- Handwritten K: stem, then upper & lower arms from the join -->
+        <path
+          class="header__yk-path animate-yk-draw-k"
+          pathLength="1"
+          d="M31 3 L31 29 M31 16 C35 11 39 7 44 4 M31 16 C36 20 40 24 45 29"
+        />
+      </svg>
+    </span>
     <span class="header__name header__name--right animate-name-right"
       >Khamis</span
     >
   </a>
+
+  <!-- Josh-style: page tabs sit beside the brand -->
+  <nav class="header__nav" aria-label="Primary">
+    @for (link of navLinks; track link.path) {
+    <a
+      class="header__nav-link"
+      [routerLink]="link.path"
+      routerLinkActive="header__nav-link--active"
+      >{{ link.label }}</a
+    >
+    }
+  </nav>
+
   <span class="header__spacer"></span>
+
+  @if (showBack()) {
+  <a
+    class="header__back"
+    href="/"
+    aria-label="Back to home"
+    [class.header__back--leaving]="isBacking()"
+    (click)="onBackClick($event)"
+  >
+    <mat-icon class="header__back-icon" aria-hidden="true">arrow_back</mat-icon>
+    <span>Back</span>
+  </a>
+  }
+
   <button matIconButton aria-label="Toggle theme" [matMenuTriggerFor]="menu">
     <mat-icon class="header__theme-toggle">contrast</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     @for (item of themeMenuItems; track item.preference) {
-
     <button
       mat-menu-item
       class="header__theme-item"
@@ -23,7 +70,6 @@
       <mat-icon>{{ item.icon }}</mat-icon>
       <span>{{ item.label }}</span>
     </button>
-
     }
   </mat-menu>
 </mat-toolbar>

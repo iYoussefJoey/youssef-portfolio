@@ -1,1 +1,1 @@
-export * from './lib/data/data';
+export * from './lib/profile';

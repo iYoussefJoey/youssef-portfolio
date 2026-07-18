@@ -1,0 +1,26 @@
+/*
+ * Shared portfolio chip hover (used on Intro / Experience / Projects / Resume).
+ * Tune motion once via CSS variables — every `.yk-chip` picks them up.
+ *
+ * Usage: <mat-chip class="yk-chip">Angular</mat-chip>
+ */
+:root {
+  --yk-chip-hover-rotate: 6deg;
+  --yk-chip-hover-scale: 1.05;
+  --yk-chip-hover-duration: 200ms;
+}
+
+.yk-chip {
+  cursor: default;
+  transition: transform var(--yk-chip-hover-duration) ease;
+
+  &:hover {
+    z-index: 1;
+    transform: rotate(var(--yk-chip-hover-rotate))
+      scale(var(--yk-chip-hover-scale));
+    --mat-chip-label-text-color: var(--md-sys-color-on-primary);
+    --mat-chip-outline-color: var(--md-sys-color-primary);
+    --mat-chip-elevated-container-color: var(--md-sys-color-primary);
+    --mat-chip-hover-state-layer-opacity: 0;
+  }
+}

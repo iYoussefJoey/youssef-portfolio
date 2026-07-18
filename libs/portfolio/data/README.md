@@ -1,7 +1,14 @@
 # data
 
-This library was generated with [Nx](https://nx.dev).
+Portfolio **content** library — no Angular components.
 
-## Running unit tests
+| Export | Role |
+| --- | --- |
+| `PROFILE` | Single source of truth (CV / LinkedIn copy) |
+| `Profile` | Type of `PROFILE` |
 
-Run `nx test data` to execute the unit tests.
+Edit `src/lib/profile.ts` to update Intro, Experience, Projects, and Resume.
+
+```sh
+npx nx test data
+```

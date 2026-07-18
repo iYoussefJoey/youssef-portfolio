@@ -2,8 +2,8 @@ import { Injectable, signal } from '@angular/core';
 
 /**
  * Tracks which Intro section is in view (Brittany-style left nav highlight).
- * Uses Intersection Observer — no scroll event spam.
- * Intro calls observe([...ids]); nav compares activeSectionId() in the template.
+ * Uses Intersection Observer + a small scroll fallback for the last section
+ * (Education can sit outside the observer “band” at the page bottom).
  */
 @Injectable({ providedIn: 'root' })
 export class ScrollSpyService {
@@ -17,6 +17,9 @@ export class ScrollSpyService {
   /** Ids currently intersecting the “active” viewport band. */
   private readonly visibleIds = new Set<string>();
 
+  /** Bound scroll handler so we can remove the same function reference. */
+  private readonly onWindowScroll = (): void => this.syncActiveSection();
+
   // ---STATES---
   /**
    * Id of the section that should look active in the left nav.
@@ -26,7 +29,7 @@ export class ScrollSpyService {
 
   /**
    * Starts watching the given section ids.
-   * Call once from Intro after the view is ready (e.g. afterNextRender / ngAfterViewInit).
+   * Call once from Intro after the view is ready (ngAfterViewInit).
    * Replaces any previous observer.
    */
   observe(sectionIds: string[]): void {
@@ -46,16 +49,20 @@ export class ScrollSpyService {
     this.observer = new IntersectionObserver(
       (entries) => this.onIntersect(entries),
       {
-        // Band under the header: section near the top counts as “active”
+        // Active band under the sticky header (not the whole viewport)
         root: null,
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: [0, 0.25, 0.5, 1],
+        rootMargin: '-15% 0px -55% 0px',
+        threshold: [0, 0.1, 0.25, 0.5, 1],
       },
     );
 
     for (const el of elements) {
       this.observer.observe(el);
     }
+
+    // Catches “stuck on About” when Contact never enters the IO band
+    window.addEventListener('scroll', this.onWindowScroll, { passive: true });
+    this.syncActiveSection();
   }
 
   /**
@@ -65,13 +72,13 @@ export class ScrollSpyService {
   disconnect(): void {
     this.observer?.disconnect();
     this.observer = null;
+    window.removeEventListener('scroll', this.onWindowScroll);
     this.visibleIds.clear();
     this.sectionIds = [];
   }
 
   /**
    * Template helper: is this nav link the active section?
-   * Prefer this over a big computed map — one comparison per link.
    */
   isActive(sectionId: string): boolean {
     return this.activeSectionId() === sectionId;
@@ -92,9 +99,7 @@ export class ScrollSpyService {
   }
 
   /**
-   * Intersection Observer callback.
-   * Keeps a set of visible section ids, then picks the first one
-   * in registered order (top-most section in the page).
+   * Intersection Observer callback — updates the visible set, then syncs active id.
    */
   private onIntersect(entries: IntersectionObserverEntry[]): void {
     for (const entry of entries) {
@@ -110,9 +115,68 @@ export class ScrollSpyService {
       }
     }
 
-    const active = this.sectionIds.find((id) => this.visibleIds.has(id));
-    if (active) {
-      this.activeSectionId.set(active);
+    this.syncActiveSection();
+  }
+
+  /**
+   * Picks the active section:
+   * 1) near page bottom → last section (Contact)
+   * 2) else first id still in the visible band
+   * 3) else nearest section to the header band (fallback — never stay stuck)
+   */
+  private syncActiveSection(): void {
+    if (this.sectionIds.length === 0) {
+      return;
     }
+
+    if (this.isNearPageBottom()) {
+      const last = this.sectionIds[this.sectionIds.length - 1];
+      this.activeSectionId.set(last ?? null);
+      return;
+    }
+
+    const visibleActive = this.sectionIds.find((id) =>
+      this.visibleIds.has(id),
+    );
+    if (visibleActive) {
+      this.activeSectionId.set(visibleActive);
+      return;
+    }
+
+    this.activeSectionId.set(this.findNearestSectionId());
+  }
+
+  /** True when the user has scrolled to (or near) the bottom of the page. */
+  private isNearPageBottom(): boolean {
+    const scrollBottom = window.innerHeight + window.scrollY;
+    const docHeight = document.documentElement.scrollHeight;
+    return scrollBottom >= docHeight - 120;
+  }
+
+  /**
+   * Fallback when nothing is in the IO band:
+   * choose the section whose top is closest to the area under the header.
+   */
+  private findNearestSectionId(): string | null {
+    const markerY = window.innerHeight * 0.2;
+    let bestId: string | null = null;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    for (const id of this.sectionIds) {
+      const el = document.getElementById(id);
+      if (!el) {
+        continue;
+      }
+
+      const top = el.getBoundingClientRect().top;
+      const distance = Math.abs(top - markerY);
+
+      if (top <= markerY + 80 && distance < bestDistance) {
+        bestDistance = distance;
+        bestId = id;
+      }
+    }
+
+    return bestId ?? this.sectionIds[0] ?? null;
   }
 }

@@ -3,12 +3,19 @@
 /*
  * Intro page layout (Brittany-style shell).
  * Left rail = sticky nav; content = scrolling sections with ids for scroll-spy.
+ *
+ * Sticky note:
+ *  - top must match “under the header” so the rail does not travel before locking
+ *  - height/max-height capped to the viewport so sticky never scrolls itself
  */
 .intro {
-  @apply grid grid-cols-[minmax(12rem,18rem)_1fr] gap-8 min-h-[calc(100vh-4rem)] p-8;
+  /* No top padding on the grid — rail/content pad themselves (avoids sticky drift) */
+  @apply grid grid-cols-[minmax(12rem,18rem)_1fr] gap-8 min-h-[calc(100vh-4rem)] px-8;
 
   &__rail {
-    @apply sticky top-20 self-start;
+    @apply sticky self-start flex flex-col top-16 h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] p-8;
+    /* Same soft grey divider as the header bottom border */
+    border-right: 1px solid var(--md-sys-color-outline-variant);
   }
 
   &__nav {
@@ -16,11 +23,32 @@
   }
 
   /*
+   * Social row pinned to the bottom of the sticky rail.
+   */
+  &__socials {
+    @apply flex list-none items-center gap-4 mt-auto pt-10 p-0 m-0;
+  }
+
+  &__social {
+    @apply inline-flex opacity-55 transition-opacity duration-150;
+    color: var(--md-sys-color-on-background);
+
+    &:hover {
+      @apply opacity-100;
+    }
+  }
+
+  &__social-icon {
+    font-size: 1.35rem;
+  }
+
+  /*
    * Brittany-style spy link:
-   * short bar + muted label → active: bar grows, label shifts right + brightens.
+   * short bar + muted label → active: bar grows, label brightens.
+   * font-weight stays 600 always so switching active section doesn’t nudge layout.
    */
   &__link {
-    @apply flex items-center gap-4 no-underline uppercase tracking-widest text-xs;
+    @apply flex items-center gap-4 no-underline uppercase tracking-widest text-xs font-semibold;
     color: color-mix(
       in srgb,
       var(--md-sys-color-on-background) 55%,
@@ -39,7 +67,6 @@
 
     &--active {
       color: var(--md-sys-color-on-background);
-      font-weight: 600;
 
       .intro__link-bar {
         width: 4rem;
@@ -66,11 +93,75 @@
   }
 
   &__content {
-    @apply flex flex-col gap-16;
+    @apply flex flex-col gap-16 pt-8 max-w-3xl;
   }
 
   /* Tall enough to scroll so spy can be tested */
   &__section {
     @apply min-h-[70vh];
+  }
+
+  &__heading {
+    @apply text-sm font-semibold uppercase tracking-widest mb-6;
+    color: var(--md-sys-color-primary);
+  }
+
+  &__lede {
+    @apply text-base mb-6 max-w-prose;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 70%,
+      transparent
+    );
+  }
+
+  &__copy {
+    @apply text-base leading-relaxed mb-4 max-w-prose;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 78%,
+      transparent
+    );
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  /* Material chips — hover lives on global `.yk-chip` (yk-chip.scss) */
+  &__chips {
+    @apply flex flex-wrap gap-2;
+  }
+
+  &__skill-groups {
+    @apply flex flex-col gap-8;
+  }
+
+  &__skill-title {
+    @apply text-base font-semibold mb-3;
+    color: var(--md-sys-color-on-background);
+  }
+
+  &__edu-school {
+    @apply text-lg font-semibold m-0 mb-1;
+    color: var(--md-sys-color-on-background);
+  }
+
+  &__edu-degree {
+    @apply text-base m-0 mb-1;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 80%,
+      transparent
+    );
+  }
+
+  &__edu-meta {
+    @apply text-sm m-0;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 55%,
+      transparent
+    );
   }
 }
