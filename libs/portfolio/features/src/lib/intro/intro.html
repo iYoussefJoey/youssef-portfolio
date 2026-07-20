@@ -32,7 +32,7 @@
       </p>
       <div class="intro__skill-groups">
         @for (group of profile.skillGroups; track group.title) {
-        <div class="intro__skill-group">
+        <div>
           <h3 class="intro__skill-title">{{ group.title }}</h3>
           <mat-chip-set
             class="intro__chips"
@@ -49,12 +49,12 @@
 
     <section id="education" class="intro__section">
       <h2 class="intro__heading">Education</h2>
-      <div class="intro__education">
-        <h3 class="intro__edu-school">{{ profile.education.school }}</h3>
-        <p class="intro__edu-degree">{{ profile.education.degree }}</p>
-        <p class="intro__edu-meta">
-          {{ profile.education.place }} · {{ profile.education.period }}
-        </p>
+      <div>
+        <h3 class="intro__edu-degree">{{ profile.education.degree }}</h3>
+        <div class="intro__edu-meta-container">
+          <p class="intro__edu-school">{{ profile.education.school }}</p>
+          <p class="intro__edu-meta">{{ profile.education.period }}</p>
+        </div>
       </div>
     </section>
   </div>

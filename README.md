@@ -107,14 +107,11 @@ The Intro page owns `PROFILE` content and `ScrollSpyService` observe/disconnect.
 
 All Material chips use the global class `yk-chip`.
 
-Tune once in `apps/youssef-portfolio/src/yk-chip.scss`:
+Hover motion uses shared **`yk-shake`** (`libs/portfolio/styles/yk-shake.css`).
+Chip colors live in `libs/portfolio/styles/yk-chip.css` (imported from `styles.scss`).
 
-```scss
-:root {
-  --yk-chip-hover-rotate: 6deg;
-  --yk-chip-hover-scale: 1.05;
-  --yk-chip-hover-duration: 200ms;
-}
+```html
+<mat-chip class="yk-chip">Angular</mat-chip>
 ```
 
 ---

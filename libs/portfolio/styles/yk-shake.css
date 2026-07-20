@@ -1,0 +1,33 @@
+/*
+ * Shared in-place shake (rotate only — no translate / scale).
+ * Used by theme menu icons and `.yk-chip` hover.
+ *
+ * Usage:
+ *   animation: yk-shake var(--yk-shake-duration) ease-in-out;
+ */
+:root {
+  --yk-shake-duration: 420ms;
+}
+
+@keyframes yk-shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(-14deg);
+  }
+
+  40% {
+    transform: rotate(14deg);
+  }
+
+  60% {
+    transform: rotate(-8deg);
+  }
+
+  80% {
+    transform: rotate(8deg);
+  }
+}

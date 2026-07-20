@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '../../../../../styles/yk-theme.css';
 @import '../../../../../styles/yk-animations.css';
+@import '../../../../../styles/yk-shake.css';
 
 /*
  * Header — sticky bar + mobile drawer.
@@ -14,11 +15,16 @@
   color: var(--md-sys-color-on-background);
 
   &__bar {
-    @apply bg-transparent text-inherit;
+    @apply bg-transparent text-inherit items-center;
   }
 
   &__spacer {
     @apply flex-auto;
+  }
+
+  /* Right cluster (hamburger + theme) — shared flex line for vertical align */
+  &__actions {
+    @apply inline-flex items-center shrink-0;
   }
 
   &__nav {
@@ -83,7 +89,12 @@
   }
 
   &__back {
-    @apply inline-flex items-center gap-1 mr-1 text-sm font-semibold no-underline transition-colors duration-150;
+    /*
+     * Left of brand (leading edge). Height 40px matches mat-icon-button so
+     * when Back was on the right it lined up with contrast — same rule keeps
+     * vertical rhythm with the toolbar.
+     */
+    @apply inline-flex items-center gap-1 shrink-0 h-10 mr-2 text-sm font-semibold no-underline transition-colors duration-150;
     color: color-mix(
       in srgb,
       var(--md-sys-color-on-background) 65%,
@@ -108,7 +119,7 @@
   }
 
   &__back-icon {
-    @apply text-lg leading-none size-[1.15rem] text-[1.15rem] transition-transform duration-300;
+    @apply inline-flex items-center justify-center text-lg leading-none size-[1.15rem] text-[1.15rem] transition-transform duration-300;
   }
 
   &__back-label {
@@ -167,14 +178,23 @@
   }
 
   &__theme-toggle {
-    @apply transition-transform duration-200 hover:rotate-12 hover:scale-110;
+    /* Shared yk-shake — see libs/portfolio/styles/yk-shake.css */
+    @apply transition-none;
+
+    &:hover {
+      animation: yk-shake var(--yk-shake-duration) ease-in-out;
+    }
   }
 
   &__theme-item {
-    @apply transition-all duration-150;
+    @apply transition-colors duration-150;
 
-    &:hover {
-      @apply ps-5;
+    mat-icon {
+      @apply transition-none;
+    }
+
+    &:hover mat-icon {
+      animation: yk-shake var(--yk-shake-duration) ease-in-out;
     }
   }
 }
@@ -184,6 +204,11 @@
   .header__name--right {
     animation: none !important;
     transform: translateX(0);
+  }
+
+  .header__theme-toggle:hover,
+  .header__theme-item:hover mat-icon {
+    animation: none !important;
   }
 
   .header__name--left {

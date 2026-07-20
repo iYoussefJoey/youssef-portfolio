@@ -14,7 +14,8 @@
 
 .intro-aside {
   &__rail {
-    @apply flex flex-col flex-1 min-h-0 p-8;
+    @apply flex flex-col flex-1 min-h-0 py-8  pl-7;
+
     @apply border-r border-[var(--md-sys-color-outline-variant)];
   }
 
@@ -56,10 +57,10 @@
     }
 
     &--active {
-      @apply text-[var(--md-sys-color-on-background)];
+      @apply text-[var(--md-sys-color-primary)];
 
       .intro-aside__link-bar {
-        @apply w-16 bg-[var(--md-sys-color-on-background)];
+        @apply w-16 bg-[var(--md-sys-color-primary)];
       }
     }
   }

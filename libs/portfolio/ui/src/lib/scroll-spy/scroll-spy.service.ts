@@ -2,8 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 /**
  * Tracks which Intro section is in view (Brittany-style left nav highlight).
- * Uses Intersection Observer + a small scroll fallback for the last section
- * (Education can sit outside the observer “band” at the page bottom).
+ * Uses Intersection Observer + a scroll fallback for short / bottom sections.
  */
 @Injectable({ providedIn: 'root' })
 export class ScrollSpyService {
@@ -11,7 +10,7 @@ export class ScrollSpyService {
   /** Observer instance; created in observe(), cleared in disconnect(). */
   private observer: IntersectionObserver | null = null;
 
-  /** Section ids in document order (e.g. about → contact). */
+  /** Section ids in document order (e.g. about → education). */
   private sectionIds: string[] = [];
 
   /** Ids currently intersecting the “active” viewport band. */
@@ -49,9 +48,9 @@ export class ScrollSpyService {
     this.observer = new IntersectionObserver(
       (entries) => this.onIntersect(entries),
       {
-        // Active band under the sticky header (not the whole viewport)
+        // Band under the sticky header. Wider so short sections (Skills after
         root: null,
-        rootMargin: '-15% 0px -55% 0px',
+        rootMargin: '-10% 0px -45% 0px',
         threshold: [0, 0.1, 0.25, 0.5, 1],
       },
     );
@@ -60,7 +59,6 @@ export class ScrollSpyService {
       this.observer.observe(el);
     }
 
-    // Catches “stuck on About” when Contact never enters the IO band
     window.addEventListener('scroll', this.onWindowScroll, { passive: true });
     this.syncActiveSection();
   }
@@ -120,9 +118,10 @@ export class ScrollSpyService {
 
   /**
    * Picks the active section:
-   * 1) near page bottom → last section (Contact)
-   * 2) else first id still in the visible band
-   * 3) else nearest section to the header band (fallback — never stay stuck)
+   * 1) near page bottom → last section (Education)
+   * 2) else last id still in the visible band (not first — otherwise Skills
+   *    is skipped while Technologies is still intersecting)
+   * 3) else last section whose top has crossed the header marker
    */
   private syncActiveSection(): void {
     if (this.sectionIds.length === 0) {
@@ -135,9 +134,9 @@ export class ScrollSpyService {
       return;
     }
 
-    const visibleActive = this.sectionIds.find((id) =>
-      this.visibleIds.has(id),
-    );
+    const visibleActive = [...this.sectionIds]
+      .reverse()
+      .find((id) => this.visibleIds.has(id));
     if (visibleActive) {
       this.activeSectionId.set(visibleActive);
       return;
@@ -155,12 +154,11 @@ export class ScrollSpyService {
 
   /**
    * Fallback when nothing is in the IO band:
-   * choose the section whose top is closest to the area under the header.
+   * last section whose top has passed the marker under the header.
    */
   private findNearestSectionId(): string | null {
-    const markerY = window.innerHeight * 0.2;
-    let bestId: string | null = null;
-    let bestDistance = Number.POSITIVE_INFINITY;
+    const markerY = window.innerHeight * 0.25;
+    let current: string | null = this.sectionIds[0] ?? null;
 
     for (const id of this.sectionIds) {
       const el = document.getElementById(id);
@@ -168,15 +166,11 @@ export class ScrollSpyService {
         continue;
       }
 
-      const top = el.getBoundingClientRect().top;
-      const distance = Math.abs(top - markerY);
-
-      if (top <= markerY + 80 && distance < bestDistance) {
-        bestDistance = distance;
-        bestId = id;
+      if (el.getBoundingClientRect().top <= markerY) {
+        current = id;
       }
     }
 
-    return bestId ?? this.sectionIds[0] ?? null;
+    return current;
   }
 }

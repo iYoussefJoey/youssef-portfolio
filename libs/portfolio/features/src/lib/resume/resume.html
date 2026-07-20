@@ -1,12 +1,12 @@
 <section class="resume">
-  <header class="resume__header">
+  <header>
     <h1 class="resume__name">{{ profile.name }}</h1>
     <p class="resume__title">{{ profile.title }}</p>
     <p class="resume__meta">
       {{ profile.location }} ·
-      <a class="resume__link" [href]="'mailto:' + profile.email">{{
-        profile.email
-      }}</a>
+      <a class="resume__link" [href]="'mailto:' + profile.email"
+        >{{ profile.email }}</a
+      >
       ·
       <a
         class="resume__link"

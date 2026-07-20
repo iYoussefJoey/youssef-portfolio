@@ -4,18 +4,17 @@
 /*
  * Intro page — content column.
  * Rail: yk-intro-aside. Grid collapses below yk-aside via shared breakpoint.
+ *
+ * Do NOT put horizontal padding on .intro itself — that green strip in DevTools
+ * was `px-4` on this grid, which pushed the aside “—” right of header “Youssef”.
+ * Edge inset lives on the aside + content only.
  */
 .intro {
-  @apply grid min-h-[calc(100vh-4rem)] gap-0 px-4;
-  @apply grid-cols-1;
-  @apply yk-aside:grid-cols-[minmax(12rem,18rem)_1fr] yk-aside:gap-8 yk-aside:px-8;
+  @apply grid min-h-[calc(100vh-4rem)] gap-0 grid-cols-1;
+  @apply yk-aside:grid-cols-[minmax(12rem,18rem)_1fr] yk-aside:gap-8;
 
   &__content {
-    @apply flex flex-col gap-16 pt-8 max-w-3xl;
-  }
-
-  &__section {
-    @apply min-h-[70vh];
+    @apply flex flex-col gap-10 py-8 max-w-3xl px-4;
   }
 
   &__heading {
@@ -26,18 +25,14 @@
     @apply text-base mb-6 max-w-prose;
     color: color-mix(
       in srgb,
-      var(--md-sys-color-on-background) 70%,
+      var(--md-sys-color-on-background) 88%,
       transparent
     );
   }
 
   &__copy {
     @apply text-base leading-relaxed mb-4 max-w-prose last:mb-0;
-    color: color-mix(
-      in srgb,
-      var(--md-sys-color-on-background) 78%,
-      transparent
-    );
+    color: var(--md-sys-color-on-background);
   }
 
   &__chips {
@@ -53,16 +48,15 @@
   }
 
   &__edu-school {
-    @apply text-lg font-semibold m-0 mb-1 text-[var(--md-sys-color-on-background)];
+    @apply text-base font-medium  mb-1 text-[var(--md-sys-color-on-background)];
+  }
+
+  &__edu-meta-container {
+    @apply flex justify-between gap-1;
   }
 
   &__edu-degree {
-    @apply text-base m-0 mb-1;
-    color: color-mix(
-      in srgb,
-      var(--md-sys-color-on-background) 80%,
-      transparent
-    );
+    @apply text-lg font-semibold m-0 mb-1 text-[var(--md-sys-color-on-background)];
   }
 
   &__edu-meta {

@@ -4,15 +4,16 @@
 :root {
   color-scheme: light;
 
-  --md-sys-color-primary: light-dark(rgb(65 95 145), rgb(170 199 255));
-  --md-sys-color-surface-tint: light-dark(rgb(65 95 145), rgb(170 199 255));
+  /* Light primary: Material 3 reference blue (#0B57D0) — calmer than #1591EA, stronger than grey-blue. */
+  --md-sys-color-primary: light-dark(rgb(11 87 208), rgb(170 199 255));
+  --md-sys-color-surface-tint: light-dark(rgb(11 87 208), rgb(170 199 255));
   --md-sys-color-on-primary: light-dark(rgb(255 255 255), rgb(10 48 95));
   --md-sys-color-primary-container: light-dark(
-    rgb(214 227 255),
+    rgb(211 227 253),
     rgb(40 71 119)
   );
   --md-sys-color-on-primary-container: light-dark(
-    rgb(40 71 119),
+    rgb(0 40 120),
     rgb(214 227 255)
   );
 
@@ -66,17 +67,17 @@
     rgb(245 241 227),
     rgb(50 49 40)
   );
-  --md-sys-color-inverse-primary: light-dark(rgb(170 199 255), rgb(65 95 145));
+  --md-sys-color-inverse-primary: light-dark(rgb(170 199 255), rgb(11 87 208));
 
-  --md-sys-color-primary-fixed: light-dark(rgb(214 227 255), rgb(214 227 255));
-  --md-sys-color-on-primary-fixed: light-dark(rgb(0 27 62), rgb(0 27 62));
+  --md-sys-color-primary-fixed: light-dark(rgb(211 227 253), rgb(211 227 253));
+  --md-sys-color-on-primary-fixed: light-dark(rgb(0 29 84), rgb(0 29 84));
   --md-sys-color-primary-fixed-dim: light-dark(
-    rgb(170 199 255),
-    rgb(170 199 255)
+    rgb(130 170 240),
+    rgb(130 170 240)
   );
   --md-sys-color-on-primary-fixed-variant: light-dark(
-    rgb(40 71 119),
-    rgb(40 71 119)
+    rgb(0 55 150),
+    rgb(0 55 150)
   );
 
   --md-sys-color-secondary-fixed: light-dark(
@@ -124,21 +125,7 @@
     rgb(54 53 44)
   );
 
-  /* App aliases — UI / Tailwind can use these short names */
-  --color-bg: var(--md-sys-color-background);
-  --color-fg: var(--md-sys-color-on-background);
-  --color-surface: var(--md-sys-color-surface);
-  --color-on-surface: var(--md-sys-color-on-surface);
-  --color-primary: var(--md-sys-color-primary);
-  --color-on-primary: var(--md-sys-color-on-primary);
-  --color-secondary: var(--md-sys-color-secondary);
-  --color-outline: var(--md-sys-color-outline);
-
-  /*
-   * Shell surfaces (SafeSys-style split):
-   * header = plain white (light) / elevated dark surface
-   * page   = soft grey canvas behind router-outlet content
-   */
+  /* App shell surfaces */
   --color-header: light-dark(rgb(255 255 255), rgb(20 20 12));
   --color-page: light-dark(rgb(245 246 248), rgb(17 19 24));
 }

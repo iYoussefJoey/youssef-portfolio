@@ -36,6 +36,7 @@ export const PROFILE = {
     'SCSS',
     'HTML',
     'CSS',
+    'Figma',
     'NX',
     'REST APIs',
     'Swagger / OpenAPI',
@@ -79,12 +80,21 @@ export const PROFILE = {
     },
     {
       title: 'Tools',
-      items: ['Git', 'GitLab', 'CI/CD', 'Docker', 'Jira', 'Agile Scrum'],
+      items: [
+        'Figma',
+        'Git',
+        'GitLab',
+        'CI/CD',
+        'Docker',
+        'Jira',
+        'Agile Scrum',
+      ],
     },
   ],
 
   education: {
-    school: 'Behira Higher Institute',
+    // school: 'Behira Higher Institute',
+    school: 'BHI',
     degree: "Bachelor's Degree in Computer Engineering",
     place: 'Alexandria, Egypt',
     period: 'Sept 2017 – June 2022',
@@ -150,4 +160,3 @@ export const PROFILE = {
   ],
 } as const;
 
-export type Profile = typeof PROFILE;

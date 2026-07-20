@@ -5,7 +5,6 @@ Portfolio **content** library — no Angular components.
 | Export | Role |
 | --- | --- |
 | `PROFILE` | Single source of truth (CV / LinkedIn copy) |
-| `Profile` | Type of `PROFILE` |
 
 Edit `src/lib/profile.ts` to update Intro, Experience, Projects, and Resume.
 

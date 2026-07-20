@@ -1,0 +1,24 @@
+/*
+ * Shared Material chip hover styles.
+ * Motion uses `yk-shake` from yk-shake.css (import that file first in styles.scss).
+ *
+ * Usage: <mat-chip class="yk-chip">Angular</mat-chip>
+ */
+.yk-chip {
+  cursor: default;
+}
+
+.yk-chip:hover {
+  z-index: 1;
+  animation: yk-shake var(--yk-shake-duration) ease-in-out;
+  --mat-chip-label-text-color: var(--md-sys-color-on-primary);
+  --mat-chip-outline-color: var(--md-sys-color-primary);
+  --mat-chip-elevated-container-color: var(--md-sys-color-primary);
+  --mat-chip-hover-state-layer-opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yk-chip:hover {
+    animation: none !important;
+  }
+}
