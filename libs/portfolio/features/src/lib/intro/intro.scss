@@ -17,6 +17,11 @@
     @apply flex flex-col gap-10 py-8 max-w-3xl px-4;
   }
 
+  /* Land below sticky header when using scrollIntoView / hash nav */
+  &__section {
+    scroll-margin-top: 5rem;
+  }
+
   &__heading {
     @apply text-sm font-semibold uppercase tracking-widest mb-6 text-[var(--md-sys-color-primary)];
   }
@@ -40,23 +45,40 @@
   }
 
   &__skill-groups {
-    @apply flex flex-col gap-8;
+    @apply flex flex-col gap-10;
+  }
+
+  &__skill-group {
+    @apply flex flex-col gap-3;
   }
 
   &__skill-title {
-    @apply text-base font-semibold mb-3 text-[var(--md-sys-color-on-background)];
+    @apply text-base font-semibold m-0 text-[var(--md-sys-color-on-background)];
+  }
+
+  &__skill-desc {
+    @apply text-base leading-relaxed m-0 max-w-prose;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 82%,
+      transparent
+    );
+  }
+
+  &__education {
+    @apply flex flex-col gap-4;
   }
 
   &__edu-school {
-    @apply text-base font-medium  mb-1 text-[var(--md-sys-color-on-background)];
+    @apply text-base font-medium m-0 text-[var(--md-sys-color-on-background)];
   }
 
   &__edu-meta-container {
-    @apply flex justify-between gap-1;
+    @apply flex flex-wrap justify-between gap-2;
   }
 
   &__edu-degree {
-    @apply text-lg font-semibold m-0 mb-1 text-[var(--md-sys-color-on-background)];
+    @apply text-lg font-semibold m-0 text-[var(--md-sys-color-on-background)];
   }
 
   &__edu-meta {

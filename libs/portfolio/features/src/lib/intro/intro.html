@@ -32,8 +32,9 @@
       </p>
       <div class="intro__skill-groups">
         @for (group of profile.skillGroups; track group.title) {
-        <div>
+        <div class="intro__skill-group">
           <h3 class="intro__skill-title">{{ group.title }}</h3>
+          <p class="intro__skill-desc">{{ group.description }}</p>
           <mat-chip-set
             class="intro__chips"
             [attr.aria-label]="group.title + ' skills'"
@@ -49,12 +50,17 @@
 
     <section id="education" class="intro__section">
       <h2 class="intro__heading">Education</h2>
-      <div>
+      <div class="intro__education">
         <h3 class="intro__edu-degree">{{ profile.education.degree }}</h3>
         <div class="intro__edu-meta-container">
           <p class="intro__edu-school">{{ profile.education.school }}</p>
-          <p class="intro__edu-meta">{{ profile.education.period }}</p>
+          <p class="intro__edu-meta">
+            {{ profile.education.place }} · {{ profile.education.period }}
+          </p>
         </div>
+        @for (paragraph of profile.education.summary; track $index) {
+        <p class="intro__copy">{{ paragraph }}</p>
+        }
       </div>
     </section>
   </div>

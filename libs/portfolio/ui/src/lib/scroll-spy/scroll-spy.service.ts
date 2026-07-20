@@ -1,164 +1,108 @@
 import { Injectable, signal } from '@angular/core';
 
 /**
- * Tracks which Intro section is in view (Brittany-style left nav highlight).
- * Uses Intersection Observer + a scroll fallback for short / bottom sections.
+ * Tracks which Intro section is active in the left rail.
+ *
+ * Uses scroll position relative to the sticky header (not “near page bottom”),
+ * so short sections like Skills still get a turn. Clicks pin briefly so smooth
+ * scroll doesn’t flash the wrong link mid-animation.
  */
 @Injectable({ providedIn: 'root' })
 export class ScrollSpyService {
-  // ---VARIABLES---
-  /** Observer instance; created in observe(), cleared in disconnect(). */
-  private observer: IntersectionObserver | null = null;
-
-  /** Section ids in document order (e.g. about → education). */
   private sectionIds: string[] = [];
 
-  /** Ids currently intersecting the “active” viewport band. */
-  private readonly visibleIds = new Set<string>();
+  /** Click target — while set, we don’t auto-update from scroll. */
+  private pinnedId: string | null = null;
+  private pinTimer: ReturnType<typeof setTimeout> | null = null;
 
-  /** Bound scroll handler so we can remove the same function reference. */
-  private readonly onWindowScroll = (): void => this.syncActiveSection();
+  private readonly onWindowScroll = (): void => this.syncFromScroll();
+  private readonly onScrollEnd = (): void => this.unpin();
 
-  // ---STATES---
-  /**
-   * Id of the section that should look active in the left nav.
-   * null until the first section intersects.
-   */
   readonly activeSectionId = signal<string | null>(null);
 
-  /**
-   * Starts watching the given section ids.
-   * Call once from Intro after the view is ready (ngAfterViewInit).
-   * Replaces any previous observer.
-   */
+  /** Call from Intro `ngAfterViewInit` with section ids in page order. */
   observe(sectionIds: string[]): void {
     this.disconnect();
     this.sectionIds = [...sectionIds];
-    this.visibleIds.clear();
     this.activeSectionId.set(sectionIds[0] ?? null);
-
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-
-    if (elements.length === 0) {
-      return;
-    }
-
-    this.observer = new IntersectionObserver(
-      (entries) => this.onIntersect(entries),
-      {
-        // Band under the sticky header. Wider so short sections (Skills after
-        root: null,
-        rootMargin: '-10% 0px -45% 0px',
-        threshold: [0, 0.1, 0.25, 0.5, 1],
-      },
-    );
-
-    for (const el of elements) {
-      this.observer.observe(el);
-    }
-
     window.addEventListener('scroll', this.onWindowScroll, { passive: true });
-    this.syncActiveSection();
+    this.syncFromScroll();
   }
 
-  /**
-   * Stops observing and clears state.
-   * Call when leaving the Intro page so we don’t leak observers.
-   */
   disconnect(): void {
-    this.observer?.disconnect();
-    this.observer = null;
     window.removeEventListener('scroll', this.onWindowScroll);
-    this.visibleIds.clear();
+    window.removeEventListener('scrollend', this.onScrollEnd);
+    this.clearPinTimer();
+    this.pinnedId = null;
     this.sectionIds = [];
   }
 
-  /**
-   * Template helper: is this nav link the active section?
-   */
   isActive(sectionId: string): boolean {
     return this.activeSectionId() === sectionId;
   }
 
-  /**
-   * Smooth-scrolls to a section (left-nav click).
-   * Also sets active id immediately so the highlight doesn’t wait for the observer.
-   */
+  /** Rail click — highlight immediately, then smooth-scroll. */
   scrollTo(sectionId: string): void {
     const el = document.getElementById(sectionId);
     if (!el) {
       return;
     }
 
+    this.pinnedId = sectionId;
     this.activeSectionId.set(sectionId);
+    this.clearPinTimer();
+
+    window.addEventListener('scrollend', this.onScrollEnd, { once: true });
+    // Fallback if `scrollend` isn’t supported
+    this.pinTimer = setTimeout(() => this.unpin(), 700);
+
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  /**
-   * Intersection Observer callback — updates the visible set, then syncs active id.
-   */
-  private onIntersect(entries: IntersectionObserverEntry[]): void {
-    for (const entry of entries) {
-      const id = entry.target.id;
-      if (!id) {
-        continue;
-      }
+  private unpin(): void {
+    window.removeEventListener('scrollend', this.onScrollEnd);
+    this.clearPinTimer();
 
-      if (entry.isIntersecting) {
-        this.visibleIds.add(id);
-      } else {
-        this.visibleIds.delete(id);
-      }
+    const wasPinned = this.pinnedId;
+    this.pinnedId = null;
+
+    // Keep the clicked section if it’s still on screen (short pages / last sections)
+    if (wasPinned && this.isSectionInView(wasPinned)) {
+      this.activeSectionId.set(wasPinned);
+      return;
     }
 
-    this.syncActiveSection();
+    this.syncFromScroll();
   }
 
-  /**
-   * Picks the active section:
-   * 1) near page bottom → last section (Education)
-   * 2) else last id still in the visible band (not first — otherwise Skills
-   *    is skipped while Technologies is still intersecting)
-   * 3) else last section whose top has crossed the header marker
-   */
-  private syncActiveSection(): void {
+  private clearPinTimer(): void {
+    if (this.pinTimer !== null) {
+      clearTimeout(this.pinTimer);
+      this.pinTimer = null;
+    }
+  }
+
+  private syncFromScroll(): void {
     if (this.sectionIds.length === 0) {
       return;
     }
 
-    if (this.isNearPageBottom()) {
-      const last = this.sectionIds[this.sectionIds.length - 1];
-      this.activeSectionId.set(last ?? null);
+    if (this.pinnedId) {
+      this.activeSectionId.set(this.pinnedId);
       return;
     }
 
-    const visibleActive = [...this.sectionIds]
-      .reverse()
-      .find((id) => this.visibleIds.has(id));
-    if (visibleActive) {
-      this.activeSectionId.set(visibleActive);
-      return;
-    }
-
-    this.activeSectionId.set(this.findNearestSectionId());
-  }
-
-  /** True when the user has scrolled to (or near) the bottom of the page. */
-  private isNearPageBottom(): boolean {
-    const scrollBottom = window.innerHeight + window.scrollY;
-    const docHeight = document.documentElement.scrollHeight;
-    return scrollBottom >= docHeight - 120;
+    this.activeSectionId.set(this.sectionUnderHeader());
   }
 
   /**
-   * Fallback when nothing is in the IO band:
-   * last section whose top has passed the marker under the header.
+   * Last section whose top has passed just under the sticky header.
+   * Education (last) often never reaches that line — not enough page below it —
+   * so when we’re at the document bottom (and Education is on screen), force it.
    */
-  private findNearestSectionId(): string | null {
-    const markerY = window.innerHeight * 0.25;
-    let current: string | null = this.sectionIds[0] ?? null;
+  private sectionUnderHeader(): string {
+    const markerY = 96;
+    let active = this.sectionIds[0] ?? '';
 
     for (const id of this.sectionIds) {
       const el = document.getElementById(id);
@@ -167,10 +111,46 @@ export class ScrollSpyService {
       }
 
       if (el.getBoundingClientRect().top <= markerY) {
-        current = id;
+        active = id;
       }
     }
 
-    return current;
+    const lastId = this.sectionIds[this.sectionIds.length - 1];
+    if (lastId && this.shouldActivateLastSection(lastId)) {
+      return lastId;
+    }
+
+    return active;
+  }
+
+  /**
+   * Last section only — activate when the user has scrolled as far as possible
+   * (Education can’t physically reach the header marker on a short final block).
+   */
+  private shouldActivateLastSection(lastId: string): boolean {
+    const el = document.getElementById(lastId);
+    if (!el) {
+      return false;
+    }
+
+    const lastTop = el.getBoundingClientRect().top;
+    const scrolledToEnd =
+      window.scrollY + window.innerHeight >=
+      document.documentElement.scrollHeight - 64;
+
+    // Must be at the end of the page AND Education must be in the viewport
+    return scrolledToEnd && lastTop < window.innerHeight;
+  }
+
+  /** True if any part of the section sits in the main reading area. */
+  private isSectionInView(sectionId: string): boolean {
+    const el = document.getElementById(sectionId);
+    if (!el) {
+      return false;
+    }
+
+    const rect = el.getBoundingClientRect();
+    const header = 64;
+    return rect.bottom > header && rect.top < window.innerHeight * 0.85;
   }
 }

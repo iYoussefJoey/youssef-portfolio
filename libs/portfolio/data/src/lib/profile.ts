@@ -48,10 +48,12 @@ export const PROFILE = {
     'Jira',
   ],
 
-  /** Grouped skills (Architecture / Testing / etc.) */
+  /** Grouped skills — each group has a short blurb so the section has real height for scroll-spy. */
   skillGroups: [
     {
       title: 'Frontend',
+      description:
+        'I build accessible, responsive UIs with Angular and TypeScript — Signals and RxJS for reactive data, Material + Tailwind/SCSS for consistent design systems, and clean templates that stay maintainable as features grow.',
       items: [
         'Angular',
         'TypeScript',
@@ -66,6 +68,8 @@ export const PROFILE = {
     },
     {
       title: 'Architecture',
+      description:
+        'I structure features for reuse across an NX monorepo: typed Reactive Forms, page-scoped Signals stores, shared UI libraries, and performance work that cuts redundant API calls and slow paths without rewriting the whole app.',
       items: [
         'Reactive Forms',
         'State management (Signals)',
@@ -76,10 +80,14 @@ export const PROFILE = {
     },
     {
       title: 'API & testing',
+      description:
+        'I integrate REST APIs from Swagger/OpenAPI contracts and back changes with unit tests — Jest (and Jasmine on legacy apps) for components, stores, and business logic with mocked services and Signals.',
       items: ['REST APIs', 'Swagger / OpenAPI', 'Jest', 'Jasmine'],
     },
     {
       title: 'Tools',
+      description:
+        'Day to day I move designs from Figma into code, ship through Git/GitLab MRs and CI/CD, track work in Jira, and collaborate in Agile Scrum with backend, QA, and design.',
       items: [
         'Figma',
         'Git',
@@ -92,12 +100,16 @@ export const PROFILE = {
     },
   ],
 
+  /** Extra Education copy so the last section isn’t a one-liner for scroll-spy. */
   education: {
-    // school: 'Behira Higher Institute',
     school: 'BHI',
     degree: "Bachelor's Degree in Computer Engineering",
     place: 'Alexandria, Egypt',
     period: 'Sept 2017 – June 2022',
+    summary: [
+      'Studied computer engineering with a focus on software fundamentals — algorithms, data structures, and building real projects that prepared me for professional frontend work.',
+      'Since graduating I’ve applied that foundation daily in enterprise Angular apps: typed APIs, component architecture, testing, and shipping in Agile teams.',
+    ],
   },
 
   /** GAMP role summary (Experience page intro) */
@@ -115,7 +127,7 @@ export const PROFILE = {
       'Designed shared notifications that sync unread state across pages without manual refresh.',
       'Built reusable page-scoped Signals stores to remove duplicated fetching and reduce API calls.',
       'Wrote Jest tests mocking services/Signals for components, stores, and business logic.',
-      'Worked with Git, GitLab MRs, CI/CD, and Jira; shipped on Angular v7, v13, and v21 (legacy + modern).',
+      'Worked with Git, GitLab MRs, CI/CD, and Jira; shipped on Angular v7, v13, and v22 (legacy + modern).',
     ],
   },
 
@@ -125,7 +137,7 @@ export const PROFILE = {
       id: 'safesys',
       name: 'Safesys Measurement System',
       period: 'June 2025 – July 2026',
-      stack: ['Angular v21', 'TypeScript', 'RxJS', 'SCSS', 'Angular Signals'],
+      stack: ['Angular v22', 'TypeScript', 'RxJS', 'SCSS', 'Angular Signals'],
       summary:
         'Interactive measurement and consumption dashboards for industrial monitoring.',
       bullets: [
@@ -140,9 +152,11 @@ export const PROFILE = {
       period: 'Dec 2024 – June 2025',
       stack: ['Angular v13', 'TypeScript', 'SCSS', 'REST APIs'],
       summary:
-        'Identity and account workflows for registration, management, and privacy.',
+        'SaaS-bound platform for running online general meetings and shareholder votes — simple voting, instant results, and meeting history without costly operator-heavy tools.',
       bullets: [
-        'Developed responsive user workflows for registration, account management, and privacy settings integrated with REST APIs.',
+        'Emitum helps companies host AGMs and consultations in one place: set up meetings, run votes, deliver results faster, and keep a clear meeting history.',
+        'It replaces slow, error-prone, or expensive meeting systems so organizations can manage votes themselves without hiring external operators.',
+        'Built responsive Angular workflows for registration, account management, and privacy settings integrated with REST APIs.',
       ],
     },
     {
