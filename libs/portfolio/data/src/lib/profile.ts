@@ -13,6 +13,8 @@ export const PROFILE = {
     linkedin: 'https://www.linkedin.com/in/iyoussef-khamis/',
     emailCompose:
       'https://mail.google.com/mail/?view=cm&fs=1&to=iyoussef.khamis@gmail.com',
+    /** Served from apps/youssef-portfolio/public/ (root URL + this filename). */
+    resumePdf: 'Youssef-Khamis-Resume.pdf',
   },
 
   /**

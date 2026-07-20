@@ -1,30 +1,54 @@
 <section class="resume">
-  <header>
-    <h1 class="resume__name">{{ profile.name }}</h1>
-    <p class="resume__title">{{ profile.title }}</p>
-    <p class="resume__meta">
-      {{ profile.location }} ·
-      <a class="resume__link" [href]="'mailto:' + profile.email"
-        >{{ profile.email }}</a
+  <header class="resume__top">
+    <div class="resume__identity">
+      <h1 class="resume__name">{{ profile.name }}</h1>
+      <p class="resume__title">{{ profile.title }}</p>
+    </div>
+
+    <!--
+      Download is triggered in onDownloadResume() (fetch → blob → save).
+      href remains as a progressive-enhancement / middle-click fallback.
+      `download` alone is NOT Angular — it’s HTML — and browsers often ignore it for PDFs.
+    -->
+    <a
+      class="resume__download"
+      mat-flat-button
+      color="primary"
+      [href]="resumePdfUrl"
+      (click)="onDownloadResume($event)"
+    >
+      <mat-icon
+        class="resume__download-icon"
+        [class.resume__download-icon--shake]="iconPhase() === 'shake'"
+        [class.resume__download-icon--drop]="iconPhase() === 'drop'"
+        >download</mat-icon
       >
-      ·
-      <a
-        class="resume__link"
-        [href]="profile.links.linkedin"
-        target="_blank"
-        rel="noopener noreferrer"
-        >LinkedIn</a
-      >
-      ·
-      <a
-        class="resume__link"
-        [href]="profile.links.github"
-        target="_blank"
-        rel="noopener noreferrer"
-        >GitHub</a
-      >
-    </p>
+      Download PDF
+    </a>
   </header>
+
+  <p class="resume__meta">
+    {{ profile.location }} ·
+    <a class="resume__link" [href]="'mailto:' + profile.email">{{
+      profile.email
+    }}</a>
+    ·
+    <a
+      class="resume__link"
+      [href]="profile.links.linkedin"
+      target="_blank"
+      rel="noopener noreferrer"
+      >LinkedIn</a
+    >
+    ·
+    <a
+      class="resume__link"
+      [href]="profile.links.github"
+      target="_blank"
+      rel="noopener noreferrer"
+      >GitHub</a
+    >
+  </p>
 
   <section class="resume__block">
     <h2 class="resume__heading">Summary</h2>

@@ -1,7 +1,17 @@
 @import 'tailwindcss';
+@import '../../../../styles/yk-shake.css';
 
 .resume {
   @apply mx-auto max-w-3xl px-8 py-10;
+
+  /* Name/title left · Download right */
+  &__top {
+    @apply flex flex-wrap items-start justify-between gap-4 mb-3;
+  }
+
+  &__identity {
+    @apply min-w-0;
+  }
 
   &__name {
     @apply text-2xl font-bold m-0 mb-1;
@@ -9,12 +19,60 @@
   }
 
   &__title {
-    @apply text-base font-semibold m-0 mb-2;
+    @apply text-base font-semibold m-0;
     color: var(--md-sys-color-primary);
   }
 
+  /*
+   * Filled primary button.
+   * Default hover uses a white state-layer on primary → looks washed out.
+   * Hover/focus/pressed use the same surface as the contrast theme menu instead.
+   */
+  &__download {
+    @apply inline-flex items-center gap-2 shrink-0;
+    --mat-button-filled-container-shape: 8px;
+    --mat-button-filled-container-color: var(--md-sys-color-primary);
+    --mat-button-filled-label-text-color: var(--md-sys-color-on-primary);
+    --mat-button-filled-state-layer-color: transparent;
+    --mat-button-filled-hover-state-layer-opacity: 0;
+    --mat-button-filled-focus-state-layer-opacity: 0;
+    --mat-button-filled-pressed-state-layer-opacity: 0;
+    --mat-button-filled-ripple-color: transparent;
+    border-radius: 8px;
+    transition: background-color 150ms ease, color 150ms ease;
+
+    &:hover,
+    &:focus-visible {
+      --mat-button-filled-container-color: var(
+        --md-sys-color-surface-container-high
+      );
+      --mat-button-filled-label-text-color: var(--md-sys-color-on-surface);
+    }
+
+    &:active {
+      --mat-button-filled-container-color: var(
+        --md-sys-color-surface-container-high
+      );
+      --mat-button-filled-label-text-color: var(--md-sys-color-on-surface);
+    }
+  }
+
+  &__download-icon {
+    @apply text-lg leading-none w-[1.125rem] h-[1.125rem] text-[1.125rem];
+    transform-origin: center;
+
+    &--shake {
+      animation: yk-shake var(--yk-shake-duration) ease-in-out;
+    }
+
+    &--drop {
+      animation: yk-download-drop var(--yk-download-drop-duration) ease-in
+        forwards;
+    }
+  }
+
   &__meta {
-    @apply text-sm m-0;
+    @apply text-sm m-0 mb-0;
     color: color-mix(
       in srgb,
       var(--md-sys-color-on-background) 60%,

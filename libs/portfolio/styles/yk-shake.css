@@ -1,12 +1,13 @@
 /*
  * Shared in-place shake (rotate only — no translate / scale).
- * Used by theme menu icons and `.yk-chip` hover.
+ * Used by theme menu icons, `.yk-chip` hover, and resume download icon.
  *
  * Usage:
  *   animation: yk-shake var(--yk-shake-duration) ease-in-out;
  */
 :root {
   --yk-shake-duration: 420ms;
+  --yk-download-drop-duration: 350ms;
 }
 
 @keyframes yk-shake {
@@ -29,5 +30,18 @@
 
   80% {
     transform: rotate(8deg);
+  }
+}
+
+/* Icon slides down after shake (resume Download PDF). */
+@keyframes yk-download-drop {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(0.75rem);
+    opacity: 0.25;
   }
 }
