@@ -17,6 +17,85 @@
     @apply flex flex-col gap-10 py-8 max-w-3xl px-4;
   }
 
+  /* Home hero: photo + name + "looking for" + CTAs */
+  &__hero {
+    @apply flex flex-col items-start gap-5 sm:flex-row sm:items-center;
+  }
+
+  &__avatar {
+    @apply relative shrink-0 overflow-hidden rounded-full;
+    width: 7rem;
+    height: 7rem;
+    border: 2px solid var(--md-sys-color-outline-variant);
+    background: var(--md-sys-color-surface-container-high);
+  }
+
+  &__avatar-img {
+    @apply h-full w-full object-cover;
+  }
+
+  &__avatar-initials {
+    @apply flex h-full w-full items-center justify-center text-3xl font-bold;
+    color: var(--md-sys-color-primary);
+  }
+
+  &__hero-body {
+    @apply flex flex-col gap-1;
+  }
+
+  &__hero-name {
+    @apply text-2xl font-bold m-0;
+    color: var(--md-sys-color-on-background);
+  }
+
+  &__hero-title {
+    @apply text-base font-medium m-0;
+    color: var(--md-sys-color-primary);
+  }
+
+  &__hero-seeking {
+    @apply text-base leading-relaxed m-0 mt-1 max-w-prose;
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-background) 80%,
+      transparent
+    );
+  }
+
+  &__cta {
+    @apply mt-4 flex flex-wrap gap-3;
+  }
+
+  &__cta-btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold no-underline;
+    transition: background-color 150ms ease, color 150ms ease,
+      border-color 150ms ease;
+
+    &--primary {
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+
+      &:hover,
+      &:focus-visible {
+        background: color-mix(
+          in srgb,
+          var(--md-sys-color-primary) 88%,
+          black
+        );
+      }
+    }
+
+    &--ghost {
+      color: var(--md-sys-color-on-background);
+      border: 1px solid var(--md-sys-color-outline);
+
+      &:hover,
+      &:focus-visible {
+        background: var(--md-sys-color-surface-container-high);
+      }
+    }
+  }
+
   /* Land below sticky header when using scrollIntoView / hash nav */
   &__section {
     scroll-margin-top: 5rem;

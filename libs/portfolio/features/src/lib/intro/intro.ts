@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, inject, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  OnDestroy,
+  signal,
+} from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { PROFILE } from '@youssef-portfolio/portfolio-data';
 import {
   IntroAside,
@@ -11,16 +19,32 @@ import { MatChipsModule } from '@angular/material/chips';
 /**
  * Intro page (`/`) — Brittany-style layout: sticky rail (UI) + scrolling sections.
  * Owns PROFILE content and ScrollSpy observe/disconnect; rail is `yk-intro-aside`.
+ * Hero shows the avatar, "what I'm looking for", and CTAs (Resume first, then work).
  */
 @Component({
   selector: 'yk-intro',
-  imports: [IntroAside, MatChipsModule],
+  imports: [IntroAside, MatChipsModule, RouterLink],
   templateUrl: './intro.html',
   styleUrl: './intro.scss',
 })
 export class Intro implements AfterViewInit, OnDestroy {
   readonly scrollSpy: ScrollSpyService = inject(ScrollSpyService);
+  private readonly doc = inject(DOCUMENT);
   readonly profile = PROFILE;
+
+  /** Resolves the avatar against the deployed base href (works on GitHub Pages). */
+  readonly photoUrl = new URL(PROFILE.photo, this.doc.baseURI).href;
+
+  /** Falls back to initials if the photo file isn't present in public/. */
+  readonly photoFailed = signal(false);
+
+  /** Initials shown while/if the photo is missing. */
+  readonly initials = PROFILE.name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
 
   /** Section ids in page order — must match id="..." in the template. */
   readonly sections: ReadonlyArray<IntroAsideSection> = [

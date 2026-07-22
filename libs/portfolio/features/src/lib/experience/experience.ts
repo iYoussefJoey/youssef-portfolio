@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { PROFILE } from '@youssef-portfolio/portfolio-data';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 /**
- * Experience page (`/experience`) — GAMP role summary and key contributions.
- * Project deep-dives live on the Projects page; this page stays job-focused
- * but still lists product work from PROFILE when shown in the template.
+ * Experience page (`/experience`) — GAMP role summary plus the product work.
+ * Projects were merged in here (nav is Home / Experience / Resume). Each project
+ * reads overview (what + problem), role, achievements, and a live link from PROFILE.
  */
 @Component({
   selector: 'yk-experience',
-  imports: [MatChipsModule],
+  imports: [MatChipsModule, MatIconModule],
   templateUrl: './experience.html',
   styleUrl: './experience.scss',
 })
@@ -17,6 +18,6 @@ export class Experience {
   /** Product projects shipped at GAMP (shared PROFILE source). */
   readonly projects = PROFILE.projects;
 
-  /** Current role block (company, period, highlights). */
+  /** Current role block (company, period, summary). */
   readonly job = PROFILE.experience;
 }

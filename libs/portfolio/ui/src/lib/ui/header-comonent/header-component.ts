@@ -42,7 +42,6 @@ export class HeaderComponent {
   /** Primary tabs — Josh-style, beside the brand (desktop) / drawer (mobile) */
   readonly navLinks: ReadonlyArray<{ path: string; label: string }> = [
     { path: '/experience', label: 'Experience' },
-    { path: '/projects', label: 'Projects' },
     { path: '/resume', label: 'Resume' },
   ];
 

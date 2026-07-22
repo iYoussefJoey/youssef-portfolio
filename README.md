@@ -4,7 +4,7 @@ Personal portfolio for **Youssef Khamis**, Front-End Angular Developer.
 
 Built as an **NX monorepo** with Angular standalone components, Angular Material, Tailwind CSS v4, and a light/dark theme.
 
-**Live goal:** present Intro (about / skills), Experience, Projects, and Resume in a clean, interview-ready codebase.
+**Live goal:** present Intro (about / skills), Experience (role + projects), and Resume in a clean, interview-ready codebase.
 
 ---
 
@@ -25,12 +25,12 @@ Built as an **NX monorepo** with Angular standalone components, Angular Material
 
 | Path | Page |
 | --- | --- |
-| `/` | Intro — sticky rail, scroll-spy, about / tech / skills / education |
-| `/experience` | GAMP role + highlights |
-| `/projects` | Safesys, Emitum, Pogotowie |
+| `/` | Intro - hero (photo, CTAs), sticky rail, scroll-spy: about / tech / skills / education |
+| `/experience` | GAMP role + projects (Safesys, Emitum, Pogotowie) with live links |
+| `/projects` | Redirects to `/experience` (projects were merged in) |
 | `/resume` | Web resume (summary, experience, education, skills) |
 
-Header nav sits beside the brand (Josh Comeau–style). Sub-pages show an animated **Back** control to return home.
+Header nav sits beside the brand (Josh Comeau-style) - Experience / Resume. Sub-pages show an animated **Back** control to return home.
 
 ---
 
@@ -39,7 +39,7 @@ Header nav sits beside the brand (Josh Comeau–style). Sub-pages show an animat
 ```text
 apps/youssef-portfolio/     # Shell app (header + router-outlet)
 libs/portfolio/
-  features/                 # Pages: Intro, Experience, Projects, Resume
+  features/                 # Pages: Intro, Experience (with projects), Resume
   ui/                       # Header, IntroAside, ThemeService, ScrollSpyService
   data/                     # PROFILE (CV content — single source of truth)
   styles/                   # Shared theme tokens + brand animations (yk-*)
@@ -118,7 +118,7 @@ Chip colors live in `libs/portfolio/styles/yk-chip.css` (imported from `styles.s
 
 ## Updating content
 
-Edit `libs/portfolio/data/src/lib/profile.ts` — Intro, Experience, Projects, and Resume all read from `PROFILE`.
+Edit `libs/portfolio/data/src/lib/profile.ts` - Intro, Experience (role + projects), and Resume all read from `PROFILE`.
 
 ---
 
