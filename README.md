@@ -26,7 +26,7 @@ Built as an **NX monorepo** with Angular standalone components, Angular Material
 | Path | Page |
 | --- | --- |
 | `/` | Intro - hero (photo, CTAs), sticky rail, scroll-spy: about / tech / skills / education |
-| `/experience` | GAMP role + projects (Safesys, Emitum, Pogotowie) with live links |
+| `/experience` | GAMP role + projects (Safesys, Emitum, ControlER) with live links |
 | `/projects` | Redirects to `/experience` (projects were merged in) |
 | `/resume` | Web resume (summary, experience, education, skills) |
 

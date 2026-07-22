@@ -175,13 +175,13 @@ export const PROFILE = {
       ],
     },
     {
-      id: 'pogotowie',
-      name: 'Pogotowie',
+      id: 'controler',
+      name: 'ControlER',
       period: 'Feb 2024 - Dec 2024',
       url: 'https://www.linkedin.com/posts/gampzg_dedykowane-rozwi%C4%85zanie-it-dla-wojew%C3%B3dzkiej-activity-7482384590997889024-lTta',
       stack: ['Angular v7', 'TypeScript', 'RxJS', 'Angular CDK'],
       overview:
-        'Pogotowie is a workforce scheduling system for a regional emergency medical service, coordinating shifts and vacations for 50+ resources that were previously hard to plan and keep in sync.',
+        'ControlER is a comprehensive platform for emergency medical services that digitizes daily operations — vehicles and equipment, road cards, mandatory shift checks, problem reporting, medicine tracking, and employee schedules — so teams and coordinators share one system instead of paper processes and scattered documentation.',
       role: 'Front-end developer: built the scheduling UI, role-based access, and real-time notifications.',
       achievements: [
         'Developed scheduling features for 50+ resources using interactive tables and Angular CDK drag-and-drop.',
