@@ -19,7 +19,7 @@ export const PROFILE = {
     emailCompose:
       'https://mail.google.com/mail/?view=cm&fs=1&to=iyoussef.khamis@gmail.com',
     /** Served from apps/youssef-portfolio/public/ (root URL + this filename). */
-    resumePdf: 'Youssef-Khamis-Resume.pdf',
+    resumePdf: 'Youssef_Khamis_Resume.pdf',
   },
 
   /**
