@@ -35,6 +35,12 @@
                         ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3M11 8v6M8 11h6"></path></svg
                       ></span>
                     </button>
+                    @if (page.before) {
+                      <div class="ba-float" role="group" [attr.aria-label]="baLabel(page)">
+                        <button type="button" [class.on]="before" [attr.aria-pressed]="before" (click)="setBefore(p, page, true)" i18n="@@work.ba.before">Before</button>
+                        <button type="button" [class.on]="!before" [attr.aria-pressed]="!before" (click)="setBefore(p, page, false)" i18n="@@work.ba.after">After</button>
+                      </div>
+                    }
                   </div>
                 </div>
                 @if (!before && page.phone; as phone) {
@@ -87,24 +93,24 @@
               <p class="ptabs-hint" [id]="'ptabs-hint-' + p.key">
                 <svg class="ic" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M14 4.1 12 6"></path><path d="m5.1 8-2.9-.8"></path><path d="m6 12-1.9 2"></path><path d="M7.2 2.2 8 5.1"></path><path d="M9.04 9.04a.5.5 0 0 1 .63-.63l11 4a.5.5 0 0 1-.06.96l-4.21 1.05a1 1 0 0 0-.73.73l-1.05 4.21a.5.5 0 0 1-.96.06z"></path></svg
                 ><span i18n="@@work.pick">Choose a page to preview</span>
+                @if (hasBefore(p)) {
+                  <span class="ba-key" aria-hidden="true"
+                    ><svg class="ic" viewBox="0 0 24 24" width="15" height="15"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path class="ba-half" d="M12 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6z"></path></svg
+                    ><ng-container i18n="@@work.ba.key">Before and after</ng-container></span
+                  >
+                }
               </p>
               <div class="ptabs" role="group" [attr.aria-labelledby]="'ptabs-hint-' + p.key">
                 @for (pg of p.pages; track pg.id) {
                   <button type="button" appPress [class.on]="pg.id === page.id" [attr.aria-pressed]="pg.id === page.id" (click)="pickPage(p, pg.id)">
                     {{ pg.label }}
+                    @if (pg.before) {
+                      <svg class="ic ba-mark" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path class="ba-half" d="M12 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6z"></path></svg
+                      ><span class="sr" i18n="@@work.ba.has">(before and after)</span>
+                    }
                   </button>
                 }
               </div>
-              @if (page.before) {
-                @let before = isBefore(p, page);
-                <div class="ba" role="group" [attr.aria-label]="baLabel(page)">
-                  <span class="ba-q" i18n="@@work.ba.q">Redesign</span>
-                  <div class="ba-seg">
-                    <button type="button" [class.on]="before" [attr.aria-pressed]="before" (click)="setBefore(p, page, true)" i18n="@@work.ba.before">Before</button>
-                    <button type="button" [class.on]="!before" [attr.aria-pressed]="!before" (click)="setBefore(p, page, false)" i18n="@@work.ba.after">After</button>
-                  </div>
-                </div>
-              }
               @if (page.liveUrl; as live) {
                 <a class="live-link" [href]="live" target="_blank" rel="noopener"
                   ><span class="ll-k"><span class="live-dot" aria-hidden="true"></span><ng-container i18n="@@work.live">Live</ng-container></span><span class="ll-u" dir="ltr">{{ liveLabel(live) }}</span
