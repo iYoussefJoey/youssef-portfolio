@@ -1,0 +1,445 @@
+/* Joey Frost UI: global layer.
+   Tokens, base, type, layout primitives and the shared control states (rising fill, press, loading, reveal).
+   Each section's own rules live in its component stylesheet (ViewEncapsulation.None, so selectors stay as designed). */
+@import './styles/tokens.css';
+
+/* ---------- base ---------- */
+body {
+  margin: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+.root {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Lexend', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+.cq {
+  container-type: inline-size;
+  container-name: page;
+}
+/* Section components render their own <header>/<section>/<footer>; the host element adds no box. */
+:where(
+    app-header,
+    app-hero,
+    app-what-i-do,
+    app-inspect-card,
+    app-work,
+    app-lightbox,
+    app-experience,
+    app-skills,
+    app-design-system,
+    app-contact,
+    app-footer
+  ) {
+  display: contents;
+}
+a {
+  color: inherit;
+}
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+.ic {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.wrap {
+  max-width: 1296px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.mono {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+}
+/* Content that differs per theme is rendered for both themes and the CSS shows the current one, so it is right
+   even before its section has hydrated. */
+.root[data-theme='light'] .theme-dark,
+.root[data-theme='dark'] .theme-light {
+  display: none;
+}
+
+/* ---------- sections and type ---------- */
+.sec {
+  padding: 72px 0;
+  scroll-margin-top: 64px;
+}
+.sec-alt {
+  background: var(--surf);
+}
+.sec-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.eyebrow {
+  font: 500 13px/1.4 'Geist Mono', monospace;
+  color: var(--primary);
+  letter-spacing: 0.02em;
+}
+.h2 {
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 720;
+  letter-spacing: -0.035em;
+}
+.lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 60ch;
+}
+.ticks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ticks li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.ticks li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: var(--surf2);
+}
+/* the check's visible stroke is centred in its 18px box (rotating the L by its own box left it low and right) */
+.ticks li::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 4.5px;
+  width: 6px;
+  height: 9px;
+  border: solid var(--primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.kind-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  background: var(--ice);
+  color: #0a1633;
+  white-space: nowrap;
+}
+.kind-chip.k-both {
+  background: var(--primary);
+  color: var(--on-p);
+}
+.side-ic {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--surf2);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.cnt {
+  font: 500 12px 'Geist Mono', monospace;
+  color: var(--muted);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  height: 52px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-p {
+  background-color: var(--primary);
+  color: var(--on-p);
+}
+.btn-s {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+
+/* ---------- rising fill: a circle of the hover colour rises from below the control ---------- */
+.btn,
+.soc,
+.ptabs button,
+.want button,
+.tile {
+  --fill-c: var(--hov);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    color 0.22s cubic-bezier(0.2, 0, 0, 1),
+    border-color 0.22s cubic-bezier(0.2, 0, 0, 1),
+    background-color 0.22s cubic-bezier(0.2, 0, 0, 1),
+    transform 0.35s cubic-bezier(0.34, 1.35, 0.64, 1),
+    border-radius 0.35s cubic-bezier(0.34, 1.35, 0.64, 1),
+    box-shadow 0.22s ease,
+    --fill 0.25s cubic-bezier(0.3, 0, 1, 1);
+}
+.btn:hover,
+.soc:hover,
+.ptabs button:hover,
+.want button:hover,
+.tile:hover,
+.tile:active,
+.btn:focus-visible,
+.soc:focus-visible,
+.ptabs button:focus-visible,
+.want button:focus-visible {
+  --fill: 101%;
+  transition:
+    color 0.3s cubic-bezier(0.2, 0, 0, 1) 0.08s,
+    border-color 0.3s cubic-bezier(0.2, 0, 0, 1),
+    background-color 0.22s cubic-bezier(0.2, 0, 0, 1),
+    transform 0.35s cubic-bezier(0.34, 1.35, 0.64, 1),
+    border-radius 0.35s cubic-bezier(0.34, 1.35, 0.64, 1),
+    box-shadow 0.22s ease,
+    --fill 0.5s cubic-bezier(0.3, 0, 0.2, 1);
+}
+.root :is(.btn, .soc, .ptabs button, .want button, .tile),
+.root .menu a.menu-hire:hover {
+  background-image: radial-gradient(
+    circle at 50% 140%,
+    var(--fill-c) var(--fill),
+    transparent calc(var(--fill) + 1px)
+  );
+  background-repeat: no-repeat;
+}
+/* label colours while filled */
+.btn-p:hover,
+.btn-p:focus-visible {
+  background-color: var(--primary);
+  color: var(--hov-t);
+  border-color: var(--primary);
+}
+.btn-s:hover,
+.btn-s:focus-visible,
+.soc:hover,
+.soc:focus-visible,
+.ptabs button:hover,
+.ptabs button:focus-visible,
+.tile:hover,
+.tile:active {
+  color: var(--hov-t);
+  border-color: var(--primary);
+}
+/* press: the corners tighten and the control dips */
+.btn:active,
+.soc:active,
+.ptabs button:active,
+.want button:active {
+  transform: scale(0.97);
+  border-radius: 8px;
+}
+.motion-off .btn,
+.motion-off .soc,
+.motion-off .ptabs button,
+.motion-off .want button,
+.motion-off .tile {
+  transition: none;
+}
+
+/* ---------- loading on press: the label stays, a sheen passes and a progress line fills ---------- */
+.btn,
+.soc,
+.ptabs button,
+.want button,
+.filters button {
+  --sheen: rgba(255, 255, 255, 0.55);
+}
+.btn-s,
+.btn-light,
+.soc,
+.ptabs button:not(.on),
+.filters button,
+.want button.on {
+  --sheen: rgba(29, 70, 184, 0.16);
+}
+.root[data-theme='dark'] .btn-s,
+.root[data-theme='dark'] .soc,
+.root[data-theme='dark'] .ptabs button:not(.on),
+.root[data-theme='dark'] .filters button {
+  --sheen: rgba(155, 184, 255, 0.22);
+}
+.root :is(.btn, .soc, .ptabs button, .want button, .filters button)[data-busy],
+.root .btn.is-busy {
+  cursor: progress;
+  transform: none;
+  background-image:
+    linear-gradient(100deg, transparent 30%, var(--sheen) 50%, transparent 70%),
+    linear-gradient(currentColor, currentColor);
+  background-size:
+    300% 100%,
+    0% 3px;
+  background-position:
+    100% 0,
+    0 100%;
+  background-repeat: no-repeat;
+  animation:
+    frost-sheen 0.8s linear 2,
+    frost-bar 1.15s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+.root .btn.is-busy {
+  animation:
+    frost-sheen 0.8s linear 1,
+    frost-bar 0.8s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+@keyframes frost-sheen {
+  from {
+    background-position:
+      100% 0,
+      0 100%;
+  }
+  to {
+    background-position:
+      0 0,
+      0 100%;
+  }
+}
+@keyframes frost-bar {
+  from {
+    background-size:
+      300% 100%,
+      0% 3px;
+  }
+  to {
+    background-size:
+      300% 100%,
+      100% 3px;
+  }
+}
+.root.motion-off :is(.btn, .soc, .ptabs button, .want button, .filters button)[data-busy],
+.root.motion-off .btn.is-busy {
+  animation: none;
+  background-size:
+    300% 100%,
+    100% 3px;
+  background-image: none, linear-gradient(currentColor, currentColor);
+}
+
+/* ---------- grow reveal: blocks grow in once, the first time they are on screen ---------- */
+.reveal-on.motion-on .gr {
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.6s ease,
+    transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s;
+}
+.reveal-on.motion-on .gr[data-in] {
+  opacity: 1;
+  transform: none;
+}
+/* promoted to a layer only until they have appeared */
+.reveal-on.motion-on .gr:not([data-in]),
+.reveal-on.motion-on .io:not([data-in]) {
+  will-change: transform, opacity;
+}
+
+/* ---------- Motion off and reduced motion: nothing moves ---------- */
+.motion-off,
+.motion-off * {
+  animation: none !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- breakpoints: container queries on .cq ---------- */
+@container page (min-width: 700px) {
+  .wrap {
+    padding: 0 32px;
+  }
+  .sec {
+    padding: 96px 0;
+    scroll-margin-top: 72px;
+  }
+  .h2 {
+    font-size: 44px;
+  }
+  .lead {
+    font-size: 18px;
+  }
+}
+@container page (min-width: 1100px) {
+  .wrap {
+    padding: 0 48px;
+  }
+  .sec {
+    padding: 120px 0;
+    scroll-margin-top: 80px;
+  }
+  .h2 {
+    font-size: 56px;
+  }
+}
