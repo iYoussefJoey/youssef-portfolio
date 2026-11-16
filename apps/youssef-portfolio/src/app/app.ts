@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@an
 import { HeaderComponent } from './sections/header/header.component';
 import { HeroComponent } from './sections/hero/hero.component';
 import { WhatIDoComponent } from './sections/what-i-do/what-i-do.component';
+import { WorkComponent } from './sections/work/work.component';
 import { MotionService } from './shared/motion.service';
 import { RevealObserver } from './shared/reveal.directive';
 import { ThemeService } from './shared/theme.service';
@@ -17,6 +18,7 @@ import { ThemeService } from './shared/theme.service';
     HeaderComponent,
     HeroComponent,
     WhatIDoComponent,
+    WorkComponent,
   ],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

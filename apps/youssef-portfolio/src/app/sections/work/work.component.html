@@ -1,0 +1,127 @@
+<section class="sec" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="work-head gr" appReveal>
+      <div class="sec-head" style="margin-bottom: 0">
+        <p class="eyebrow">03 · Selected work</p>
+        <h2 class="h2" id="work-h">Things I designed and built</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Filter projects">
+        @for (f of filters; track f.id) {
+          <button type="button" appPress [class.on]="filter() === f.id" [attr.aria-pressed]="filter() === f.id" (click)="filter.set(f.id)">
+            {{ f.label }} <span class="cnt">{{ f.count }}</span>
+          </button>
+        }
+      </div>
+    </div>
+    <div class="grid-work">
+      @for (c of cards(); track c.project.title) {
+        @let p = c.project;
+        <article class="proj gr" appReveal [class]="'t-' + p.type" [class.feat]="c.feat" [class.wide]="c.wide">
+          <div class="thumb">
+            @if (p.type === 'pages') {
+              @let page = this.page(p);
+              <div class="pages-vis" [class.no-phone]="!page.phone">
+                <div class="dev-desk">
+                  <div class="bar"><i></i><i></i><i></i><span class="mono url">{{ p.url }}</span></div>
+                  <div class="shot-area">
+                    <button
+                      type="button"
+                      class="zoom"
+                      (click)="zoom(page.desktop, page.label + ' page on desktop', 'wide', $event)"
+                      [attr.aria-label]="'Open the ' + page.label + ' page full size'"
+                    >
+                      @for (src of [page.desktop.src]; track src) {
+                        <img [ngSrc]="src" [width]="page.desktop.width" [height]="page.desktop.height" [alt]="page.label + ' page, desktop'" decoding="async" />
+                      }
+                      <span class="zoom-ic" aria-hidden="true"
+                        ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3M11 8v6M8 11h6"></path></svg
+                      ></span>
+                    </button>
+                  </div>
+                </div>
+                @if (page.phone; as phone) {
+                  <div class="dev-phone">
+                    <div class="shot-area">
+                      <button
+                        type="button"
+                        class="zoom"
+                        (click)="zoom(phone, page.label + ' page on a phone', 'phone', $event)"
+                        [attr.aria-label]="'Open the ' + page.label + ' phone page full size'"
+                      >
+                        @for (src of [phone.src]; track src) {
+                          <img [ngSrc]="src" [width]="phone.width" [height]="phone.height" [alt]="page.label + ' page, phone'" decoding="async" />
+                        }
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else if (p.type === 'code') {
+              <div class="nda mono" role="group" aria-label="Illustrative code snippet">
+                <div class="nda-top">
+                  <span>{{ p.file }}</span
+                  ><span class="nda-tag"
+                    ><svg class="ic" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg
+                    >NDA · shown as code</span
+                  >
+                </div>
+                @for (ln of p.code; track $index) {
+                  <div [class]="ln.c">{{ ln.t }}</div>
+                }
+              </div>
+            } @else {
+              <button
+                type="button"
+                class="zoom"
+                (click)="zoom(p.picture, p.alt, 'wide', $event)"
+                [attr.aria-label]="p.type === 'gap' ? 'Open the GapMap picture full size' : 'Open the picture full size'"
+              >
+                <img class="gap-img" [ngSrc]="p.picture.src" [width]="p.picture.width" [height]="p.picture.height" [alt]="p.alt" decoding="async" />
+                <span class="zoom-ic" aria-hidden="true"
+                  ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3M11 8v6M8 11h6"></path></svg
+                ></span>
+              </button>
+            }
+          </div>
+          <div class="proj-body">
+            <div class="proj-meta">
+              <span class="kind-chip" [class]="'k-' + p.kind">{{ kindLabels[p.kind] }}</span><span>{{ p.meta }}</span>
+            </div>
+            <h3>{{ p.title }}</h3>
+            <p>{{ p.desc }}</p>
+            @if (p.type === 'pages') {
+              @let page = this.page(p);
+              <p class="ptabs-hint" [id]="'ptabs-hint-' + p.key">
+                <svg class="ic" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M14 4.1 12 6"></path><path d="m5.1 8-2.9-.8"></path><path d="m6 12-1.9 2"></path><path d="M7.2 2.2 8 5.1"></path><path d="M9.04 9.04a.5.5 0 0 1 .63-.63l11 4a.5.5 0 0 1-.06.96l-4.21 1.05a1 1 0 0 0-.73.73l-1.05 4.21a.5.5 0 0 1-.96.06z"></path></svg
+                ><span>Choose a page to preview</span>
+              </p>
+              <div class="ptabs" role="group" [attr.aria-labelledby]="'ptabs-hint-' + p.key">
+                @for (pg of p.pages; track pg.label) {
+                  <button type="button" appPress [class.on]="pg.label === page.label" [attr.aria-pressed]="pg.label === page.label" (click)="pickPage(p, pg.label)">
+                    {{ pg.label }}
+                  </button>
+                }
+              </div>
+              @if (page.liveUrl; as live) {
+                <a class="live-link" [href]="live" target="_blank" rel="noopener"
+                  ><span class="ll-k"><span class="live-dot" aria-hidden="true"></span>Live</span><span class="ll-u">{{ liveLabel(live) }}</span
+                  ><svg class="ic" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"></path></svg
+                ></a>
+              }
+            }
+            <ul class="tags">
+              @for (t of p.tags; track t) {
+                <li>{{ t }}</li>
+              }
+            </ul>
+          </div>
+        </article>
+      }
+    </div>
+    <p class="nda-note gr" appReveal>
+      <svg class="ic" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg
+      >GapMap and Safesys use the images GAMP published. The other GAMP projects are under NDA, so they are shown as illustrative code.
+    </p>
+  </div>
+  <app-lightbox />
+</section>
