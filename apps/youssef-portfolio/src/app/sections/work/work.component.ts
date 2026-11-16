@@ -68,6 +68,11 @@ export class WorkComponent {
     this.selectedPage.update((sel) => ({ ...sel, [p.key]: id }));
   }
 
+  /** Some of this project's pages have an old version to compare (their tabs carry the before / after mark). */
+  protected hasBefore(p: PagesProject): boolean {
+    return p.pages.some((pg) => !!pg.before);
+  }
+
   protected isBefore(p: PagesProject, page: Page): boolean {
     return !!page.before && this.showBefore().has(`${p.key}:${page.id}`);
   }
