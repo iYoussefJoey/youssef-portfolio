@@ -70,7 +70,7 @@ export const QUOTES: readonly Quote[] = [
     ],
     source: $localize`:@@quote.amr.source:LinkedIn recommendation · Nov 2026`,
     initials: 'AM',
-    name: $localize`:@@quote.amr.name:Amr Mahomud`,
+    name: $localize`:@@quote.amr.name:Amr Mahmoud`,
     title: $localize`:@@quote.amr.title:UI/UX Team Leader, my manager at Monglish`,
   },
   {
