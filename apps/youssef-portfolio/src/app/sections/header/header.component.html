@@ -30,7 +30,7 @@
         i18n="@@hire"
         >Hire me</a
       >
-      <a class="iconbtn lang-btn" [href]="other.href" [attr.hreflang]="other.lang" [attr.lang]="other.lang" [attr.aria-label]="other.name">{{
+      <a class="iconbtn lang-btn" [href]="otherHref()" [attr.hreflang]="other.lang" [attr.lang]="other.lang" [attr.aria-label]="other.name">{{
         other.short
       }}</a>
       <button class="iconbtn" type="button" [attr.aria-label]="themeLabel()" (click)="theme.toggle()">
@@ -59,7 +59,7 @@
       @for (l of links; track l.id) {
         <a [href]="'#' + l.id" [appScrollSpy]="l.id" (click)="closeMenu()">{{ l.label }}</a>
       }
-      <a class="menu-lang" [href]="other.href" [attr.hreflang]="other.lang" [attr.lang]="other.lang">{{ other.name }}</a>
+      <a class="menu-lang" [href]="otherHref()" [attr.hreflang]="other.lang" [attr.lang]="other.lang">{{ other.name }}</a>
       <a class="btn btn-p menu-hire" href="#contact" appPress (click)="closeMenu()" i18n="@@hire">Hire me</a>
     </nav>
   }

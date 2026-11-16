@@ -22,6 +22,11 @@ export class HeaderComponent {
 
   /** The same page in the other language. */
   protected readonly other = OTHER_LANG[currentLang()];
+  /** ...opened at the section in view (both pages share the section ids), so switching language keeps the visitor's place. */
+  protected readonly otherHref = computed(() => {
+    const id = this.spy.current();
+    return id && id !== 'top' ? `${this.other.href}#${id}` : this.other.href;
+  });
 
   protected readonly links = [
     { id: 'work', label: $localize`:@@nav.work:Work` },
