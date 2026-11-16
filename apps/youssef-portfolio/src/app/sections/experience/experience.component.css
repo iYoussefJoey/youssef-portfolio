@@ -297,9 +297,6 @@
   .q:first-of-type:nth-last-of-type(odd) {
     grid-column: 1/-1;
   }
-  .q:first-of-type:nth-last-of-type(odd) blockquote {
-    max-width: 72ch;
-  }
 }
 @container page (min-width: 1100px) {
   .exp-grid {
@@ -310,6 +307,12 @@
   .exp-side {
     position: sticky;
     top: 120px;
+  }
+  /* the full-row quote reads in two columns, so its lines stay a comfortable length and the card is filled in
+     both directions (a single capped block left half the card empty on the Arabic page) */
+  .q:first-of-type:nth-last-of-type(odd) blockquote {
+    columns: 2;
+    column-gap: 48px;
   }
 }
 
