@@ -1,0 +1,30 @@
+/* Footer */
+.foot {
+  padding: 28px 0 96px;
+}
+.foot-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.totop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--text);
+}
+.totop:hover {
+  color: var(--primary);
+}
+@container page (min-width: 700px) {
+  .foot-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
