@@ -1,0 +1,303 @@
+/* 04 · Experience */
+.exp-grid {
+  display: grid;
+  gap: 28px;
+}
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.lg-bar {
+  width: 120px;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--fe));
+}
+
+/* timeline */
+.tl {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  padding-left: 28px;
+}
+.tl::before,
+.tl::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  border-radius: 2px;
+}
+.tl::before {
+  background: var(--line);
+}
+.tl::after {
+  background: var(--primary);
+  transform-origin: top;
+}
+.reveal-on.motion-on .tl::after {
+  transform: scaleY(0);
+  transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+.reveal-on.motion-on .tl[data-in]::after {
+  transform: scaleY(1);
+}
+.motion-off .tl::after {
+  animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl::after {
+    animation: none !important;
+  }
+}
+.tl-item {
+  position: relative;
+  list-style: none;
+}
+.reveal-on.motion-on .tl-item:nth-child(even) > .gr {
+  transition-delay: 0.12s;
+}
+.tl-dot {
+  position: absolute;
+  z-index: 1;
+  left: -26px;
+  top: 30px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surf);
+  border: 3px solid var(--primary);
+  box-sizing: border-box;
+}
+
+/* role cards */
+.role {
+  position: relative;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: visible;
+}
+.role-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.role h3 {
+  font-size: 21px;
+  line-height: 1.3;
+  font-weight: 670;
+  letter-spacing: -0.02em;
+}
+.role-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  position: relative;
+  z-index: 1;
+}
+.role-title .when {
+  font: 500 13px 'Geist Mono', monospace;
+  color: var(--primary);
+  white-space: nowrap;
+}
+.org {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: -6px;
+}
+.role .org,
+.role .ticks,
+.role .spec,
+.role-top {
+  position: relative;
+  z-index: 1;
+}
+.edu {
+  background: transparent;
+  border-style: dashed;
+}
+
+/* year watermark: a soft gradient fill (an outline showed the font's overlapping strokes) */
+.yr {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  font-size: 56px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: transparent;
+  background: linear-gradient(180deg, var(--line) 10%, rgba(214, 223, 243, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+}
+.root[data-theme='dark'] .yr {
+  background: linear-gradient(180deg, #2c4482 10%, rgba(44, 68, 130, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* the Design–Code mix of each role */
+.spec {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 11px 'Geist Mono', monospace;
+  color: var(--muted);
+  margin: 4px 0 4px;
+}
+.spec-bar {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--fe));
+  opacity: 0.9;
+}
+.spec-dot {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: var(--surf);
+  border: 3px solid var(--text);
+  box-sizing: border-box;
+}
+
+/* LinkedIn recommendations */
+.quotes {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+.q-k {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+.q {
+  margin: 0;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--surf);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+.q blockquote {
+  margin: 0;
+}
+.q blockquote p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.q figcaption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+.q-av {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ice);
+  color: #1d46b8;
+  font-weight: 700;
+  font-size: 14px;
+}
+.q-who {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.q-who b {
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 650;
+}
+.q-link {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.q-src {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 12px 'Geist Mono', monospace;
+  color: var(--muted);
+}
+.q-src svg {
+  width: 16px;
+  height: 16px;
+  color: #0a66c2;
+}
+.root[data-theme='dark'] .q-src svg {
+  color: #70b5f9;
+}
+
+@container page (min-width: 700px) {
+  .yr {
+    font-size: 72px;
+  }
+  .quotes {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .q-k,
+  .q-link {
+    grid-column: 1/-1;
+  }
+  .q {
+    padding: 24px;
+  }
+}
+@container page (min-width: 1100px) {
+  .exp-grid {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .exp-side {
+    position: sticky;
+    top: 120px;
+  }
+}
