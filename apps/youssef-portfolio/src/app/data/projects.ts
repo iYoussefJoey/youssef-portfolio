@@ -21,6 +21,7 @@ export const PROJECTS: readonly Project[] = [
         label: $localize`:@@page.kids-courses:Kids Courses`,
         desktop: desktop('img/screens/monglish-kids-courses-desktop.webp', 1160, 630),
         liveUrl: 'https://monglish.co.uk/ar/kids-courses',
+        before: { src: 'img/screens/before/monglish-kids-courses-full.webp', width: 298, height: 2000 },
       },
       {
         id: 'adult-courses',
@@ -42,13 +43,15 @@ export const PROJECTS: readonly Project[] = [
         desktop: desktop('img/screens/monglish-kids360-desktop.webp'),
         phone: phone('img/screens/monglish-kids360-phone.webp'),
         liveUrl: 'https://monglish.co.uk/kids360',
+        before: { src: 'img/screens/before/monglish-kids360-full.webp', width: 277, height: 2000 },
       },
       {
         id: 'blog',
         label: $localize`:@@page.blog:Blog`,
         desktop: desktop('img/screens/monglish-blog-desktop.webp'),
         phone: phone('img/screens/monglish-blog-phone.webp'),
-        liveUrl: 'https://monglish.co.uk/ar/blog',
+        // the live blog (monglish.co.uk/ar/blog) is still the old design, so it is the before and there is no Live link yet
+        before: { src: 'img/screens/before/monglish-blog-full.webp', width: 665, height: 2000 },
       },
     ],
   },
