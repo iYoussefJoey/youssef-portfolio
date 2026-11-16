@@ -1,21 +1,22 @@
 <header class="head">
   <div class="wrap head-row">
     <div class="head-id">
-      <a class="logo" href="#top"><app-logo-mark class="mark" /><span class="logo-name">Youssef Khamis</span></a>
+      <a class="logo" href="#top"><app-logo-mark class="mark" /><span class="logo-name" i18n="@@name">Youssef Khamis</span></a>
       <button
         class="nav-motion"
         type="button"
         aria-label="Motion"
+        i18n-aria-label="@@motion.label"
         [attr.aria-pressed]="motion.on()"
         (click)="motion.toggle()"
       >
         <span class="mt-track" [class.motion-on]="motion.on()" [class.motion-off]="!motion.on()" aria-hidden="true">
-          <span class="mt-text">Motion</span><span class="mt-thumb"></span>
+          <span class="mt-text" i18n="@@motion.label">Motion</span><span class="mt-thumb"></span>
         </span>
       </button>
     </div>
     <div class="head-act">
-      <nav class="nav" aria-label="Main">
+      <nav class="nav" aria-label="Main" i18n-aria-label="@@nav.aria">
         @for (l of links; track l.id) {
           <a class="nl" [href]="'#' + l.id" [appScrollSpy]="l.id">{{ l.label }}</a>
         }
@@ -26,14 +27,13 @@
         appPress
         [attr.data-done]="hireDone() ? '' : null"
         (click)="pressHire()"
+        i18n="@@hire"
         >Hire me</a
       >
-      <button
-        class="iconbtn"
-        type="button"
-        [attr.aria-label]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
-        (click)="theme.toggle()"
-      >
+      <a class="iconbtn lang-btn" [href]="other.href" [attr.hreflang]="other.lang" [attr.lang]="other.lang" [attr.aria-label]="other.name">{{
+        other.short
+      }}</a>
+      <button class="iconbtn" type="button" [attr.aria-label]="themeLabel()" (click)="theme.toggle()">
         @if (theme.isDark()) {
           <svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
             <circle cx="12" cy="12" r="4"></circle>
@@ -45,13 +45,7 @@
           </svg>
         }
       </button>
-      <button
-        class="iconbtn menu-btn"
-        type="button"
-        [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
-        [attr.aria-expanded]="menuOpen()"
-        (click)="toggleMenu()"
-      >
+      <button class="iconbtn menu-btn" type="button" [attr.aria-label]="menuLabel()" [attr.aria-expanded]="menuOpen()" (click)="toggleMenu()">
         @if (menuOpen()) {
           <svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
         } @else {
@@ -61,11 +55,12 @@
     </div>
   </div>
   @if (menuOpen()) {
-    <nav class="menu fade" aria-label="Main menu">
+    <nav class="menu fade" aria-label="Main menu" i18n-aria-label="@@nav.menu">
       @for (l of links; track l.id) {
         <a [href]="'#' + l.id" [appScrollSpy]="l.id" (click)="closeMenu()">{{ l.label }}</a>
       }
-      <a class="btn btn-p menu-hire" href="#contact" appPress (click)="closeMenu()">Hire me</a>
+      <a class="menu-lang" [href]="other.href" [attr.hreflang]="other.lang" [attr.lang]="other.lang">{{ other.name }}</a>
+      <a class="btn btn-p menu-hire" href="#contact" appPress (click)="closeMenu()" i18n="@@hire">Hire me</a>
     </nav>
   }
 </header>

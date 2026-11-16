@@ -195,14 +195,14 @@
   border-top: 2px solid var(--primary);
 }
 .hash {
-  font: 500 12px 'Geist Mono', monospace;
+  font: 500 12px 'Geist Mono', 'Readex Pro', monospace;
   color: var(--muted);
 }
 .msg b {
   font-weight: 650;
 }
 .ptag {
-  font: 500 11px 'Geist Mono', monospace;
+  font: 500 11px 'Geist Mono', 'Readex Pro', monospace;
   padding: 4px 8px;
   border-radius: 6px;
   background: var(--surf2);

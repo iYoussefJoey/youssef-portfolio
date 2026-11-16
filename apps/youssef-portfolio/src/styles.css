@@ -17,7 +17,7 @@ body {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Lexend', system-ui, sans-serif;
+  font-family: 'Lexend', 'Readex Pro', system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -88,7 +88,7 @@ ol {
   box-sizing: border-box;
 }
 .mono {
-  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-family: 'Geist Mono', 'Readex Pro', ui-monospace, monospace;
 }
 /* Content that differs per theme is rendered for both themes and the CSS shows the current one, so it is right
    even before its section has hydrated. */
@@ -112,7 +112,7 @@ ol {
   margin-bottom: 36px;
 }
 .eyebrow {
-  font: 500 13px/1.4 'Geist Mono', monospace;
+  font: 500 13px/1.4 'Geist Mono', 'Readex Pro', monospace;
   color: var(--primary);
   letter-spacing: 0.02em;
 }
@@ -189,7 +189,7 @@ ol {
   flex: none;
 }
 .cnt {
-  font: 500 12px 'Geist Mono', monospace;
+  font: 500 12px 'Geist Mono', 'Readex Pro', monospace;
   color: var(--muted);
 }
 
@@ -441,5 +441,38 @@ ol {
   }
   .h2 {
     font-size: 56px;
+  }
+}
+
+/* ---------- Arabic, right to left ---------- */
+/* Arabic letters join, so no letter-spacing; the big headings need taller lines for Arabic */
+html[lang='ar'] .root * {
+  letter-spacing: 0 !important;
+}
+html[lang='ar'] .h2 {
+  line-height: 1.3;
+}
+/* arrows point the reading direction */
+html[dir='rtl'] .ic-dir {
+  transform: scaleX(-1);
+}
+/* the loading line fills from the start side, and the sheen runs the other way */
+html[dir='rtl'] .root :is(.btn, .soc, .ptabs button, .want button, .filters button)[data-busy],
+html[dir='rtl'] .root .btn.is-busy {
+  background-position:
+    0 0,
+    100% 100%;
+  animation-name: frost-sheen-rtl, frost-bar;
+}
+@keyframes frost-sheen-rtl {
+  from {
+    background-position:
+      0 0,
+      100% 100%;
+  }
+  to {
+    background-position:
+      100% 0,
+      100% 100%;
   }
 }

@@ -2,10 +2,10 @@
   <div class="wrap">
     <div class="sec-head gr" appReveal>
       <p class="eyebrow">06 · Joey Frost UI</p>
-      <h2 class="h2" id="sys-h">This site runs on Joey Frost UI, my own design system</h2>
-      <p class="lead">One cool blue palette, one font family and three motion rules. Tap a colour to copy its code.</p>
+      <h2 class="h2" id="sys-h" i18n="@@sys.title">This site runs on Joey Frost UI, my own design system</h2>
+      <p class="lead" i18n="@@sys.lead">One cool blue palette, one font family and three motion rules. Tap a colour to copy its code.</p>
     </div>
-    <ul class="pal gr" appReveal aria-label="Colour palette">
+    <ul class="pal gr" appReveal aria-label="Colour palette" i18n-aria-label="@@sys.palette">
       @for (pal of palettes; track pal.theme) {
         @for (c of pal.colours; track c.role) {
         <li class="pal-item" [class]="'theme-' + pal.theme">
@@ -14,11 +14,11 @@
             class="cc"
             [style.background]="c.hex"
             [style.color]="c.ink"
-            [attr.aria-label]="'Copy ' + c.name + ' colour ' + c.hex"
+            [attr.aria-label]="copyLabel(c)"
             (click)="copy(c)"
           >
             <span class="cc-role mono">{{ c.role }}</span><span class="cc-name">{{ c.name }}</span
-            ><span class="cc-hex mono">{{ copied() === c.hex ? 'Copied!' : c.hex }}</span>
+            ><span class="cc-hex mono">{{ copied() === c.hex ? copiedLabel : c.hex }}</span>
           </button>
         </li>
         }
@@ -26,24 +26,24 @@
     </ul>
     <div class="sys-row">
       <div class="sys-card gr" appReveal>
-        <span class="sys-k mono">Type</span>
-        <div class="aa">Aa<span class="aa-m mono">Aa</span></div>
-        <p><b>Lexend</b> 300 to 800 for every word, made for easy reading. <b>Geist Mono</b> for code and labels.</p>
+        <span class="sys-k mono" i18n="@@sys.type">Type</span>
+        <div class="aa"><ng-container i18n="@@sys.aa">Aa</ng-container><span class="aa-m mono">Aa</span></div>
+        <p i18n="@@sys.type.text"><b>Lexend</b> 300 to 800 for every word, made for easy reading. <b>Geist Mono</b> for code and labels.</p>
       </div>
       <div class="sys-card gr" appReveal>
-        <span class="sys-k mono">Motion</span>
+        <span class="sys-k mono" i18n="@@motion.label">Motion</span>
         <ul class="ticks">
-          <li>Grow reveal as you scroll</li>
-          <li>Rising fill on hover, a loading sheen on press</li>
-          <li>One Motion switch turns it all off</li>
+          <li i18n="@@sys.motion.1">Grow reveal as you scroll</li>
+          <li i18n="@@sys.motion.2">Rising fill on hover, a loading sheen on press</li>
+          <li i18n="@@sys.motion.3">One Motion switch turns it all off</li>
         </ul>
       </div>
       <div class="sys-card gr" appReveal>
-        <span class="sys-k mono">Accessibility</span>
+        <span class="sys-k mono" i18n="@@sys.a11y">Accessibility</span>
         <ul class="ticks">
-          <li>WCAG 2.2: AAA contrast on all text</li>
-          <li>Light and dark mode</li>
-          <li>44 px touch targets, visible focus</li>
+          <li i18n="@@sys.a11y.1">WCAG 2.2: AAA contrast on all text</li>
+          <li i18n="@@sys.a11y.2">Light and dark mode</li>
+          <li i18n="@@sys.a11y.3">44 px touch targets, visible focus</li>
         </ul>
       </div>
     </div>

@@ -112,7 +112,7 @@
   z-index: 1;
 }
 .role-title .when {
-  font: 500 13px 'Geist Mono', monospace;
+  font: 500 13px 'Geist Mono', 'Readex Pro', monospace;
   color: var(--primary);
   white-space: nowrap;
 }
@@ -159,7 +159,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font: 500 11px 'Geist Mono', monospace;
+  font: 500 11px 'Geist Mono', 'Readex Pro', monospace;
   color: var(--muted);
   margin: 4px 0 4px;
 }
@@ -263,7 +263,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font: 500 12px 'Geist Mono', monospace;
+  font: 500 12px 'Geist Mono', 'Readex Pro', monospace;
   color: var(--muted);
 }
 .q-src svg {
@@ -301,4 +301,10 @@
     position: sticky;
     top: 120px;
   }
+}
+
+/* right to left: Design is on the right, so the Design-to-Code gradient runs the other way */
+html[dir='rtl'] .lg-bar,
+html[dir='rtl'] .spec-bar {
+  background: linear-gradient(270deg, var(--primary), var(--fe));
 }
