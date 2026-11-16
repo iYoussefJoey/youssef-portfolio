@@ -5,6 +5,14 @@
   padding: 28px 0 56px;
   transition: background-color 0.3s;
 }
+/* Clip sideways only (the lens sweep runs sideways): during the UX intro the lower elements are drawn up to 118px lower
+   (see the translate rules below) and must not be cut off at the bottom. */
+@supports (overflow: clip) {
+  .hero {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+}
 .hero-grid {
   display: grid;
   gap: 40px;
@@ -351,9 +359,45 @@
   background-image: radial-gradient(var(--grid) 1px, transparent 1px);
   background-size: 16px 16px;
 }
-.lens-ux .hero-main .el,
-.lens-code .hero-main .el {
-  margin-top: 40px;
+/* The UX and Code views open 40px above each element for its label. That space comes from translate, not margin: the
+   elements keep their UI layout and only their picture moves, so the intro settling on UI never shifts the layout
+   (a margin change there scored up to 0.4 layout shift). Each value is the running total of (40px - the UI margin):
+   status 30, name 22, role 10, intro 14, actions 26, links 20. */
+.lens-ux .hero-main,
+.lens-code .hero-main {
+  --ux-status: 10px;
+  --ux-name: 28px;
+  --ux-role: 58px;
+  --ux-intro: 84px;
+  --ux-ctas: 98px;
+  --ux-social: 118px;
+}
+.lens-ux .hero-main .status,
+.lens-code .hero-main .status {
+  translate: 0 var(--ux-status);
+}
+.lens-ux .hero-main .h-name,
+.lens-code .hero-main .h-name {
+  translate: 0 var(--ux-name);
+}
+.lens-ux .hero-main .h-role,
+.lens-code .hero-main .h-role {
+  translate: 0 var(--ux-role);
+}
+.lens-ux .hero-main .h-intro,
+.lens-code .hero-main .h-intro {
+  translate: 0 var(--ux-intro);
+}
+.lens-ux .hero-main .h-ctas,
+.lens-code .hero-main .h-ctas {
+  translate: 0 var(--ux-ctas);
+}
+.lens-ux .hero-main .h-social,
+.lens-code .hero-main .h-social {
+  translate: 0 var(--ux-social);
+}
+.motion-on .hero-main .el {
+  transition: translate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .lens-ux .el {
   outline: 1.5px dashed var(--wf-line);
@@ -374,6 +418,12 @@
 .lens-ux .h-name,
 .lens-ux .h-role {
   color: var(--wf-text);
+}
+/* In the wireframe the name and role turn monospace. Not in Arabic: Geist Mono has no Arabic letters, so they fell to
+   the system monospace font while the UI view uses the system sans-serif one, and the hero jumped (layout shift up to
+   0.4) when the intro settled on UI before Readex Pro had loaded. Arabic keeps the page font in both views. */
+html:not([lang='ar']) .lens-ux .h-name,
+html:not([lang='ar']) .lens-ux .h-role {
   font-family: 'Geist Mono', 'Readex Pro', monospace;
   font-weight: 600;
   letter-spacing: -0.03em;
