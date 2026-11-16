@@ -1,0 +1,511 @@
+/* Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 28px 0 56px;
+  transition: background-color 0.3s;
+}
+.hero-grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+.hero-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* "View this page as" */
+.lens-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.lens-q {
+  font: 500 12px 'Geist Mono', monospace;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.seg {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  background: var(--surf2);
+  border-radius: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 380px;
+}
+.seg button {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 15px 'Lexend', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.seg button:hover {
+  color: var(--text);
+}
+.seg button.on {
+  background: var(--surf);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(10, 22, 51, 0.14);
+}
+.lens-hint {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-top: 8px;
+  min-height: 20px;
+}
+
+/* identity */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+.av {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: none;
+  box-shadow:
+    0 0 0 3px var(--surf),
+    0 0 0 4px var(--line);
+}
+.av img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surf);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 550;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+  flex: none;
+}
+.h-name {
+  margin-top: 22px;
+  font-size: 40px;
+  line-height: 1.02;
+  font-weight: 760;
+  letter-spacing: -0.04em;
+  position: relative;
+}
+.h-role {
+  margin-top: 10px;
+  font-size: 19px;
+  font-weight: 620;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+}
+.h-intro {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 46ch;
+}
+.h-intro strong {
+  color: var(--text);
+  font-weight: 620;
+}
+.h-ctas {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 26px;
+  width: 100%;
+}
+.h-social {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  position: relative;
+}
+.soc {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background-color: var(--surf);
+  color: var(--text);
+}
+.soc-be span {
+  font: 800 15px/1 'Lexend', sans-serif;
+  letter-spacing: -0.04em;
+}
+
+/* portrait */
+.hero-side {
+  display: none;
+  position: relative;
+}
+.portrait {
+  display: block;
+  border-radius: 28px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: #000;
+  position: relative;
+}
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+  display: block;
+}
+.side-cap {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* UX sticky notes */
+.note {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  background: #fff1b8;
+  color: #3b3000;
+  font: 550 12px/1.35 'Lexend', sans-serif;
+  padding: 8px 10px;
+  border-radius: 4px 4px 4px 14px;
+  box-shadow: 0 8px 18px -10px rgba(59, 48, 0, 0.55);
+  width: 150px;
+  transform: rotate(-2deg);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.n1 {
+  right: -4px;
+  top: -34px;
+}
+.n2 {
+  right: 0;
+  top: -40px;
+  transform: rotate(2deg);
+}
+.n3 {
+  right: -4px;
+  bottom: -46px;
+}
+.n4 {
+  left: -24px;
+  top: 40px;
+}
+
+/* Code lens inspector panel */
+.inspector {
+  display: none;
+  margin-top: 24px;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  background: var(--code);
+  color: #ebf1ff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font: 400 12.5px/1.75 'Geist Mono', monospace;
+  border: 1px solid var(--line);
+}
+.insp-h {
+  display: flex;
+  justify-content: space-between;
+  color: #aab8d8;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.inspector .k {
+  color: #7fb2ff;
+}
+.inspector .v {
+  color: #f2c38b;
+}
+.inspector .c {
+  color: #aab8d8;
+}
+
+/* the line that sweeps across when the lens changes.
+   The design moved a 2px line with `left`; here a full-width layer carries the line on its left edge and moves
+   with transform (same path and timing), so the sweep is not counted as layout shift and runs off the main thread. */
+.sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+}
+.sweep::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--primary);
+  box-shadow: 0 0 28px 8px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+.motion-on .sweep {
+  animation: sweep 1s cubic-bezier(0.6, 0, 0.2, 1) both;
+}
+@keyframes sweep {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+.motion-off .sweep {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sweep {
+    display: none;
+  }
+}
+
+/* entrance */
+@keyframes growIn {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 9px rgba(22, 163, 74, 0);
+  }
+}
+.motion-on .a-up,
+.motion-on .a-grow {
+  animation: growIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transform-origin: left center;
+}
+.motion-on .dot {
+  animation: ping 1.6s ease-out 3;
+}
+
+/* lens: UX (wireframe) */
+.lens-ux {
+  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.lens-ux .hero-main .el,
+.lens-code .hero-main .el {
+  margin-top: 40px;
+}
+.lens-ux .el {
+  outline: 1.5px dashed var(--wf-line);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+.lens-ux .el::before {
+  content: attr(data-ux);
+  position: absolute;
+  left: -6px;
+  top: -30px;
+  font: 500 11px 'Geist Mono', monospace;
+  color: var(--wf-text);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+.lens-ux .h-name,
+.lens-ux .h-role {
+  color: var(--wf-text);
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.lens-ux .wf-lines,
+.lens-ux .wf-lines * {
+  color: transparent;
+}
+.lens-ux .wf-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 0.4em,
+    var(--wf) 0.4em 1.25em,
+    transparent 1.25em 1.65em
+  );
+}
+.lens-ux .btn {
+  background: transparent;
+  color: var(--wf-text);
+  border: 1.5px dashed var(--wf-line);
+}
+.lens-ux .soc,
+.lens-ux .pill {
+  color: var(--wf-text);
+  border-style: dashed;
+  border-color: var(--wf-line);
+  background: transparent;
+}
+.root .lens-ux .btn,
+.root .lens-ux .soc {
+  background-image: none;
+}
+.lens-ux .dot {
+  background: var(--wf-line);
+}
+.lens-ux .av img,
+.lens-ux .portrait img {
+  opacity: 0;
+}
+.lens-ux .av,
+.lens-ux .portrait {
+  background: var(--wf);
+  background-image:
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--wf-line) 50%, transparent calc(50% + 1px)),
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--wf-line) 50%, transparent calc(50% + 1px));
+}
+.lens-ux .note {
+  display: block;
+}
+.lens-ux .side-cap {
+  color: transparent;
+  background: repeating-linear-gradient(to bottom, transparent 0 0.3em, var(--wf) 0.3em 1.2em, transparent 1.2em 1.5em);
+  width: 70%;
+}
+
+/* lens: Code (inspector) */
+.lens-code {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.lens-code .el {
+  outline: 1px solid var(--primary);
+  outline-offset: 4px;
+  background-color: var(--tag-tint);
+}
+.lens-code .el::before {
+  content: attr(data-tag);
+  position: absolute;
+  left: -5px;
+  top: -30px;
+  background: var(--primary);
+  color: var(--on-p);
+  font: 500 11px/1.5 'Geist Mono', monospace;
+  padding: 2px 7px;
+  border-radius: 5px;
+  white-space: nowrap;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.lens-code .inspector {
+  display: block;
+}
+.lens-code .portrait img {
+  filter: saturate(0.6);
+}
+
+@container page (min-width: 700px) {
+  .hero {
+    padding: 40px 0 72px;
+  }
+  .hero-grid {
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 40px;
+  }
+  .hero-side {
+    display: block;
+  }
+  .h-name {
+    font-size: 58px;
+  }
+  .h-role {
+    font-size: 22px;
+  }
+  .h-intro {
+    font-size: 18px;
+  }
+  .h-ctas {
+    display: flex;
+    width: auto;
+  }
+  .h-ctas .btn {
+    padding: 0 22px;
+  }
+  .n4 {
+    left: -40px;
+  }
+}
+@container page (min-width: 1100px) {
+  .hero {
+    padding: 56px 0 96px;
+  }
+  .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 80px;
+  }
+  .h-name {
+    font-size: 76px;
+    letter-spacing: -0.04em;
+  }
+  .h-role {
+    font-size: 26px;
+  }
+  .h-intro {
+    font-size: 19px;
+  }
+  .portrait {
+    max-width: 460px;
+    margin-left: auto;
+  }
+  .side-cap {
+    justify-content: flex-end;
+  }
+}
