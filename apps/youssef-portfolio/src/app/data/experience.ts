@@ -29,7 +29,7 @@ export const ROLES: readonly Role[] = [
     specLabel: 'Mostly code',
     points: [
       'Built Angular features for 3 enterprise products (Safesys, Emitum, ControlER) with designers, QA and backend developers in Agile Scrum (GitLab merge requests, CI/CD, Jira).',
-      'Traced a slow workflow across frontend logic, backend responses and third-party libraries, helping cut load time from about 9 seconds to about 1 second.',
+      'Cut the Safesys alert counts from about 9 seconds to about 1: the front end was counting alerts by filtering the paginated table, so I asked the backend team for a dedicated count endpoint.',
       'Built a recurring-report scheduler (daily to yearly) with Reactive Forms and Angular Signals, and a shared notification service that keeps unread badges in sync across pages.',
       'Co-built gampfrontend, a shared Angular library in an NX monorepo (with the Safesys app and Keycloak auth), styled with Tailwind CSS and BEM.',
       'Wrote Jest unit tests for components, stores and business logic, reaching over 80% coverage on several features.',
