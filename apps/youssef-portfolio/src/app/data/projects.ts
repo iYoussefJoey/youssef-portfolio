@@ -17,27 +17,34 @@ export const PROJECTS: readonly Project[] = [
     tags: ['UI/UX', 'Next.js', 'Arabic RTL & English', 'WCAG 2.2'],
     pages: [
       {
+        id: 'kids-courses',
         label: 'Kids Courses',
         desktop: desktop('img/screens/monglish-kids-courses-desktop.webp', 1160, 630),
         liveUrl: 'https://monglish.co.uk/ar/kids-courses',
       },
       {
+        id: 'adult-courses',
         label: 'Adult Courses',
         desktop: desktop('img/screens/monglish-adult-courses-desktop.webp'),
         liveUrl: 'https://monglish.co.uk/ar/adult-courses',
+        before: { src: 'img/screens/before/monglish-adult-courses-full.webp', width: 363, height: 2000 },
       },
       {
+        id: 'ielts',
         label: 'IELTS',
         desktop: desktop('img/screens/monglish-ielts-desktop.webp'),
         liveUrl: 'https://monglish.co.uk/ar/ielts-courses',
+        before: { src: 'img/screens/before/monglish-ielts-full.webp', width: 416, height: 2000 },
       },
       {
+        id: 'kids360',
         label: 'Kids360',
         desktop: desktop('img/screens/monglish-kids360-desktop.webp'),
         phone: phone('img/screens/monglish-kids360-phone.webp'),
         liveUrl: 'https://monglish.co.uk/kids360',
       },
       {
+        id: 'blog',
         label: 'Blog',
         desktop: desktop('img/screens/monglish-blog-desktop.webp', 1000, 625),
         liveUrl: 'https://monglish.co.uk/ar/blog',
@@ -56,18 +63,21 @@ export const PROJECTS: readonly Project[] = [
     tags: ['Landing pages', 'Conversion flows', 'Mobile first', 'Arabic & English'],
     pages: [
       {
+        id: 'ai-for-teachers',
         label: 'AI for Teachers',
         desktop: desktop('img/screens/edulixa-ai-for-teachers-desktop.webp'),
         phone: phone('img/screens/edulixa-ai-for-teachers-phone.webp'),
         liveUrl: 'https://edulixa360.com/ai-for-teachers',
       },
       {
+        id: 'mental-math',
         label: 'Mental Math',
         desktop: desktop('img/screens/edulixa-mental-math-desktop.webp'),
         phone: phone('img/screens/edulixa-mental-math-phone.webp'),
         liveUrl: 'https://edulixa360.com/ar/mental-math',
       },
       {
+        id: 'courses-for-teachers',
         label: 'Courses for Teachers',
         desktop: desktop('img/screens/edulixa-courses-for-teachers-desktop.webp'),
         liveUrl: 'https://edulixa360.com/courses-for-teachers',

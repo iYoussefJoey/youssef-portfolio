@@ -20,18 +20,16 @@
           <div class="thumb">
             @if (p.type === 'pages') {
               @let page = this.page(p);
-              <div class="pages-vis" [class.no-phone]="!page.phone">
+              @let before = isBefore(p, page);
+              @let view = before ? 'before' : 'desktop';
+              @let shot = before ? page.before! : page.desktop;
+              <div class="pages-vis" [class.no-phone]="before || !page.phone">
                 <div class="dev-desk">
                   <div class="bar"><i></i><i></i><i></i><span class="mono url">{{ p.url }}</span></div>
                   <div class="shot-area">
-                    <button
-                      type="button"
-                      class="zoom"
-                      (click)="zoom(page.desktop, page.label + ' page on desktop', 'wide', $event)"
-                      [attr.aria-label]="'Open the ' + page.label + ' page full size'"
-                    >
-                      @for (src of [page.desktop.src]; track src) {
-                        <img [ngSrc]="src" [width]="page.desktop.width" [height]="page.desktop.height" [alt]="page.label + ' page, desktop'" decoding="async" />
+                    <button type="button" class="zoom" (click)="zoomPage(page, view, $event)" [attr.aria-label]="openLabel(page, view)">
+                      @for (src of [shot.src]; track src) {
+                        <img [ngSrc]="src" [width]="shot.width" [height]="shot.height" [alt]="shotAlt(page, view)" decoding="async" />
                       }
                       <span class="zoom-ic" aria-hidden="true"
                         ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3M11 8v6M8 11h6"></path></svg
@@ -39,17 +37,12 @@
                     </button>
                   </div>
                 </div>
-                @if (page.phone; as phone) {
+                @if (!before && page.phone; as phone) {
                   <div class="dev-phone">
                     <div class="shot-area">
-                      <button
-                        type="button"
-                        class="zoom"
-                        (click)="zoom(phone, page.label + ' page on a phone', 'phone', $event)"
-                        [attr.aria-label]="'Open the ' + page.label + ' phone page full size'"
-                      >
+                      <button type="button" class="zoom" (click)="zoomPage(page, 'phone', $event)" [attr.aria-label]="openLabel(page, 'phone')">
                         @for (src of [phone.src]; track src) {
-                          <img [ngSrc]="src" [width]="phone.width" [height]="phone.height" [alt]="page.label + ' page, phone'" decoding="async" />
+                          <img [ngSrc]="src" [width]="phone.width" [height]="phone.height" [alt]="shotAlt(page, 'phone')" decoding="async" />
                         }
                       </button>
                     </div>
@@ -96,12 +89,22 @@
                 ><span>Choose a page to preview</span>
               </p>
               <div class="ptabs" role="group" [attr.aria-labelledby]="'ptabs-hint-' + p.key">
-                @for (pg of p.pages; track pg.label) {
-                  <button type="button" appPress [class.on]="pg.label === page.label" [attr.aria-pressed]="pg.label === page.label" (click)="pickPage(p, pg.label)">
+                @for (pg of p.pages; track pg.id) {
+                  <button type="button" appPress [class.on]="pg.id === page.id" [attr.aria-pressed]="pg.id === page.id" (click)="pickPage(p, pg.id)">
                     {{ pg.label }}
                   </button>
                 }
               </div>
+              @if (page.before) {
+                @let before = isBefore(p, page);
+                <div class="ba" role="group" [attr.aria-label]="baLabel(page)">
+                  <span class="ba-q">Redesign</span>
+                  <div class="ba-seg">
+                    <button type="button" [class.on]="before" [attr.aria-pressed]="before" (click)="setBefore(p, page, true)">Before</button>
+                    <button type="button" [class.on]="!before" [attr.aria-pressed]="!before" (click)="setBefore(p, page, false)">After</button>
+                  </div>
+                </div>
+              }
               @if (page.liveUrl; as live) {
                 <a class="live-link" [href]="live" target="_blank" rel="noopener"
                   ><span class="ll-k"><span class="live-dot" aria-hidden="true"></span>Live</span><span class="ll-u">{{ liveLabel(live) }}</span
