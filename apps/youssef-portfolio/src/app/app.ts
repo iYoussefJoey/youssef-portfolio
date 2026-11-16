@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@angular/core';
+import { HeaderComponent } from './sections/header/header.component';
 import { MotionService } from './shared/motion.service';
 import { RevealObserver } from './shared/reveal.directive';
 import { ThemeService } from './shared/theme.service';
@@ -11,6 +12,7 @@ import { ThemeService } from './shared/theme.service';
 @Component({
   selector: 'app-root',
   imports: [
+    HeaderComponent,
   ],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
