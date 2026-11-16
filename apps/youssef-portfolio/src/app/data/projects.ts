@@ -101,7 +101,7 @@ export const PROJECTS: readonly Project[] = [
     kind: 'fe',
     picture: { src: 'img/safesys-pomiary.webp', width: 1073, height: 608 },
     alt: 'Safesys Pomiary measurement dashboard with a live line chart, shown on a laptop',
-    desc: 'A measurement dashboard (pomiary is Polish for measurements) that syncs the selected assets with the map, with consumption charts and a page-scoped Signals store that reduced API requests.',
+    desc: 'A measurement dashboard (pomiary is Polish for measurements) that syncs the selected assets with the map, with consumption charts and a page-scoped Signals store that reduced API requests. Alert counts went from about 9s to 1s once they came from a dedicated endpoint instead of a front-end table filter.',
     tags: ['Angular 22', 'Signals', 'RxJS', 'Charts'],
   },
   {

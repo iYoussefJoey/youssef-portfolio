@@ -4,7 +4,7 @@ export const STATS: readonly Stat[] = [
   { n: '15+', label: 'pages in 2 months', sub: '2 brands, mobile first, Arabic & English' },
   { n: '100+', label: 'components', sub: 'documented in my React library' },
   { n: '92', label: 'Lighthouse accessibility', sub: 'average of my 3 live pages, mobile' },
-  { n: '9s → 1s', label: 'load time', sub: 'a slow GAMP workflow I traced' },
+  { n: '9s → 1s', label: 'load time', sub: 'Safesys alert counts, moved to a backend endpoint' },
   { n: '80%+', label: 'test coverage', sub: 'Jest, on several Angular features' },
   { n: '~500', label: 'market stalls sold', sub: 'online with GapMap, which I designed' },
 ];
