@@ -1,0 +1,388 @@
+/* Header (sticky). No backdrop blur: blurring what scrolls underneath repaints every frame. */
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--head);
+  border-bottom: 1px solid var(--line);
+}
+.head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.head-id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 650;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.logo-name {
+  white-space: nowrap;
+}
+.mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: var(--on-p);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+.head-act {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* nav, with the scroll-spy underline */
+.nav {
+  display: none;
+  gap: 2px;
+}
+/* nav links use the same rising fill as the buttons */
+.nl {
+  --fill-c: var(--hov);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 550;
+  font-size: 15px;
+  background-image: radial-gradient(circle at 50% 140%, var(--fill-c) var(--fill), transparent calc(var(--fill) + 1px));
+  background-repeat: no-repeat;
+  transition:
+    color 0.22s cubic-bezier(0.2, 0, 0, 1),
+    --fill 0.25s cubic-bezier(0.3, 0, 1, 1);
+}
+.nl::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.3, 0, 0.2, 1);
+}
+.nl[data-on] {
+  color: var(--text);
+}
+.nl[data-on]::after {
+  transform: scaleX(1);
+}
+.nl:hover,
+.nl:focus-visible {
+  --fill: 101%;
+  color: var(--hov-t);
+  transition:
+    color 0.3s cubic-bezier(0.2, 0, 0, 1) 0.08s,
+    --fill 0.5s cubic-bezier(0.3, 0, 0.2, 1);
+}
+.motion-off .nl::after {
+  transition: none;
+}
+
+.iconbtn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: var(--surf);
+  color: var(--text);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+.iconbtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* phone menu */
+.menu {
+  position: absolute;
+  top: 68px;
+  left: 12px;
+  right: 12px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+  background: var(--surf);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+.menu a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 550;
+}
+.menu a:hover {
+  background: var(--surf2);
+}
+.menu a[data-on] {
+  color: var(--primary);
+  background: var(--surf2);
+  box-shadow: inset 3px 0 0 var(--primary);
+}
+.root[data-theme='dark'] .menu a[data-on] {
+  color: #a3beff;
+}
+.menu a.menu-hire {
+  justify-content: center;
+  margin-top: 6px;
+  color: var(--on-p);
+}
+.menu a.menu-hire:hover {
+  background-color: var(--primary);
+}
+/* While the ice fill covers it, the label takes the hover colour like every other primary button (AAA). */
+.menu a.menu-hire:hover,
+.menu a.menu-hire:focus-visible {
+  color: var(--hov-t);
+}
+@keyframes up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.motion-on .fade {
+  animation: up 0.3s ease-out both;
+}
+
+/* Hire me: grow, a little wiggle and a ring that spreads out. Every 5s, 3 times, then it rests.
+   It stops for good once the visitor reaches Contact or presses it, and never runs with Motion off. */
+.nav-hire {
+  display: none;
+}
+@keyframes hire-attn {
+  0%,
+  18%,
+  100% {
+    transform: scale(1) rotate(0);
+    box-shadow: 0 0 0 0 rgba(29, 70, 184, 0);
+  }
+  3% {
+    transform: scale(1.15) rotate(-3deg);
+    box-shadow: 0 0 0 0 rgba(29, 70, 184, 0.5);
+  }
+  6% {
+    transform: scale(1.13) rotate(3deg);
+  }
+  9% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+  12% {
+    transform: scale(0.97) rotate(0);
+  }
+  16% {
+    box-shadow: 0 0 0 14px rgba(29, 70, 184, 0);
+  }
+}
+@keyframes hire-attn-d {
+  0%,
+  18%,
+  100% {
+    transform: scale(1) rotate(0);
+    box-shadow: 0 0 0 0 rgba(155, 184, 255, 0);
+  }
+  3% {
+    transform: scale(1.15) rotate(-3deg);
+    box-shadow: 0 0 0 0 rgba(155, 184, 255, 0.55);
+  }
+  6% {
+    transform: scale(1.13) rotate(3deg);
+  }
+  9% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+  12% {
+    transform: scale(0.97) rotate(0);
+  }
+  16% {
+    box-shadow: 0 0 0 14px rgba(155, 184, 255, 0);
+  }
+}
+.motion-on .nav-hire {
+  animation: hire-attn 5s cubic-bezier(0.34, 1.3, 0.64, 1) 1.2s 3;
+}
+.root[data-theme='dark'].motion-on .nav-hire {
+  animation-name: hire-attn-d;
+}
+.nav-hire[data-done] {
+  animation: none;
+}
+
+/* Motion switch: the word lives inside the toggle. On: word first, knob at the end. Off: they trade places. */
+.nav-motion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0 2px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--text);
+  font: 600 13px 'Lexend', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+.mt-track {
+  --t: 22px;
+  --g: 4px;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  border-radius: 999px;
+  padding: 0 calc(var(--t) + var(--g) * 2 + 4px) 0 12px;
+  background: var(--primary);
+  color: var(--on-p);
+  transition:
+    padding 0.35s cubic-bezier(0.34, 1.35, 0.64, 1),
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+.mt-track.motion-off {
+  padding: 0 12px 0 calc(var(--t) + var(--g) * 2 + 4px);
+  background: var(--surf2);
+  box-shadow: inset 0 0 0 2px var(--line);
+  color: var(--muted);
+}
+.mt-text {
+  font: 600 12px/1 'Lexend', sans-serif;
+  white-space: nowrap;
+  user-select: none;
+}
+.mt-thumb {
+  position: absolute;
+  top: 50%;
+  left: calc(100% - var(--t) - var(--g));
+  width: var(--t);
+  height: var(--t);
+  margin-top: calc(var(--t) / -2);
+  border-radius: 50%;
+  background: var(--on-p);
+  transition:
+    left 0.35s cubic-bezier(0.34, 1.35, 0.64, 1),
+    width 0.2s ease,
+    background-color 0.2s ease;
+}
+.mt-track.motion-off .mt-thumb {
+  left: var(--g);
+  background: var(--muted);
+}
+.nav-motion:active .mt-thumb {
+  width: 28px;
+}
+.nav-motion:active .mt-track:not(.motion-off) .mt-thumb {
+  left: calc(100% - 28px - var(--g));
+}
+.nav-motion:hover .mt-track:not(.motion-off) {
+  background: var(--primary2);
+}
+.nav-motion:focus-visible {
+  outline: none;
+}
+.nav-motion:focus-visible .mt-track {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+@container page (max-width: 699px) {
+  .mark {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+  .logo {
+    gap: 8px;
+    font-size: 15px;
+  }
+  .head-id {
+    gap: 8px;
+  }
+  .mt-track {
+    --t: 20px;
+    height: 28px;
+    padding: 0 calc(var(--t) + var(--g) * 2 + 2px) 0 10px;
+  }
+  .mt-track.motion-off {
+    padding: 0 10px 0 calc(var(--t) + var(--g) * 2 + 2px);
+  }
+  .mt-text {
+    font-size: 11px;
+  }
+}
+/* Tablet (700–1099px): name, Motion switch, Hire me and theme fit the bar, but the four links do not
+   (they overlapped the Motion switch), so they stay in the menu. The inline nav starts at 1100px. */
+@container page (min-width: 700px) {
+  .head-row {
+    height: 72px;
+  }
+  .nav-hire {
+    display: inline-flex;
+    height: 44px;
+    padding: 0 18px;
+    font-size: 15px;
+    margin-left: 4px;
+  }
+  .menu {
+    top: 76px;
+  }
+  /* Hire me is already in the bar */
+  .menu a.menu-hire {
+    display: none;
+  }
+}
+@container page (min-width: 1100px) {
+  .head-row {
+    height: 80px;
+  }
+  .nav {
+    display: flex;
+  }
+  .menu-btn,
+  .menu {
+    display: none;
+  }
+}

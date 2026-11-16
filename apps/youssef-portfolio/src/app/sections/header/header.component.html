@@ -1,0 +1,71 @@
+<header class="head">
+  <div class="wrap head-row">
+    <div class="head-id">
+      <a class="logo" href="#top"><span class="mark">YK</span><span class="logo-name">Youssef Khamis</span></a>
+      <button
+        class="nav-motion"
+        type="button"
+        aria-label="Motion"
+        [attr.aria-pressed]="motion.on()"
+        (click)="motion.toggle()"
+      >
+        <span class="mt-track" [class.motion-on]="motion.on()" [class.motion-off]="!motion.on()" aria-hidden="true">
+          <span class="mt-text">Motion</span><span class="mt-thumb"></span>
+        </span>
+      </button>
+    </div>
+    <div class="head-act">
+      <nav class="nav" aria-label="Main">
+        @for (l of links; track l.id) {
+          <a class="nl" [href]="'#' + l.id" [appScrollSpy]="l.id">{{ l.label }}</a>
+        }
+      </nav>
+      <a
+        class="btn btn-p nav-hire"
+        href="#contact"
+        appPress
+        [attr.data-done]="hireDone() ? '' : null"
+        (click)="pressHire()"
+        >Hire me</a
+      >
+      <button
+        class="iconbtn"
+        type="button"
+        [attr.aria-label]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+        (click)="theme.toggle()"
+      >
+        @if (theme.isDark()) {
+          <svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+        } @else {
+          <svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        }
+      </button>
+      <button
+        class="iconbtn menu-btn"
+        type="button"
+        [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu()"
+      >
+        @if (menuOpen()) {
+          <svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+        } @else {
+          <svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        }
+      </button>
+    </div>
+  </div>
+  @if (menuOpen()) {
+    <nav class="menu fade" aria-label="Main menu">
+      @for (l of links; track l.id) {
+        <a [href]="'#' + l.id" [appScrollSpy]="l.id" (click)="closeMenu()">{{ l.label }}</a>
+      }
+      <a class="btn btn-p menu-hire" href="#contact" appPress (click)="closeMenu()">Hire me</a>
+    </nav>
+  }
+</header>
