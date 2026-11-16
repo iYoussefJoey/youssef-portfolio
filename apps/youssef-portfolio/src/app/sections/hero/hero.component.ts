@@ -12,7 +12,9 @@ import {
   signal,
   untracked,
 } from '@angular/core';
-import { LENS_HINTS, LINKS, Lens } from '../../data';
+import { LENS_HINTS } from '../../data/hero';
+import { LINKS } from '../../data/links';
+import type { Lens } from '../../data/models';
 import { ICON_PATHS } from '../../shared/icons';
 import { MotionService } from '../../shared/motion.service';
 import { PressFeedbackDirective } from '../../shared/press-feedback.directive';

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal } from '@angular/core';
-import { INSPECT_PARTS, InspectPart, InspectPartId } from '../../data';
+import type { InspectPart, InspectPartId } from '../../data/models';
+import { INSPECT_PARTS } from '../../data/what-i-do';
 import { RevealDirective } from '../../shared/reveal.directive';
 
 /**

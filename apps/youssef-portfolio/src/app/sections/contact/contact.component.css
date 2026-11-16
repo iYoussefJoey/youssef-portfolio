@@ -54,7 +54,7 @@
   inset-inline-end: -8px;
 }
 .code-word {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'Geist Mono', 'Readex Pro', monospace;
   font-weight: 600;
   color: #d8e3ff;
   letter-spacing: -0.04em;
@@ -99,6 +99,10 @@
   gap: 6px;
   margin-top: 24px;
 }
+/* "تطوير الواجهات" is wider than a third of a phone row, so in Arabic the columns follow their labels */
+html[lang='ar'] .want {
+  grid-template-columns: repeat(3, auto);
+}
 .want-q {
   grid-column: 1/-1;
   margin: 0 0 2px;
@@ -114,7 +118,7 @@
   border: 1px solid rgba(255, 255, 255, 0.55);
   background-color: transparent;
   color: #ffffff;
-  font: 600 14px 'Lexend', sans-serif;
+  font: 600 14px 'Lexend', 'Readex Pro', sans-serif;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -172,7 +176,7 @@
 }
 .cta-mail {
   margin-top: 18px;
-  font: 500 14px 'Geist Mono', monospace;
+  font: 500 14px 'Geist Mono', 'Readex Pro', monospace;
   color: #e6edff;
 }
 
@@ -259,4 +263,8 @@
   .cta-lead {
     font-size: 19px;
   }
+}
+
+html[lang='ar'] .cta-h {
+  line-height: 1.4;
 }

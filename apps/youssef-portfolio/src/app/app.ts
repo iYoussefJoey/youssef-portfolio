@@ -9,6 +9,7 @@ import { SkillsComponent } from './sections/skills/skills.component';
 import { WhatIDoComponent } from './sections/what-i-do/what-i-do.component';
 import { WorkComponent } from './sections/work/work.component';
 import { MotionService } from './shared/motion.service';
+import { PageHead } from './shared/page-head';
 import { RevealObserver } from './shared/reveal.directive';
 import { ThemeService } from './shared/theme.service';
 
@@ -39,6 +40,7 @@ export class App {
   protected readonly reveal = inject(RevealObserver);
 
   constructor() {
+    inject(PageHead).apply();
     afterNextRender(() => this.reveal.start());
   }
 }

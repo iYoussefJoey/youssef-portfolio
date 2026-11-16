@@ -1,13 +1,13 @@
 <section class="sec contact" id="contact" aria-labelledby="contact-h">
   <div class="wrap">
     <div class="cta-panel gr" appReveal>
-      <p class="eyebrow">07 · Contact</p>
-      <h2 class="cta-h" [class]="'want-' + want()" id="contact-h">
-        Need someone to <span class="sel-box">design it<i></i><i></i><i></i><i></i></span> and <span class="code-word">&lt;build it/&gt;</span>?
+      <p class="eyebrow" i18n="@@contact.eyebrow">07 · Contact</p>
+      <h2 class="cta-h" [class]="'want-' + want()" id="contact-h" i18n="@@contact.title">
+        Need someone to <span class="sel-box">design it<i></i><i></i><i></i><i></i></span> and <span class="code-word" dir="ltr">&lt;build it/&gt;</span>?
       </h2>
-      <p class="cta-lead">I&#39;m open to remote UI/UX, front-end and hybrid roles. Pick what you need and email me.</p>
-      <div class="want" role="group" aria-label="What do you need?">
-        <span class="want-q">I need</span>
+      <p class="cta-lead" i18n="@@contact.lead">I&#39;m open to remote UI/UX, front-end and hybrid roles. Pick what you need and email me.</p>
+      <div class="want" role="group" aria-label="What do you need?" i18n-aria-label="@@contact.want.aria">
+        <span class="want-q" i18n="@@contact.want.q">I need</span>
         @for (c of choices; track c.id) {
           <button type="button" appPress [class.on]="want() === c.id" [attr.aria-pressed]="want() === c.id" (click)="choose(c.id)">{{ c.label }}</button>
         }
@@ -15,14 +15,14 @@
       <div class="cta-actions">
         <a class="btn btn-light mail-btn" [class.is-busy]="busy()" [href]="mailto()" [attr.aria-busy]="busy()" aria-live="polite" appPress
           ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
-          ><span class="mail-lab" [class]="swapCls()">Email me about {{ label() }}</span></a
+          ><span class="mail-lab" [class]="swapCls()" i18n="@@contact.mail">Email me about {{ label() }}</span></a
         >
         <a class="btn btn-ol" [href]="links.linkedin" appPress
           ><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path [attr.d]="icons.linkedin"></path></svg>LinkedIn</a
         >
         <a class="btn btn-ol" [href]="links.cv" [attr.download]="links.cvFile" appPress
           ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg
-          >Download CV</a
+          ><ng-container i18n="@@cta.cv">Download CV</ng-container></a
         >
       </div>
       <p class="cta-mail">{{ links.email }}</p>

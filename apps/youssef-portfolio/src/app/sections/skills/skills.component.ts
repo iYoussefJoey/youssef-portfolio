@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, signal } from '@angular/core';
-import { LANGUAGES, SKILL_GROUPS, SkillGroup, VISIBLE_TILES } from '../../data';
+import type { SkillGroup } from '../../data/models';
+import { LANGUAGES, SKILL_GROUPS, VISIBLE_TILES } from '../../data/skills';
 import { RevealDirective } from '../../shared/reveal.directive';
 
 /**

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, ViewEncapsulation, computed, inject, signal } from '@angular/core';
-import { LINKS, WANT_LABELS, Want } from '../../data';
+import { WANT_LABELS } from '../../data/contact';
+import { LINKS } from '../../data/links';
+import type { Want } from '../../data/models';
 import { ICON_PATHS } from '../../shared/icons';
 import { PressFeedbackDirective } from '../../shared/press-feedback.directive';
 import { RevealDirective } from '../../shared/reveal.directive';
@@ -24,8 +26,8 @@ export class ContactComponent {
   protected readonly icons = ICON_PATHS;
   protected readonly choices: readonly { id: Want; label: string }[] = [
     { id: 'ux', label: 'UI/UX' },
-    { id: 'fe', label: 'Front-end' },
-    { id: 'both', label: 'Both' },
+    { id: 'fe', label: $localize`:@@kind.fe:Front-end` },
+    { id: 'both', label: $localize`:@@contact.want.both:Both` },
   ];
 
   protected readonly want = signal<Want>('both');
@@ -37,7 +39,10 @@ export class ContactComponent {
 
   protected readonly label = computed(() => WANT_LABELS[this.shown()]);
   protected readonly mailto = computed(
-    () => `mailto:${LINKS.email}?subject=${encodeURIComponent('Portfolio: ' + WANT_LABELS[this.want()])}`,
+    () => {
+      const role = WANT_LABELS[this.want()];
+      return `mailto:${LINKS.email}?subject=${encodeURIComponent($localize`:@@contact.subject:Portfolio: ${role}:role:`)}`;
+    },
   );
   protected readonly swapCls = computed(() => {
     const n = this.swaps();

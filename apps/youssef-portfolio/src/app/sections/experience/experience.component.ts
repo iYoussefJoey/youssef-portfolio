@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { EDUCATION, LINKS, QUOTES, QUOTE_SOURCE, ROLES } from '../../data';
+import { EDUCATION, QUOTES, QUOTE_SOURCE, ROLES } from '../../data/experience';
+import { LINKS } from '../../data/links';
 import { ICON_PATHS } from '../../shared/icons';
 import { PressFeedbackDirective } from '../../shared/press-feedback.directive';
 import { RevealDirective } from '../../shared/reveal.directive';

@@ -20,7 +20,7 @@
   border-radius: 10px;
   background: transparent;
   color: var(--muted);
-  font: 600 14px 'Lexend', sans-serif;
+  font: 600 14px 'Lexend', 'Readex Pro', sans-serif;
   cursor: pointer;
   padding: 0 6px;
 }
@@ -112,7 +112,7 @@
   border: 1.5px solid var(--line);
   background: transparent;
   color: var(--primary);
-  font: 600 14px 'Lexend', sans-serif;
+  font: 600 14px 'Lexend', 'Readex Pro', sans-serif;
   cursor: pointer;
   transition:
     border-color 0.2s ease,
@@ -202,7 +202,7 @@
 .lang-q {
   display: block;
   margin: 0 0 8px;
-  font: 500 12px 'Geist Mono', monospace;
+  font: 500 12px 'Geist Mono', 'Readex Pro', monospace;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;

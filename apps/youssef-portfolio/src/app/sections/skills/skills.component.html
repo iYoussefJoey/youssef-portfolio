@@ -15,11 +15,11 @@
 <section class="sec" id="skills" aria-labelledby="skills-h">
   <div class="wrap">
     <div class="sec-head gr" appReveal>
-      <p class="eyebrow">05 · Skills &amp; tools</p>
-      <h2 class="h2" id="skills-h">What I work with</h2>
-      <p class="lead">Three toolboxes: how it looks, how it gets built, and what I use every day.</p>
+      <p class="eyebrow" i18n="@@skills.eyebrow">05 · Skills &amp; tools</p>
+      <h2 class="h2" id="skills-h" i18n="@@skills.title">What I work with</h2>
+      <p class="lead" i18n="@@skills.lead">Three toolboxes: how it looks, how it gets built, and what I use every day.</p>
     </div>
-    <div class="sk-tabs gr" appReveal role="group" aria-label="Skill group">
+    <div class="sk-tabs gr" appReveal role="group" aria-label="Skill group" i18n-aria-label="@@skills.tabs">
       @for (g of groups; track g.id) {
         <button type="button" [class.on]="tab() === g.id" [attr.aria-pressed]="tab() === g.id" (click)="tab.set(g.id)">
           <ng-container *ngTemplateOutlet="groupIcon; context: { $implicit: g.id, size: 16 }" />{{ g.title }}
@@ -54,14 +54,14 @@
             </div>
           </div>
           <button type="button" class="sk-more" [attr.aria-expanded]="isOpen" [attr.aria-controls]="g.moreId" (click)="toggle(g.id)">
-            <span>{{ isOpen ? 'Show less' : 'Show all ' + g.items.length }}</span
-            ><svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+            @if (isOpen) {<span i18n="@@skills.less">Show less</span>} @else {<span i18n="@@skills.all">Show all {{ g.items.length }}</span>}
+            <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
           </button>
         </div>
       }
     </div>
     <div class="sk-langs gr" appReveal>
-      <span class="lang-q">Languages</span>
+      <span class="lang-q" i18n="@@skills.languages">Languages</span>
       <div class="lang-row">
         @for (l of languages; track l.name) {
           <span class="tile lang"><span><b>{{ l.name }}</b> · {{ l.level }}</span></span>

@@ -118,6 +118,18 @@
   color: var(--primary);
 }
 
+/* language switch: in the bar from 700px, in the menu below that */
+.lang-btn {
+  display: none;
+  font: 700 15px/1 'Lexend', 'Readex Pro', sans-serif;
+  text-decoration: none;
+}
+/* the Arabic name uses a system font, so the English page never downloads the Arabic font */
+.lang-btn:lang(ar),
+.menu-lang:lang(ar) {
+  font-family: system-ui, sans-serif;
+}
+
 /* phone menu */
 .menu {
   position: absolute;
@@ -256,7 +268,7 @@
   border: 0;
   cursor: pointer;
   color: var(--text);
-  font: 600 13px 'Lexend', sans-serif;
+  font: 600 13px 'Lexend', 'Readex Pro', sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 .mt-track {
@@ -286,7 +298,7 @@
   color: var(--muted);
 }
 .mt-text {
-  font: 600 12px/1 'Lexend', sans-serif;
+  font: 600 12px/1 'Lexend', 'Readex Pro', sans-serif;
   white-space: nowrap;
   user-select: none;
 }
@@ -367,9 +379,13 @@
   .menu {
     top: 76px;
   }
-  /* Hire me is already in the bar */
-  .menu a.menu-hire {
+  /* Hire me and the language switch are already in the bar */
+  .menu a.menu-hire,
+  .menu a.menu-lang {
     display: none;
+  }
+  .lang-btn {
+    display: flex;
   }
 }
 @container page (min-width: 1100px) {
@@ -383,4 +399,12 @@
   .menu {
     display: none;
   }
+}
+
+/* right to left: the underline grows from the right, the current link bar sits on the right */
+html[dir='rtl'] .nl::after {
+  transform-origin: right center;
+}
+html[dir='rtl'] .menu a[data-on] {
+  box-shadow: inset -3px 0 0 var(--primary);
 }

@@ -70,7 +70,7 @@
   position: absolute;
   inset-inline-start: 12px;
   top: 12px;
-  font: 600 11px 'Lexend', sans-serif;
+  font: 600 11px 'Lexend', 'Readex Pro', sans-serif;
   color: #1d46b8;
   background: #ffffff;
   padding: 4px 8px;
@@ -120,7 +120,7 @@
 /* each part is a button */
 .part {
   position: relative;
-  font-family: 'Lexend', sans-serif;
+  font-family: 'Lexend', 'Readex Pro', sans-serif;
   border: 0;
   margin: 0;
   text-align: start;
@@ -182,7 +182,7 @@ button.pc-btn {
   border-radius: 5px 5px 0 5px;
   background: var(--primary);
   color: var(--on-p);
-  font: 600 10.5px/1.4 'Geist Mono', monospace;
+  font: 600 10.5px/1.4 'Geist Mono', 'Readex Pro', monospace;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -305,7 +305,7 @@ button.pc-btn {
     position: absolute;
     inset-inline-start: 14px;
     top: 12px;
-    font: 500 11px/1 'Geist Mono', monospace;
+    font: 500 11px/1 'Geist Mono', 'Readex Pro', monospace;
     color: var(--primary);
     letter-spacing: 0.02em;
   }
@@ -357,7 +357,7 @@ button.pc-btn {
   .xr-s {
     background: #0b1530;
     color: #ebf1ff;
-    font: 500 11px/1.25 'Geist Mono', monospace;
+    font: 500 11px/1.25 'Geist Mono', 'Readex Pro', monospace;
     white-space: nowrap;
     padding: 0 12px;
     box-sizing: border-box;
@@ -418,7 +418,7 @@ button.pc-btn {
     border-radius: 10px;
     background: transparent;
     color: var(--muted);
-    font: 500 12px 'Geist Mono', monospace;
+    font: 500 12px 'Geist Mono', 'Readex Pro', monospace;
     cursor: pointer;
   }
   .xr-pick button.sel {
@@ -432,7 +432,7 @@ button.pc-btn {
     align-items: baseline;
     gap: 6px 8px;
     margin: 10px 6px 0;
-    font: 400 12px/1.5 'Geist Mono', monospace;
+    font: 400 12px/1.5 'Geist Mono', 'Readex Pro', monospace;
     color: var(--muted);
   }
   .xr-spec .k {

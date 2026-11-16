@@ -1,6 +1,6 @@
 import { DeferBlockBehavior, DeferBlockState, TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { PROJECTS } from './data';
+import { PROJECTS } from './data/projects';
 
 /** Renders the page with every deferred section loaded, as it is once the visitor has scrolled through. */
 async function renderPage(): Promise<HTMLElement> {

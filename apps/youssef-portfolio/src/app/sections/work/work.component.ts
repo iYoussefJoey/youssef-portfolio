@@ -1,6 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject, signal } from '@angular/core';
-import { KIND_LABELS, PROJECTS, Page, PagesProject, Picture, Project } from '../../data';
+import type { Page, PagesProject, Picture, Project } from '../../data/models';
+import { KIND_LABELS, PROJECTS } from '../../data/projects';
 import { LightboxComponent } from '../../shared/lightbox/lightbox.component';
 import { LightboxImage, LightboxService } from '../../shared/lightbox/lightbox.service';
 import { PressFeedbackDirective } from '../../shared/press-feedback.directive';
@@ -33,9 +34,9 @@ export class WorkComponent {
   protected readonly kindLabels = KIND_LABELS;
 
   protected readonly filters: readonly { id: Filter; label: string; count: number }[] = [
-    { id: 'all', label: 'All', count: PROJECTS.length },
+    { id: 'all', label: $localize`:@@work.filter.all:All`, count: PROJECTS.length },
     { id: 'ux', label: 'UI/UX', count: PROJECTS.filter((p) => matches(p, 'ux')).length },
-    { id: 'fe', label: 'Front-end', count: PROJECTS.filter((p) => matches(p, 'fe')).length },
+    { id: 'fe', label: $localize`:@@kind.fe:Front-end`, count: PROJECTS.filter((p) => matches(p, 'fe')).length },
   ];
 
   protected readonly filter = signal<Filter>('all');
@@ -98,23 +99,40 @@ export class WorkComponent {
 
   /** Alt text of the screenshot in the card. */
   protected shotAlt(page: Page, view: ShotView): string {
-    if (view === 'before') return `${page.label} page before the redesign`;
-    return view === 'phone' ? `${page.label} page, phone` : `${page.label} page, desktop`;
+    const page_ = page.label;
+    if (view === 'before') return $localize`:@@shot.alt.before:${page_}:page: page before the redesign`;
+    return view === 'phone'
+      ? $localize`:@@shot.alt.phone:${page_}:page: page, phone`
+      : $localize`:@@shot.alt.desktop:${page_}:page: page, desktop`;
   }
 
   /** Label of the picture button that opens the lightbox. */
   protected openLabel(page: Page, view: ShotView): string {
-    if (view === 'before') return `Open the ${page.label} page before the redesign full size`;
-    return view === 'phone' ? `Open the ${page.label} phone page full size` : `Open the ${page.label} page full size`;
+    const page_ = page.label;
+    if (view === 'before') return $localize`:@@shot.open.before:Open the ${page_}:page: page before the redesign full size`;
+    return view === 'phone'
+      ? $localize`:@@shot.open.phone:Open the ${page_}:page: phone page full size`
+      : $localize`:@@shot.open.desktop:Open the ${page_}:page: page full size`;
   }
 
   /** Lightbox caption. */
   private zoomCaption(page: Page, view: ShotView): string {
-    if (view === 'before') return `${page.label} page before the redesign, full page`;
-    return view === 'phone' ? `${page.label} page on a phone` : `${page.label} page on desktop`;
+    const page_ = page.label;
+    if (view === 'before') return $localize`:@@shot.cap.before:${page_}:page: page before the redesign, full page`;
+    return view === 'phone'
+      ? $localize`:@@shot.cap.phone:${page_}:page: page on a phone`
+      : $localize`:@@shot.cap.desktop:${page_}:page: page on desktop`;
   }
 
   protected baLabel(page: Page): string {
-    return `${page.label} page before and after the redesign`;
+    const page_ = page.label;
+    return $localize`:@@work.ba.aria:${page_}:page: page before and after the redesign`;
+  }
+
+  /** Label of a picture card button. */
+  protected pictureLabel(type: Project['type']): string {
+    return type === 'gap'
+      ? $localize`:@@work.open.gap:Open the GapMap picture full size`
+      : $localize`:@@work.open.picture:Open the picture full size`;
   }
 }

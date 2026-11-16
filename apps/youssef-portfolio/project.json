@@ -5,6 +5,18 @@
   "prefix": "app",
   "sourceRoot": "apps/youssef-portfolio/src",
   "tags": [],
+  "i18n": {
+    "sourceLocale": {
+      "code": "en",
+      "subPath": ""
+    },
+    "locales": {
+      "ar": {
+        "translation": "apps/youssef-portfolio/src/locale/messages.ar.json",
+        "subPath": "ar"
+      }
+    }
+  },
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -26,7 +38,10 @@
           "apps/youssef-portfolio/src/styles.css"
         ],
         "server": "apps/youssef-portfolio/src/main.server.ts",
-        "outputMode": "static"
+        "outputMode": "static",
+        "polyfills": [
+          "@angular/localize/init"
+        ]
       },
       "configurations": {
         "production": {
@@ -42,12 +57,21 @@
               "maximumError": "20kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "localize": true
         },
         "development": {
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true
+        },
+        "development-ar": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "localize": [
+            "ar"
+          ]
         }
       }
     },
@@ -61,6 +85,9 @@
         },
         "development": {
           "buildTarget": "youssef-portfolio:build:development"
+        },
+        "development-ar": {
+          "buildTarget": "youssef-portfolio:build:development-ar"
         }
       }
     },
@@ -85,6 +112,14 @@
         "port": 4200,
         "staticFilePath": "dist/apps/youssef-portfolio/browser",
         "spa": false
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "youssef-portfolio:build",
+        "format": "json",
+        "outputPath": "apps/youssef-portfolio/src/locale"
       }
     }
   }
