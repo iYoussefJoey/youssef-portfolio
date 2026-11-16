@@ -1,0 +1,58 @@
+/* Joey Frost UI: theme tokens. ThemeService sets data-theme on .root. */
+
+.root[data-theme='light'] {
+  --bg: #f5f8ff;
+  --surf: #ffffff;
+  --surf2: #eaf0fd;
+  --text: #0a1633;
+  --muted: #424e6c;
+  --line: #d6dff3;
+  --primary: #1d46b8;
+  --primary2: #0047ab;
+  --on-p: #ffffff;
+  --grid: rgba(29, 70, 184, 0.14);
+  --wf: #d9e0ef;
+  --wf-line: #8e9ab6;
+  --wf-text: #38445f;
+  --tag-tint: rgba(29, 70, 184, 0.06);
+  --fe: #0047ab;
+  --fe-bg: #e3edff;
+  --code: #0b1530;
+  --head: rgba(245, 248, 255, 0.97);
+  --shadow: 0 18px 40px -24px rgba(10, 22, 51, 0.38);
+  --hov: #dce8ff;
+  --hov-t: #1a40a8;
+  --ice: #dce8ff;
+}
+
+.root[data-theme='dark'] {
+  --bg: #0b1530;
+  --surf: #122147;
+  --surf2: #172b5e;
+  --text: #ebf1ff;
+  --muted: #b4c1df;
+  --line: #24396f;
+  --primary: #9bb8ff;
+  --primary2: #7fb2ff;
+  --on-p: #0b1530;
+  --grid: rgba(155, 184, 255, 0.14);
+  --wf: #1c2e5c;
+  --wf-line: #5d6f9c;
+  --wf-text: #bcc7e0;
+  --tag-tint: rgba(155, 184, 255, 0.07);
+  --fe: #7fb2ff;
+  --fe-bg: #172b5e;
+  --code: #071029;
+  --head: rgba(11, 21, 48, 0.97);
+  --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+  --hov: #24396f;
+  --hov-t: #ffffff;
+  --ice: #dce8ff;
+}
+
+/* Rising fill: one animatable registered property drives the hover circle. */
+@property --fill {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
