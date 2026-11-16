@@ -50,7 +50,8 @@ export const PROJECTS: readonly Project[] = [
         label: $localize`:@@page.blog:Blog`,
         desktop: desktop('img/screens/monglish-blog-desktop.webp'),
         phone: phone('img/screens/monglish-blog-phone.webp'),
-        // the live blog (monglish.co.uk/ar/blog) is still the old design, so it is the before and there is no Live link yet
+        liveUrl: 'https://monglish.co.uk/ar/blog',
+        // the before is the previous live blog (the full-width slider), captured before the Gate x Gazette redesign shipped
         before: { src: 'img/screens/before/monglish-blog-full.webp', width: 665, height: 2000 },
       },
     ],
