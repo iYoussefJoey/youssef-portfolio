@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { EDUCATION, QUOTES, QUOTE_SOURCE, ROLES } from '../../data/experience';
+import { EDUCATION, QUOTES, ROLES } from '../../data/experience';
 import { LINKS } from '../../data/links';
 import { ICON_PATHS } from '../../shared/icons';
 import { PressFeedbackDirective } from '../../shared/press-feedback.directive';
@@ -18,7 +18,6 @@ export class ExperienceComponent {
   protected readonly roles = ROLES;
   protected readonly education = EDUCATION;
   protected readonly quotes = QUOTES;
-  protected readonly quoteSource = QUOTE_SOURCE;
   protected readonly links = LINKS;
   protected readonly icons = ICON_PATHS;
 }

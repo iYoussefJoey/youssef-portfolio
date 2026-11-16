@@ -58,20 +58,38 @@ export const EDUCATION: Education = {
   org: $localize`:@@edu.org:BHI · Alexandria, Egypt · Military service completed`,
 };
 
-/** LinkedIn recommendations, Ahmed Zaki first. */
+const FROM_AUG_2026 = $localize`:@@quote.source:LinkedIn recommendation · Aug 2026`;
+
+/** LinkedIn recommendations, newest first. */
 export const QUOTES: readonly Quote[] = [
   {
-    text: '“I had the pleasure of working with him as a frontend developer. He is smart, hardworking, quick to find the right information, and communicates in excellent English.”',
+    text: [
+      '“I’ve had the pleasure of working closely with Youssef at Monglish, where we’re part of the same Interfaces & Development team. Youssef turns ideas and page structures into clean, well-crafted designs. He has delivered landing pages and web designs across our brands, and he works confidently within our shared design system.',
+      'What stands out most is his professionalism. He takes ownership of his work and meets deadlines. He’s open to feedback and turns it into better results quickly, without ego. He’s also a reliable teammate who makes collaboration easy, even on busy weeks with tight timelines.',
+      'Any team would be lucky to have Youssef, and I recommend him without hesitation.”',
+    ],
+    source: $localize`:@@quote.amr.source:LinkedIn recommendation · Nov 2026`,
+    initials: 'AM',
+    name: $localize`:@@quote.amr.name:Amr Mahomud`,
+    title: $localize`:@@quote.amr.title:UI/UX Team Leader, my manager at Monglish`,
+  },
+  {
+    text: [
+      '“I had the pleasure of working with him as a frontend developer. He is smart, hardworking, quick to find the right information, and communicates in excellent English.”',
+    ],
+    source: FROM_AUG_2026,
     initials: 'AZ',
     name: $localize`:@@quote.zaki.name:Ahmed Zaki`,
     title: $localize`:@@quote.zaki.title:Head of Software Engineering, GAMP`,
   },
   {
-    text: '“I worked with Youssef and observed his willingness to learn and improve his technical skills. As he continues to gain experience and develop his knowledge, I wish him every success in his career.”',
+    text: [
+      '“I worked with Youssef and observed his willingness to learn and improve his technical skills. As he continues to gain experience and develop his knowledge, I wish him every success in his career.”',
+    ],
+    source: FROM_AUG_2026,
     initials: 'ME',
     name: $localize`:@@quote.ellithy.name:Moustafa Ellithy`,
     title: $localize`:@@quote.ellithy.title:Senior Front-end Engineer, my manager at GAMP`,
   },
 ];
 
-export const QUOTE_SOURCE = $localize`:@@quote.source:LinkedIn recommendation · Aug 2026`;

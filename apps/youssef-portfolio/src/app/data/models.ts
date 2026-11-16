@@ -132,7 +132,10 @@ export interface Commit {
 }
 
 export interface Quote {
-  text: string;
+  /** Paragraphs, quoted as written on LinkedIn (English on both pages). */
+  text: readonly string[];
+  /** "LinkedIn recommendation · month year" */
+  source: string;
   initials: string;
   name: string;
   title: string;

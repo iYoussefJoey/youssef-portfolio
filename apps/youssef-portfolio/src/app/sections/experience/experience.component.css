@@ -217,6 +217,9 @@
   line-height: 1.6;
   color: var(--text);
 }
+.q blockquote p + p {
+  margin-top: 12px;
+}
 .q figcaption {
   display: flex;
   align-items: center;
@@ -289,6 +292,13 @@
   }
   .q {
     padding: 24px;
+  }
+  /* an odd number of quotes: the first (the newest) takes the whole row, the rest pair up below */
+  .q:first-of-type:nth-last-of-type(odd) {
+    grid-column: 1/-1;
+  }
+  .q:first-of-type:nth-last-of-type(odd) blockquote {
+    max-width: 72ch;
   }
 }
 @container page (min-width: 1100px) {
