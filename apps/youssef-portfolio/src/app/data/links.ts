@@ -3,7 +3,7 @@ export const LINKS = {
   email: 'iyoussef.khamis@gmail.com',
   github: 'https://github.com/iYoussefJoey',
   linkedin: 'https://www.linkedin.com/in/iyoussef-khamis',
-  behance: 'https://www.behance.net/youssefkhamis5',
+  behance: 'https://www.behance.net/iyoussefkhamis',
   recommendations: 'https://www.linkedin.com/in/iyoussef-khamis/details/recommendations/',
   cv: 'docs/Youssef-Khamis-CV.pdf',
   cvFile: 'Youssef-Khamis-CV.pdf',
