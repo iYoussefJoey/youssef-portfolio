@@ -1,0 +1,96 @@
+<section
+  class="hero"
+  [class.lens-ux]="lens() === 'ux'"
+  [class.lens-ui]="lens() === 'ui'"
+  [class.lens-code]="lens() === 'code'"
+  id="top"
+  aria-labelledby="hero-title"
+>
+  <!-- each lens change creates a fresh sweep, so it plays again -->
+  @if (lens() === 'ux') {
+    <div class="sweep" aria-hidden="true"></div>
+  }
+  @if (lens() === 'ui' && lensSet()) {
+    <div class="sweep" aria-hidden="true"></div>
+  }
+  @if (lens() === 'code') {
+    <div class="sweep" aria-hidden="true"></div>
+  }
+  <div class="wrap hero-grid">
+    <div class="hero-main">
+      <div class="lens-bar a-up">
+        <span class="lens-q" id="lens-q">View this page as</span>
+        <div class="seg" role="group" aria-labelledby="lens-q">
+          <button type="button" [class.on]="lens() === 'ux'" [attr.aria-pressed]="lens() === 'ux'" (click)="pick('ux')">
+            <svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect width="18" height="7" x="3" y="3" rx="1"></rect><rect width="9" height="7" x="3" y="14" rx="1"></rect><rect width="5" height="7" x="16" y="14" rx="1"></rect></svg>UX
+          </button>
+          <button type="button" [class.on]="lens() === 'ui'" [attr.aria-pressed]="lens() === 'ui'" (click)="pick('ui')">
+            <svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1a1.6 1.6 0 0 1 1.6-1.7h2c3 0 5.6-2.5 5.6-5.6C22 6 17.5 2 12 2z"></path></svg>UI
+          </button>
+          <button type="button" [class.on]="lens() === 'code'" [attr.aria-pressed]="lens() === 'code'" (click)="pick('code')">
+            <svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"></path></svg>Code
+          </button>
+        </div>
+        <p class="lens-hint" aria-live="polite" [attr.data-ux-hint]="uxHint">{{ hint() }}</p>
+      </div>
+      <div class="el status a-up" style="animation-delay: 60ms" data-ux="Trust signal" data-tag="div.status">
+        <span class="av"><img ngSrc="img/avatar.webp" width="360" height="360" alt="Youssef Khamis" /></span>
+        <span class="pill"><span class="dot"></span>Open to remote roles</span>
+        <span class="note n1" aria-hidden="true">Can I hire him? Answered first.</span>
+      </div>
+      <h1 id="hero-title" class="el h-name a-up" style="animation-delay: 120ms" data-ux="H1 · who is this?" data-tag="h1.name">
+        Youssef Khamis<span class="note n2" aria-hidden="true">Who and what, in 3 seconds</span>
+      </h1>
+      <p class="el h-role a-up" style="animation-delay: 170ms" data-ux="Subheading · role" data-tag="p.role">
+        UI/UX Designer &amp; Front-End Developer (Angular, React)
+      </p>
+      <p class="el h-intro wf-lines a-up" style="animation-delay: 220ms" data-ux="Body · 3 lines max" data-tag="p.intro">
+        4+ years: 1+ year of UI/UX design and 3 years of Angular at GAMP, now the sole UI/UX designer at
+        <strong>Monglish</strong>. I design mobile-first, bilingual screens in Figma and build them in Angular and Next.js.
+      </p>
+      <div class="el h-ctas a-up" style="animation-delay: 270ms" data-ux="Actions · 2 only" data-tag="div.actions">
+        <a class="btn btn-p" href="#work" appPress
+          >View my work
+          <svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+        ></a>
+        <a class="btn btn-s" [href]="links.cv" [attr.download]="links.cvFile" appPress
+          ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg
+          >Download CV</a
+        >
+        <span class="note n3" aria-hidden="true">2 choices, faster decision (Hick&#39;s law)</span>
+      </div>
+      <nav class="el h-social a-up" style="animation-delay: 320ms" aria-label="Profiles" data-ux="Proof links" data-tag="nav.social">
+        <a class="soc" [href]="links.github" aria-label="GitHub" appPress
+          ><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path [attr.d]="icons.github"></path></svg
+        ></a>
+        <a class="soc" [href]="links.linkedin" aria-label="LinkedIn" appPress
+          ><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path [attr.d]="icons.linkedin"></path></svg
+        ></a>
+        <!-- "Bē" written as e + combining macron (U+0304): identical in Lexend, and it keeps the page on the Latin font file -->
+        <a class="soc soc-be" [href]="links.behance" aria-label="Behance" appPress><span aria-hidden="true">Be&#x304;</span></a>
+        <a class="soc" [href]="'mailto:' + links.email" aria-label="Email" appPress
+          ><svg class="ic" viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
+        ></a>
+      </nav>
+      <div class="inspector" aria-hidden="true">
+        <div class="insp-h"><span>Inspector</span><span>h1.name</span></div>
+        <div><span class="k">font</span>: <span class="v">700 76px/1.02 Lexend</span>;</div>
+        <div><span class="k">letter-spacing</span>: <span class="v">-0.04em</span>;</div>
+        <div><span class="k">color</span>: <span class="v">var(--text)</span>;</div>
+        <div class="c">// built with Angular · Next.js · SCSS</div>
+      </div>
+    </div>
+    <figure class="el hero-side a-grow" style="animation-delay: 380ms" data-ux="Image · portrait 4:5" data-tag="figure.portrait">
+      <!-- The portrait only shows from 700px. On phones the <picture> picks an empty pixel, so the 42KB photo is never
+           downloaded there; on wider screens it loads first (fetchpriority high), as the LCP image. -->
+      <picture class="portrait">
+        <source media="(max-width: 699px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+        <img src="img/portrait.webp" width="1003" height="1254" fetchpriority="high" decoding="async" alt="" />
+      </picture>
+      <span class="note n4" aria-hidden="true">A real face builds trust</span>
+      <figcaption class="side-cap">
+        <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path [attr.d]="icons.pin"></path><circle cx="12" cy="10" r="3"></circle></svg>Egypt · remote · GMT+2
+      </figcaption>
+    </figure>
+  </div>
+</section>
