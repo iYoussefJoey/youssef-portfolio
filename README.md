@@ -23,6 +23,10 @@ Live: **https://iyoussefjoey.github.io/youssef-portfolio/** · Arabic: **https:/
 - `src/index.html` has a tiny boot script that runs before the first paint: it applies the saved/OS theme and, with
   Motion allowed, opens the hero on the UX view, so nothing jumps when Angular takes over.
 - Animations that move things use `transform`, never `left`/`top`, so they are not counted as layout shift.
+- The six sections below the hero use `content-visibility: auto` with a stand-in height per screen size, so the
+  browser styles and lays them out only as they near the screen. Before any jump to a section (arriving at `#section`,
+  or clicking an in-page link) a small script in the `<head>` adds `cv-off` and every section renders for real, so the
+  jump lands exactly.
 - Content that differs per theme (palette chips, inspect spec line) is rendered for both themes and shown by CSS,
   so sections are correct before they hydrate.
 - The Arabic font file is preloaded only on the Arabic page; the English page never downloads it.

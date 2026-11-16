@@ -4,6 +4,25 @@
     <meta charset="utf-8" />
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Sections below the hero skip rendering until they near the screen (content-visibility in styles.css), and a
+         jump to a section would be measured on their stand-in heights and miss. So before any jump (arriving at
+         #section, e.g. from the language switch, or clicking an in-page link) every section renders for real. -->
+    <script>
+      (function (d) {
+        var full = function () {
+          d.documentElement.classList.add('cv-off');
+        };
+        if (location.hash) full();
+        d.addEventListener(
+          'click',
+          function (e) {
+            var a = e.target && e.target.closest && e.target.closest('a[href*="#"]');
+            if (a && a.hash && a.pathname === location.pathname) full();
+          },
+          true,
+        );
+      })(document);
+    </script>
     <!-- SEO (handoff seo/index-head.html). Replace the base URL once a custom domain is live. -->
     <title>Youssef Khamis — UI/UX Designer &amp; Front-End Developer</title>
     <meta
