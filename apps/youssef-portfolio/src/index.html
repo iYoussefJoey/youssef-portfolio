@@ -84,6 +84,25 @@
     </style>
   </head>
   <body>
+    <!-- A cached page from before a deploy points at script files the deploy deleted: reload once to get the current
+         page (the app does the same for the section code it loads later; same key, so it never loops). -->
+    <script>
+      addEventListener(
+        'error',
+        function (e) {
+          var s = e.target;
+          if (!s || s.tagName !== 'SCRIPT' || !/\/(main|polyfills|chunk)-[^/]+\.js$/.test(s.src)) return;
+          try {
+            if (Date.now() - Number(sessionStorage.getItem('yk-stale-reload') || 0) < 30000) return;
+            sessionStorage.setItem('yk-stale-reload', String(Date.now()));
+          } catch (err) {
+            return;
+          }
+          location.reload();
+        },
+        true,
+      );
+    </script>
     <app-root></app-root>
     <!-- Before the first paint: apply the saved or OS theme (no light flash for dark-mode visitors), and with Motion
          allowed open the hero on the UX view, as the app would, so nothing jumps when Angular takes over. -->
