@@ -1,0 +1,448 @@
+/* Inspect: tap a part of the design, see its line of code */
+.split-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 650;
+  padding: 4px 6px 12px;
+}
+.split-head span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.split-tip {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.split-cap {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 0 6px;
+}
+.insp {
+  display: grid;
+  gap: 10px;
+}
+.insp-design {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 16px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background-color: var(--surf);
+  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* the sample project card */
+.pc {
+  width: 240px;
+  background: var(--surf);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.insp .pc {
+  width: 250px;
+}
+.pc-img {
+  height: 96px;
+  background: linear-gradient(135deg, #1d46b8, #0047ab);
+  position: relative;
+}
+.pc-img::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -1px;
+  height: 44px;
+  border-radius: 12px 12px 0 0;
+  background: rgba(255, 255, 255, 0.18);
+}
+.pc-badge {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font: 600 11px 'Lexend', sans-serif;
+  color: #1d46b8;
+  background: #ffffff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  z-index: 1;
+}
+.pc-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pc-chip {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 650;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--on-p);
+}
+.pc-title {
+  font-size: 16px;
+  font-weight: 680;
+  letter-spacing: -0.01em;
+}
+.pc-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+.pc-btn {
+  margin-top: 6px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--surf2);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 650;
+}
+.root[data-theme='dark'] .pc-btn {
+  color: #a3beff;
+}
+
+/* each part is a button */
+.part {
+  position: relative;
+  font-family: 'Lexend', sans-serif;
+  border: 0;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+  outline: 2px dashed transparent;
+  outline-offset: 3px;
+  transition: outline-color 0.2s ease;
+}
+button.pc-img {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+button.pc-chip {
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+button.pc-title {
+  background: none;
+  padding: 0;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 680;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+button.pc-meta {
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+button.pc-btn {
+  width: 100%;
+  font-size: 13px;
+  font-weight: 650;
+}
+.part:hover {
+  outline-color: var(--wf-line);
+}
+.part.sel {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.pc-img.part.sel {
+  outline-offset: -2px;
+  border-radius: 0;
+}
+.part.sel::before {
+  content: attr(data-tag);
+  position: absolute;
+  right: -5px;
+  top: -24px;
+  z-index: 3;
+  padding: 2px 7px;
+  border-radius: 5px 5px 0 5px;
+  background: var(--primary);
+  color: var(--on-p);
+  font: 600 10.5px/1.4 'Geist Mono', monospace;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.pc-img.part.sel::before {
+  right: 8px;
+  top: 8px;
+  border-radius: 5px;
+}
+
+/* the code side */
+.insp-code {
+  background: var(--code);
+  color: #ebf1ff;
+  border-radius: 16px;
+  padding: 14px 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cl-t {
+  color: #9bb8ff;
+  padding: 4px 8px;
+}
+.cl {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 8px 6px 26px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #ebf1ff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  opacity: 1;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.cl .a {
+  color: #7fb2ff;
+}
+.cl .s {
+  color: #f2c38b;
+}
+.cl:hover {
+  opacity: 1;
+  background: rgba(155, 184, 255, 0.08);
+}
+.cl.sel {
+  opacity: 1;
+  background: rgba(155, 184, 255, 0.16);
+  box-shadow: inset 3px 0 0 #9bb8ff;
+}
+.cl:focus-visible {
+  outline: 2px solid #9bb8ff;
+  outline-offset: 1px;
+}
+.insp-spec {
+  margin-top: 8px;
+  padding: 10px 10px 4px;
+  border-top: 1px dashed rgba(155, 184, 255, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  color: #c9d6f5;
+  font-size: 12px;
+}
+.insp-spec .k {
+  color: #0b1530;
+  background: #9bb8ff;
+  border-radius: 5px;
+  padding: 1px 7px;
+  font-weight: 600;
+}
+.motion-off .part,
+.motion-off .cl {
+  transition: none;
+}
+
+/* phones only: x-ray overlay, part picker and spec line */
+.xr,
+.xr-pick,
+.xr-spec {
+  display: none;
+}
+
+@container page (min-width: 700px) {
+  .insp {
+    grid-template-columns: 1fr 1fr;
+  }
+  .insp-design {
+    padding: 32px 18px;
+  }
+}
+
+/* Phone: x-ray the card. Tap a part and it wipes into its own line of code. */
+@container page (max-width: 699px) {
+  .insp-wrap .split-head {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+  .insp-wrap .split-tip {
+    order: 3;
+    flex-basis: 100%;
+    text-align: center;
+  }
+  .insp-design {
+    position: relative;
+    padding: 40px 16px 22px;
+  }
+  .insp-design::before {
+    content: '\2756  app-project-card';
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    font: 500 11px/1 'Geist Mono', monospace;
+    color: var(--primary);
+    letter-spacing: 0.02em;
+  }
+  .insp .pc {
+    position: relative;
+    width: 260px;
+  }
+  .insp-code {
+    display: none;
+  }
+  .insp .part.sel {
+    outline: none;
+  }
+  .insp .part.sel::before {
+    display: none;
+  }
+  .insp button.pc-chip {
+    height: 22px;
+    box-sizing: border-box;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .insp button.pc-title {
+    height: 22px;
+    line-height: 22px;
+  }
+  .insp button.pc-meta {
+    height: 18px;
+    line-height: 18px;
+  }
+  .insp button.pc-btn {
+    height: 36px;
+  }
+  .xr {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .xr-body {
+    padding: 14px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .xr-img,
+  .xr-s {
+    background: #0b1530;
+    color: #ebf1ff;
+    font: 500 11px/1.25 'Geist Mono', monospace;
+    white-space: nowrap;
+    padding: 0 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.5s cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  .xr-s {
+    display: flex;
+    align-items: center;
+  }
+  .xr-img {
+    height: 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    background-image: linear-gradient(rgba(155, 184, 255, 0.08) 1px, transparent 1px);
+    background-size: 100% 12px;
+  }
+  .xr-chip,
+  .xr-title {
+    height: 22px;
+  }
+  .xr-meta {
+    height: 18px;
+  }
+  .xr-btn {
+    height: 36px;
+    margin-top: 6px;
+  }
+  .xr .a {
+    color: #7fb2ff;
+  }
+  .xr .s {
+    color: #f2c38b;
+  }
+  .xr-img.sel,
+  .xr-s.sel {
+    clip-path: inset(0 0 0 0);
+    box-shadow:
+      inset 3px 0 0 #9bb8ff,
+      inset 0 0 0 1px rgba(155, 184, 255, 0.35);
+  }
+  .xr-pick {
+    display: flex;
+    gap: 4px;
+    margin-top: 10px;
+    padding: 4px;
+    background: var(--surf2);
+    border-radius: 14px;
+  }
+  .xr-pick button {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 44px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--muted);
+    font: 500 12px 'Geist Mono', monospace;
+    cursor: pointer;
+  }
+  .xr-pick button.sel {
+    background: #0b1530;
+    color: #ebf1ff;
+    box-shadow: 0 2px 8px rgba(10, 22, 51, 0.25);
+  }
+  .xr-spec {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 8px;
+    margin: 10px 6px 0;
+    font: 400 12px/1.5 'Geist Mono', monospace;
+    color: var(--muted);
+  }
+  .xr-spec .k {
+    background: var(--primary);
+    color: var(--on-p);
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-weight: 600;
+  }
+  .motion-off .xr-img,
+  .motion-off .xr-s {
+    transition: none;
+  }
+}

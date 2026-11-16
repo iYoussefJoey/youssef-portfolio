@@ -9,6 +9,9 @@
     <app-header />
     <main>
       <app-hero />
+      @defer (hydrate on viewport) {
+        <app-what-i-do />
+      }
     </main>
   </div>
 </div>
