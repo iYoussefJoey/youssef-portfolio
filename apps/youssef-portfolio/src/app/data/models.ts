@@ -14,10 +14,14 @@ export interface Picture {
 
 /** One previewable page of a page card (Monglish, Edulixa360). */
 export interface Page {
+  /** Stable key (the label is translated). */
+  id: string;
   label: string;
   desktop: Picture;
   phone?: Picture;
   liveUrl?: string;
+  /** The whole page before the redesign (shown in the browser frame and full size in the lightbox). */
+  before?: Picture;
 }
 
 export interface CodeLine {

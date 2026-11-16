@@ -338,6 +338,49 @@
   transform: translateY(2px) scale(0.98);
 }
 
+/* Before / After the redesign: the same tray as the filters */
+.ba {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 6px;
+}
+.ba-q {
+  font: 500 12px 'Geist Mono', monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ba-seg {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--surf2);
+  border-radius: 14px;
+}
+.ba-seg button {
+  height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 14px 'Lexend', sans-serif;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.ba-seg button:hover {
+  color: var(--text);
+}
+.ba-seg button.on {
+  background: var(--surf);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(10, 22, 51, 0.14);
+}
+
 /* LIVE link: green badge + address on one line, ellipsis if too long */
 .live-link {
   display: inline-flex;
