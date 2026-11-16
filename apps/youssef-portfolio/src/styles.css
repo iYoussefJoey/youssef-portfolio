@@ -28,20 +28,13 @@ body {
   container-name: page;
 }
 /* Section components render their own <header>/<section>/<footer>; the host element adds no box. */
-:where(
-    app-header,
-    app-hero,
-    app-what-i-do,
-    app-inspect-card,
-    app-work,
-    app-lightbox,
-    app-experience,
-    app-skills,
-    app-design-system,
-    app-contact,
-    app-footer
-  ) {
+:where(app-header, app-hero, app-inspect-card, app-lightbox, app-footer) {
   display: contents;
+}
+/* The sections below the fold hydrate when they scroll into view (@defer (hydrate on viewport) in app.html). The browser
+   watches the host for that, and an element with display: contents has no box to watch, so these hosts are blocks. */
+:where(app-what-i-do, app-work, app-experience, app-skills, app-design-system, app-contact) {
+  display: block;
 }
 a {
   color: inherit;
