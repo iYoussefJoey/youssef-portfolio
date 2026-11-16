@@ -1,0 +1,261 @@
+/* 07 · Contact: the blue panel with a white 32px grid */
+.cta-panel {
+  position: relative;
+  overflow: hidden;
+  background: #1d46b8;
+  color: #ffffff;
+  border-radius: 28px;
+  padding: 40px 24px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.cta-panel .eyebrow {
+  color: #d8e3ff;
+}
+.cta-h {
+  margin-top: 18px;
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 740;
+  letter-spacing: -0.035em;
+  max-width: 16ch;
+}
+.sel-box {
+  position: relative;
+  display: inline-block;
+  padding: 0 8px;
+  margin: 4px 2px;
+  outline: 2px dashed rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
+}
+.sel-box i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #1d46b8;
+  border: 2px solid #ffffff;
+}
+.sel-box i:nth-child(1) {
+  top: -8px;
+  left: -8px;
+}
+.sel-box i:nth-child(2) {
+  top: -8px;
+  right: -8px;
+}
+.sel-box i:nth-child(3) {
+  bottom: -8px;
+  left: -8px;
+}
+.sel-box i:nth-child(4) {
+  bottom: -8px;
+  right: -8px;
+}
+.code-word {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  color: #d8e3ff;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+/* the heading lights up the part the visitor needs */
+.cta-h .sel-box,
+.cta-h .code-word {
+  transition:
+    opacity 0.3s,
+    text-shadow 0.3s;
+}
+.want-ux .code-word,
+.want-fe .sel-box {
+  opacity: 0.45;
+}
+.want-ux .sel-box,
+.want-fe .code-word {
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.55);
+}
+.reveal-on.motion-on .cta-panel .sel-box i {
+  transform: scale(0);
+  transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1) 0.7s;
+}
+.reveal-on.motion-on .cta-panel[data-in] .sel-box i {
+  transform: scale(1);
+}
+.cta-lead {
+  margin-top: 18px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #e6edff;
+  max-width: 46ch;
+}
+
+/* "I need": label on top, the three choices on one row on phones */
+.want {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 24px;
+}
+.want-q {
+  grid-column: 1/-1;
+  margin: 0 0 2px;
+  font-size: 14px;
+  color: #ffffff;
+}
+.want button {
+  --fill-c: #ffffff;
+  min-height: 44px;
+  min-width: 0;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background-color: transparent;
+  color: #ffffff;
+  font: 600 14px 'Lexend', sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.want button:hover,
+.want button:focus-visible {
+  background-color: transparent;
+  color: #1d46b8;
+  border-color: #ffffff;
+}
+.want button.on {
+  background-color: #ffffff;
+  color: #1d46b8;
+  border-color: #ffffff;
+  --fill-c: #dce8ff;
+}
+
+/* actions */
+.cta-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+.btn-light {
+  --fill-c: #0b1530;
+  background-color: #ffffff;
+  color: #1d46b8;
+}
+.btn-light:hover,
+.btn-light:focus-visible {
+  background-color: #ffffff;
+  color: #ffffff;
+}
+.btn-ol {
+  --fill-c: #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.btn-ol:hover,
+.btn-ol:focus-visible {
+  background-color: transparent;
+  color: #1d46b8;
+  border-color: #ffffff;
+}
+.contact .btn-light {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.25;
+  height: auto;
+  min-height: 52px;
+  padding: 12px 20px;
+}
+.contact .btn-light span {
+  display: block;
+}
+.cta-mail {
+  margin-top: 18px;
+  font: 500 14px 'Geist Mono', monospace;
+  color: #e6edff;
+}
+
+/* email button: the label dims while it loads, then the new label rises in */
+.mail-btn {
+  min-width: min(100%, 280px);
+}
+.mail-btn.is-busy .mail-lab {
+  opacity: 0.55;
+}
+.mail-lab {
+  transition: opacity 0.2s ease;
+}
+.swap-a {
+  animation: lab-a 0.42s cubic-bezier(0.2, 0, 0, 1);
+}
+.swap-b {
+  animation: lab-b 0.42s cubic-bezier(0.2, 0, 0, 1);
+}
+@keyframes lab-a {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lab-b {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.motion-off .swap-a,
+.motion-off .swap-b {
+  animation: none;
+}
+
+/* .sec padding takes over the bottom from tablet up */
+@container page (max-width: 699px) {
+  .contact {
+    padding-bottom: 40px;
+  }
+}
+@container page (min-width: 700px) {
+  .cta-panel {
+    padding: 64px 48px;
+  }
+  .cta-h {
+    font-size: 54px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .want {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .want-q {
+    margin: 0 4px 0 0;
+  }
+  .want button {
+    padding: 0 18px;
+  }
+}
+@container page (min-width: 1100px) {
+  .cta-panel {
+    padding: 96px 80px;
+  }
+  .cta-h {
+    font-size: 76px;
+    max-width: 15ch;
+  }
+  .cta-lead {
+    font-size: 19px;
+  }
+}

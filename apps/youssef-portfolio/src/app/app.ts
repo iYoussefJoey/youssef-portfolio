@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@angular/core';
+import { ContactComponent } from './sections/contact/contact.component';
 import { DesignSystemComponent } from './sections/design-system/design-system.component';
 import { ExperienceComponent } from './sections/experience/experience.component';
 import { HeaderComponent } from './sections/header/header.component';
@@ -25,6 +26,7 @@ import { ThemeService } from './shared/theme.service';
     ExperienceComponent,
     SkillsComponent,
     DesignSystemComponent,
+    ContactComponent,
   ],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
