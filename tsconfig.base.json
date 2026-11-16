@@ -10,19 +10,16 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "strict": false,
-    "paths": {
-      "@youssef-portfolio/portfolio-features": [
-        "./libs/portfolio/features/src/index.ts"
-      ],
-      "@youssef-portfolio/portfolio-ui": ["./libs/portfolio/ui/src/index.ts"],
-      "@youssef-portfolio/portfolio-data": [
-        "./libs/portfolio/data/src/index.ts"
-      ]
-    }
+    "strict": false
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

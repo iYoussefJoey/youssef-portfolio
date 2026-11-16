@@ -1,7 +1,0 @@
-@import 'tailwindcss';
-@import '../../../libs/portfolio/styles/yk-theme.css';
-@import '../../../libs/portfolio/styles/yk-animations.css';
-
-/*
- * App Tailwind entry — breakpoints + brand animations live in libs/portfolio/styles.
- */
