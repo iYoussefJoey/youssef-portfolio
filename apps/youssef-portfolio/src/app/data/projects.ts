@@ -46,7 +46,8 @@ export const PROJECTS: readonly Project[] = [
       {
         id: 'blog',
         label: $localize`:@@page.blog:Blog`,
-        desktop: desktop('img/screens/monglish-blog-desktop.webp', 1000, 625),
+        desktop: desktop('img/screens/monglish-blog-desktop.webp'),
+        phone: phone('img/screens/monglish-blog-phone.webp'),
         liveUrl: 'https://monglish.co.uk/ar/blog',
       },
     ],
