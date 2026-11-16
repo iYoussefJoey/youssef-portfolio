@@ -1,0 +1,86 @@
+import { SkillGroup } from './models';
+
+/** Every group shows its first VISIBLE_TILES tiles, then "Show all N". */
+export const VISIBLE_TILES = 4;
+
+export const SKILL_GROUPS: readonly SkillGroup[] = [
+  {
+    id: 'design',
+    moreId: 'skDesign-more',
+    title: 'Design',
+    caption: 'How it looks and works',
+    items: [
+      'Figma',
+      'Design systems',
+      'User research',
+      'WCAG 2.2 (AA / AAA)',
+      'UI design',
+      'Visual design',
+      'Typography',
+      'Interaction design',
+      'Usability testing',
+      'User flows',
+      'Wireframing',
+      'Prototyping',
+      'Design tokens',
+      'Mobile-first & responsive',
+      'RTL / bilingual UI',
+      'Colour contrast',
+      'Keyboard focus',
+      'Reduced motion',
+      'UX laws (Hick, Fitts, Jakob, Miller)',
+      'Gestalt',
+      'Microsoft Clarity',
+    ],
+  },
+  {
+    id: 'front',
+    moreId: 'skFront-more',
+    title: 'Front-end',
+    caption: 'How it gets built',
+    items: [
+      'Angular',
+      'TypeScript',
+      'React',
+      'Next.js',
+      'JavaScript',
+      'RxJS',
+      'Angular Signals',
+      'Reactive Forms',
+      'Angular Material',
+      'Angular CDK',
+      'Tailwind CSS',
+      'HTML5',
+      'CSS3',
+      'SCSS',
+      'GSAP',
+    ],
+  },
+  {
+    id: 'tools',
+    moreId: 'skTools-more',
+    title: 'Tools',
+    caption: 'What I use every day',
+    items: [
+      'Claude Code',
+      'Git',
+      'GitLab CI/CD',
+      'Jira',
+      'NX monorepo',
+      'Jest',
+      'Jasmine',
+      'Docker',
+      'Keycloak',
+      'REST APIs',
+      'Swagger / OpenAPI',
+      'State management',
+      'Performance optimization',
+      'Agile Scrum',
+    ],
+  },
+];
+
+export const LANGUAGES = [
+  { name: 'Arabic', level: 'native' },
+  { name: 'English', level: 'fluent' },
+] as const;
