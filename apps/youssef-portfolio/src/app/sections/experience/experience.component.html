@@ -50,15 +50,17 @@
   </div>
   <div class="wrap">
     <div class="quotes">
-      <p class="q-k mono gr" appReveal i18n="@@quotes.label">What my GAMP team says, on LinkedIn</p>
+      <p class="q-k mono gr" appReveal i18n="@@quotes.label">What my teams at Monglish and GAMP say, on LinkedIn</p>
       @for (q of quotes; track q.name) {
         <figure class="q gr" appReveal>
           <span class="q-src"
             ><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path [attr.d]="icons.linkedin"></path></svg
-            >{{ quoteSource }}</span
+            >{{ q.source }}</span
           >
           <blockquote lang="en" dir="ltr">
-            <p>{{ q.text }}</p>
+            @for (para of q.text; track $index) {
+              <p>{{ para }}</p>
+            }
           </blockquote>
           <figcaption>
             <span class="q-av" aria-hidden="true">{{ q.initials }}</span
