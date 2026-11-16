@@ -1,10 +1,8 @@
 # Youssef Khamis — Portfolio
 
-Personal portfolio for **Youssef Khamis**, Front-End Angular Developer.
+One-page portfolio for **Youssef Khamis**, UI/UX Designer & Front-End Developer, built in **Angular 22** on **Joey Frost UI**, his own design system.
 
-Built as an **NX monorepo** with Angular standalone components, Angular Material, Tailwind CSS v4, and a light/dark theme.
-
-**Live goal:** present Intro (about / skills), Experience (role + projects), and Resume in a clean, interview-ready codebase.
+Live: **https://iyoussefjoey.github.io/youssef-portfolio/**
 
 ---
 
@@ -12,146 +10,83 @@ Built as an **NX monorepo** with Angular standalone components, Angular Material
 
 | Layer | Choice |
 | --- | --- |
-| Framework | Angular 22 (standalone) |
-| Workspace | NX |
-| UI | Angular Material + Tailwind CSS v4 |
-| Icons | `@ng-icons/tabler-icons` |
-| Theme | M3 tokens via `light-dark()` + `ThemeService` |
-| Content | Shared `PROFILE` data in `libs/portfolio/data` |
+| Framework | Angular 22: standalone components, signals, `@if` / `@for`, OnPush, zoneless |
+| Rendering | Prerendered to static HTML at build time (`outputMode: "static"`); header and hero hydrate at once, every section below hydrates when it scrolls into view (incremental hydration) |
+| Workspace | Nx |
+| Styles | Plain CSS: Joey Frost UI tokens + one stylesheet per section, container queries at 700px and 1100px |
+| Fonts | Lexend 300–800, Geist Mono 400/500, self-hosted Latin subsets in `public/fonts`, preloaded, `font-display: swap` |
+| Images | WebP in `public/img`, `NgOptimizedImage` with width/height and lazy loading; the hero portrait is a `<picture>` that loads first on tablet/desktop and not at all on phones (it is hidden there) |
+
+### Performance notes
+
+- `src/index.html` has a tiny boot script that runs before the first paint: it applies the saved/OS theme and, with
+  Motion allowed, opens the hero on the UX view, so nothing jumps when Angular takes over.
+- Animations that move things use `transform`, never `left`/`top`, so they are not counted as layout shift.
+- Content that differs per theme (palette chips, inspect spec line) is rendered for both themes and shown by CSS,
+  so sections are correct before they hydrate.
 
 ---
 
-## App routes
-
-| Path | Page |
-| --- | --- |
-| `/` | Intro - hero (photo, CTAs), sticky rail, scroll-spy: about / tech / skills / education |
-| `/experience` | GAMP role + projects (Safesys, Emitum, ControlER) with live links |
-| `/projects` | Redirects to `/experience` (projects were merged in) |
-| `/resume` | Web resume (summary, experience, education, skills) |
-
-Header nav sits beside the brand (Josh Comeau-style) - Experience / Resume. Sub-pages show an animated **Back** control to return home.
-
----
-
-## Workspace structure
+## Structure
 
 ```text
-apps/youssef-portfolio/     # Shell app (header + router-outlet)
-libs/portfolio/
-  features/                 # Pages: Intro, Experience (with projects), Resume
-  ui/                       # Header, IntroAside, ThemeService, ScrollSpyService
-  data/                     # PROFILE (CV content — single source of truth)
-  styles/                   # Shared theme tokens + brand animations (yk-*)
+apps/youssef-portfolio/
+  public/                 img/, docs/ (CV), robots.txt, sitemap.xml, favicon
+  src/
+    index.html            <head> SEO: title, description, canonical, Open Graph, Twitter, Person JSON-LD
+    styles.css            global layer: base, type, buttons, rising fill, loading sheen, grow reveal
+    styles/tokens.css     Joey Frost UI colour tokens (light / dark) on .root[data-theme]
+    app/
+      app.ts / app.html   the page root: .root (theme, motion, reveal) > .cq (container) > sections
+      data/               typed content: projects, roles, quotes, skills, palette, stats, inspect parts…
+      sections/           header, hero, what-i-do (+ inspect card), work, experience, skills,
+                          design-system, contact, footer — one standalone component each
+      shared/             ThemeService, MotionService, RevealDirective, ScrollSpy, PressFeedbackDirective,
+                          LightboxComponent (native <dialog>)
 ```
 
-Path aliases (see `tsconfig.base.json`):
-
-- `@youssef-portfolio/portfolio-features`
-- `@youssef-portfolio/portfolio-ui`
-- `@youssef-portfolio/portfolio-data`
+Section stylesheets use `ViewEncapsulation.None`, so every selector stays exactly as the design system wrote it
+(`.root[data-theme="dark"] .ptabs button.on`, `.reveal-on.motion-on .gr`, …).
 
 ---
 
-## Getting started
+## Behaviour
 
-```sh
-npm install
-npx nx serve youssef-portfolio
-```
-
-Other useful commands:
-
-```sh
-npx nx build youssef-portfolio
-npx nx test features
-npx nx test ui
-npx nx test data
-npx nx graph
-```
-
----
-
-## Shared breakpoints (DRY)
-
-Defined once in `libs/portfolio/styles/yk-theme.css`:
-
-| Token | Min width | Use |
-| --- | --- | --- |
-| `yk-nav` | 431px | Desktop header tabs (`yk-nav:` / `max-yk-nav:`) |
-| `yk-aside` | 431px | Intro sticky rail (`yk-aside:` / `max-yk-aside:`) |
-
-Import that file after `@import 'tailwindcss'` in any SCSS that `@apply`s these variants.
-
----
-
-## Theme
-
-- Preferences: **Light** / **Dark** / **System** (header contrast menu)
-- Stored in `localStorage` key `yk-theme`
-- Tokens live in `apps/youssef-portfolio/src/tokens-theme.scss`
-- Theme `mat-menu` colors use Material `menu-overrides` in `apps/youssef-portfolio/src/styles.scss` (must be global — the menu renders in a CDK overlay)
-
-Brand name / YK motion keyframes live in `libs/portfolio/styles/yk-animations.css`.
-
----
-
-## Intro sticky rail
-
-`yk-intro-aside` (`libs/portfolio/ui`) owns the sticky section links + socials.
-The Intro page owns `PROFILE` content and `ScrollSpyService` observe/disconnect.
-
----
-
-## Shared chip hover
-
-All Material chips use the global class `yk-chip`.
-
-Hover motion uses shared **`yk-shake`** (`libs/portfolio/styles/yk-shake.css`).
-Chip colors live in `libs/portfolio/styles/yk-chip.css` (imported from `styles.scss`).
-
-```html
-<mat-chip class="yk-chip">Angular</mat-chip>
-```
+- **Theme** follows the OS until the visitor presses the theme button, then remembers it in `localStorage['jf-theme']`.
+- **Motion** switch (beside the name) turns every animation off; it starts off when the OS asks for reduced motion.
+- **Grow reveal** once per block, **rising fill** on hover/focus, **loading sheen + line** on press (no spinners).
+- **Hire me** pops every 5s, 3 times, and stops for good at Contact or when pressed.
+- **Scroll spy** underlines the current section in the nav (and a blue bar in the phone menu).
 
 ---
 
 ## Updating content
 
-Edit `libs/portfolio/data/src/lib/profile.ts` - Intro, Experience (role + projects), and Resume all read from `PROFILE`.
+Edit the files in `apps/youssef-portfolio/src/app/data/`. Templates read from them; images go in `public/img`
+(add the width and height next to the path).
+
+---
+
+## Commands
+
+```sh
+npm install
+npx nx serve youssef-portfolio        # dev server on http://localhost:4200
+npx nx test youssef-portfolio         # unit tests (Jest)
+npx nx lint youssef-portfolio
+npx nx build youssef-portfolio --configuration=production --base-href=/youssef-portfolio/
+```
+
+Output: `dist/apps/youssef-portfolio/browser` (prerendered `index.html`).
+On Windows Git Bash, prefix the build with `MSYS_NO_PATHCONV=1` so `/youssef-portfolio/` is not rewritten into a Windows path.
 
 ---
 
 ## Deploy (GitHub Pages)
 
-Live URL after the first successful run:
+`.github/workflows/deploy-pages.yml` runs on every push to `master`: install, build + prerender with the
+`/youssef-portfolio/` base href, copy `index.html` to `404.html`, publish. Repo **Settings → Pages → Source** must be
+**GitHub Actions**.
 
-**https://iyoussefjoey.github.io/youssef-portfolio/**
-
-Workflow: `.github/workflows/deploy-pages.yml`  
-On every push to `master` (or manual **Run workflow**), GitHub builds the app and publishes Pages. No separate “release” step.
-
-### One-time setup
-
-1. Repo **Settings → Pages → Build and deployment → Source** = **GitHub Actions** (you already did this).
-2. Do **not** use the suggested Jekyll / Static HTML templates — this repo uses the custom workflow above.
-3. Commit + push the workflow (and any pending app changes) to `master`.
-4. Open **Actions**, wait for **Deploy GitHub Pages** to finish green.
-5. Open the live URL above.
-
-Note: if the repo is private, the **published site is still public** (GitHub’s warning on the Pages settings page).
-
-### Manual / local production build
-
-```sh
-npx nx build youssef-portfolio --configuration=production --base-href=/youssef-portfolio/
-```
-
-Output: `dist/apps/youssef-portfolio/browser`
-
----
-
-## Author
-
-**Youssef Khamis** — Front-End Angular Developer  
-Alexandria, Egypt · [GitHub](https://github.com/iYoussefJoey) · [LinkedIn](https://www.linkedin.com/in/iyoussef-khamis/)
+**Custom domain later:** add `public/CNAME`, set `BASE_HREF: /` in the workflow, and update the canonical URL,
+Open Graph URLs and JSON-LD in `src/index.html`, plus `public/robots.txt` and `public/sitemap.xml`.
