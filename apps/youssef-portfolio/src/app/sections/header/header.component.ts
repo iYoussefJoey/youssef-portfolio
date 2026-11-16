@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject, signal } from '@angular/core';
+import { LogoMarkComponent } from '../../shared/logo-mark.component';
 import { MotionService } from '../../shared/motion.service';
 import { PressFeedbackDirective } from '../../shared/press-feedback.directive';
 import { ScrollSpyDirective, ScrollSpyService } from '../../shared/scroll-spy';
@@ -7,7 +8,7 @@ import { ThemeService } from '../../shared/theme.service';
 /** Sticky header: logo + Motion switch, nav with scroll-spy, Hire me, theme, and the phone menu. */
 @Component({
   selector: 'app-header',
-  imports: [ScrollSpyDirective, PressFeedbackDirective],
+  imports: [LogoMarkComponent, ScrollSpyDirective, PressFeedbackDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   encapsulation: ViewEncapsulation.None,
