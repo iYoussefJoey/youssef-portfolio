@@ -1,0 +1,77 @@
+<section class="sec sec-alt" id="experience" aria-labelledby="exp-h">
+  <div class="wrap exp-grid">
+    <div class="exp-side gr" appReveal>
+      <div class="sec-head" style="margin-bottom: 24px">
+        <p class="eyebrow">04 · Experience</p>
+        <h2 class="h2" id="exp-h">4+ years on both sides</h2>
+        <p class="lead">Part-time UI/UX first, then three years of front-end engineering, now design again, with code skills behind every screen.</p>
+      </div>
+      <div class="legend"><span class="lg-d">Design</span><span class="lg-bar"></span><span class="lg-c">Code</span></div>
+      <a class="btn btn-s" [href]="links.cv" [attr.download]="links.cvFile" appPress
+        ><svg class="ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg
+        >Download CV</a
+      >
+    </div>
+    <ol class="tl io" appReveal>
+      @for (r of roles; track r.year) {
+        <li class="tl-item">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="role gr" appReveal>
+            <span class="yr" aria-hidden="true">{{ r.year }}</span>
+            <div class="role-top"><span class="kind-chip" [class]="'k-' + r.kind">{{ r.kindLabel }}</span></div>
+            <div class="role-title">
+              <h3>{{ r.title }}</h3>
+              <span class="when">{{ r.when }}</span>
+            </div>
+            <p class="org">{{ r.org }}</p>
+            <div class="spec" role="img" [attr.aria-label]="r.specLabel">
+              <span>Design</span><span class="spec-bar"><span class="spec-dot" [style.left]="r.pos"></span></span><span>Code</span>
+            </div>
+            <ul class="ticks">
+              @for (pt of r.points; track pt) {
+                <li>{{ pt }}</li>
+              }
+            </ul>
+          </div>
+        </li>
+      }
+      <li class="tl-item">
+        <span class="tl-dot" aria-hidden="true"></span>
+        <div class="role edu gr" appReveal>
+          <div class="role-top"><span class="kind-chip">{{ education.kindLabel }}</span></div>
+          <div class="role-title">
+            <h3>{{ education.title }}</h3>
+            <span class="when">{{ education.when }}</span>
+          </div>
+          <p class="org">{{ education.org }}</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <div class="wrap">
+    <div class="quotes">
+      <p class="q-k mono gr" appReveal>What my GAMP team says, on LinkedIn</p>
+      @for (q of quotes; track q.name) {
+        <figure class="q gr" appReveal>
+          <span class="q-src"
+            ><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path [attr.d]="icons.linkedin"></path></svg
+            >{{ quoteSource }}</span
+          >
+          <blockquote>
+            <p>{{ q.text }}</p>
+          </blockquote>
+          <figcaption>
+            <span class="q-av" aria-hidden="true">{{ q.initials }}</span
+            ><span class="q-who"
+              ><b>{{ q.name }}</b><span>{{ q.title }}</span></span
+            >
+          </figcaption>
+        </figure>
+      }
+      <a class="q-link gr" appReveal [href]="links.recommendations" target="_blank" rel="noopener"
+        >Read them on LinkedIn
+        <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+      ></a>
+    </div>
+  </div>
+</section>
