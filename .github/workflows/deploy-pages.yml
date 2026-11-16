@@ -31,7 +31,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22.22.3
+          # Same Node (and npm 11) as local development, so package-lock.json is read the way it was written.
+          node-version: 24.19.0
           cache: npm
 
       - name: Install dependencies
