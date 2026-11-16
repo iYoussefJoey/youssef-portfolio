@@ -236,9 +236,8 @@
   .sides {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .duo {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  /* .duo stays stacked on tablet: the inspect card needs ~530px for design + code side by side, and half of a
+     768px page would push its code panel under the commit history (or off screen in Arabic). */
 }
 @container page (min-width: 1100px) {
   .stat {
