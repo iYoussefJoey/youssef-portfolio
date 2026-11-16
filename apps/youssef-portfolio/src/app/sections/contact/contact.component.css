@@ -39,19 +39,19 @@
 }
 .sel-box i:nth-child(1) {
   top: -8px;
-  left: -8px;
+  inset-inline-start: -8px;
 }
 .sel-box i:nth-child(2) {
   top: -8px;
-  right: -8px;
+  inset-inline-end: -8px;
 }
 .sel-box i:nth-child(3) {
   bottom: -8px;
-  left: -8px;
+  inset-inline-start: -8px;
 }
 .sel-box i:nth-child(4) {
   bottom: -8px;
-  right: -8px;
+  inset-inline-end: -8px;
 }
 .code-word {
   font-family: 'Geist Mono', monospace;
@@ -241,7 +241,8 @@
     gap: 8px;
   }
   .want-q {
-    margin: 0 4px 0 0;
+    margin-block: 0 0;
+    margin-inline: 0 4px;
   }
   .want button {
     padding: 0 18px;

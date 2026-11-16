@@ -19,7 +19,7 @@
   border-radius: 18px;
   border: 1px solid var(--line);
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   font-family: 'Lexend', sans-serif;
   transition:
     translate 0.25s ease,
