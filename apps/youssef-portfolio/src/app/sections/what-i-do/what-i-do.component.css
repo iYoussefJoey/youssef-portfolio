@@ -63,7 +63,7 @@
   font-size: 16px;
 }
 .since {
-  margin-left: auto;
+  margin-inline-start: auto;
   font-size: 13px;
   color: var(--muted);
 }
@@ -123,7 +123,8 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 10px;
-  padding: 12px 6px 12px 60px;
+  padding-block: 12px 12px;
+  padding-inline: 60px 6px;
   border-top: 1px solid var(--line);
   font-size: 14px;
   line-height: 1.45;
@@ -137,21 +138,21 @@
   width: 2px;
 }
 .cm.lane-d::before {
-  left: 20px;
+  inset-inline-start: 20px;
   background: var(--primary);
 }
 .cm.lane-m::before {
-  left: 20px;
+  inset-inline-start: 20px;
   bottom: 50%;
   background: var(--primary);
 }
 .cm.lane-m::after {
-  left: 40px;
+  inset-inline-start: 40px;
   top: 50%;
   background: var(--fe);
 }
 .cm.lane-c::after {
-  left: 40px;
+  inset-inline-start: 40px;
   background: var(--fe);
 }
 .cm.lane-d:first-child::before {
@@ -172,14 +173,14 @@
   z-index: 1;
 }
 .lane-d .node {
-  left: 15px;
+  inset-inline-start: 15px;
 }
 .lane-c .node {
-  left: 35px;
+  inset-inline-start: 35px;
   border-color: var(--fe);
 }
 .lane-m .node {
-  left: 25px;
+  inset-inline-start: 25px;
   width: 14px;
   height: 14px;
   margin-top: -7px;
@@ -188,7 +189,7 @@
 .lane-m .msg::before {
   content: '';
   position: absolute;
-  left: 21px;
+  inset-inline-start: 21px;
   top: 50%;
   width: 20px;
   border-top: 2px solid var(--primary);
