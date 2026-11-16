@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@an
 import { ExperienceComponent } from './sections/experience/experience.component';
 import { HeaderComponent } from './sections/header/header.component';
 import { HeroComponent } from './sections/hero/hero.component';
+import { SkillsComponent } from './sections/skills/skills.component';
 import { WhatIDoComponent } from './sections/what-i-do/what-i-do.component';
 import { WorkComponent } from './sections/work/work.component';
 import { MotionService } from './shared/motion.service';
@@ -21,6 +22,7 @@ import { ThemeService } from './shared/theme.service';
     WhatIDoComponent,
     WorkComponent,
     ExperienceComponent,
+    SkillsComponent,
   ],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

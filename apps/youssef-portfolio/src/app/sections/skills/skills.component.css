@@ -1,0 +1,283 @@
+/* 05 · Skills & tools */
+
+/* phones: one group at a time */
+.sk-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  background: var(--surf2);
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+.sk-tabs button {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 14px 'Lexend', sans-serif;
+  cursor: pointer;
+  padding: 0 6px;
+}
+.sk-tabs button.on {
+  background: var(--surf);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(10, 22, 51, 0.14);
+}
+.sk-tabs .cnt {
+  display: none;
+}
+
+.sk-grid {
+  display: grid;
+  gap: 16px;
+}
+.sk-group {
+  display: none;
+  flex-direction: column;
+  background: var(--surf);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.sk-group.on {
+  display: flex;
+}
+.sk-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.sk-head h3 {
+  font-size: 18px;
+  font-weight: 680;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sk-head p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.sk-n {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+/* tiles that fill up on hover */
+.sk-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.tile {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  box-sizing: border-box;
+  cursor: default;
+}
+.tile b {
+  font-weight: 680;
+}
+
+/* Show all: the extra tiles slide open (grid rows 0fr -> 1fr), then fade in */
+.sk-more {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  color: var(--primary);
+  font: 600 14px 'Lexend', sans-serif;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.sk-more:hover {
+  border-color: var(--primary);
+  background: var(--surf2);
+}
+.root[data-theme='dark'] .sk-more:hover {
+  color: #a3beff;
+}
+.sk-more svg {
+  transition: transform 0.3s cubic-bezier(0.34, 1.35, 0.64, 1);
+}
+.sk-more[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+.motion-off .sk-more svg {
+  transition: none;
+}
+.sk-extra {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.3, 0, 0.2, 1);
+}
+.sk-extra.open {
+  grid-template-rows: 1fr;
+}
+.sk-extra-in {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear 0.5s;
+}
+.sk-extra.open .sk-extra-in {
+  visibility: visible;
+  transition: visibility 0s;
+}
+.sk-extra .sk-tiles {
+  padding-top: 8px;
+}
+/* The extra tiles fade and slide in, and keep the rising fill (--fill) like every other tile. */
+.sk-extra .tile {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s cubic-bezier(0.3, 0, 0.2, 1),
+    color 0.3s ease,
+    border-color 0.3s ease,
+    --fill 0.25s cubic-bezier(0.3, 0, 1, 1);
+}
+.sk-extra.open .tile {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.35s ease 0.12s,
+    transform 0.4s cubic-bezier(0.3, 0, 0.2, 1) 0.12s,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    --fill 0.25s cubic-bezier(0.3, 0, 1, 1);
+}
+.sk-extra.open .tile:hover,
+.sk-extra.open .tile:active {
+  transition:
+    opacity 0.35s ease 0.12s,
+    transform 0.4s cubic-bezier(0.3, 0, 0.2, 1) 0.12s,
+    color 0.3s cubic-bezier(0.2, 0, 0, 1) 0.08s,
+    border-color 0.3s cubic-bezier(0.2, 0, 0, 1),
+    --fill 0.5s cubic-bezier(0.3, 0, 0.2, 1);
+}
+.motion-off .sk-extra,
+.motion-off .sk-extra-in,
+.motion-off .sk-extra .tile {
+  transition: none;
+}
+
+/* Languages: label on top, the two pills side by side (never stacked) */
+.sk-langs {
+  display: block;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.lang-q {
+  display: block;
+  margin: 0 0 8px;
+  font: 500 12px 'Geist Mono', monospace;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.lang-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.tile.lang {
+  min-height: 44px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+.lang-row .tile.lang {
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@container page (min-width: 700px) {
+  .sk-tabs {
+    display: none;
+  }
+  .sk-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* only the opened card grows; closed cards are equal (4 tiles + one button each) */
+    align-items: start;
+  }
+  .sk-group {
+    display: flex;
+  }
+  .sk-tools {
+    grid-column: 1/-1;
+  }
+  .sk-more {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .sk-group > .sk-tiles + .sk-extra {
+    margin-bottom: 12px;
+  }
+  .sk-group .sk-tiles {
+    margin-bottom: 0;
+  }
+  .sk-langs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lang-q {
+    margin: 0;
+  }
+  .lang-row .tile.lang {
+    flex: 0 0 auto;
+    min-width: 180px;
+  }
+}
+@container page (min-width: 700px) and (max-width: 1099px) {
+  .sk-tools .sk-tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@container page (min-width: 1100px) {
+  .sk-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .sk-tools {
+    grid-column: auto;
+  }
+  .sk-group {
+    padding: 24px;
+  }
+}
