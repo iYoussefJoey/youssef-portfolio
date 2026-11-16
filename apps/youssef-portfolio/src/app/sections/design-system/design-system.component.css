@@ -20,7 +20,7 @@
   border: 1px solid var(--line);
   cursor: pointer;
   text-align: start;
-  font-family: 'Lexend', sans-serif;
+  font-family: 'Lexend', 'Readex Pro', sans-serif;
   transition:
     translate 0.25s ease,
     box-shadow 0.25s ease;
@@ -124,4 +124,8 @@
   .cc-name {
     font-size: 19px;
   }
+}
+
+html[lang='ar'] .aa {
+  line-height: 1.3;
 }

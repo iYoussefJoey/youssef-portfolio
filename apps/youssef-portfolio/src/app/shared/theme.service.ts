@@ -1,6 +1,6 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
-import { Theme } from '../data';
+import type { Theme } from '../data/models';
 
 const STORAGE_KEY = 'jf-theme';
 

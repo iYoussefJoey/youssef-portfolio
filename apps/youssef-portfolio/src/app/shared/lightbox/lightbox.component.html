@@ -11,7 +11,7 @@
   <figure class="lb-panel" [class.lb-phone]="img?.kind === 'phone'">
     <div class="lb-top">
       <figcaption>{{ img?.alt }}</figcaption>
-      <button #closeBtn type="button" class="lb-x" aria-label="Close the picture" (click)="lightbox.close()">
+      <button #closeBtn type="button" class="lb-x" aria-label="Close the picture" i18n-aria-label="@@lightbox.close" (click)="lightbox.close()">
         <svg class="ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
       </button>
     </div>

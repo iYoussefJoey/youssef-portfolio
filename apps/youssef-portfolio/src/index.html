@@ -11,8 +11,13 @@
       content="UI/UX designer and Angular &amp; Next.js developer in Egypt. Mobile-first bilingual pages, design systems and WCAG 2.2 work. Open to remote roles."
     />
     <link rel="canonical" href="https://iyoussefjoey.github.io/youssef-portfolio/" />
+    <link rel="alternate" hreflang="en" href="https://iyoussefjoey.github.io/youssef-portfolio/" />
+    <link rel="alternate" hreflang="ar" href="https://iyoussefjoey.github.io/youssef-portfolio/ar/" />
+    <link rel="alternate" hreflang="x-default" href="https://iyoussefjoey.github.io/youssef-portfolio/" />
     <meta name="theme-color" content="#1D46B8" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_EG" />
     <meta property="og:title" content="Youssef Khamis — UI/UX Designer &amp; Front-End Developer" />
     <meta property="og:description" content="Mobile-first, bilingual pages, two design systems and Angular apps. Open to remote roles." />
     <meta property="og:url" content="https://iyoussefjoey.github.io/youssef-portfolio/" />
@@ -55,6 +60,17 @@
         src: url(fonts/lexend-latin.woff2) format('woff2');
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
           U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      /* Readex Pro: Lexend's Arabic companion. Its range is Arabic only, so it downloads only where Arabic text
+         renders (the Arabic page preloads it). */
+      @font-face {
+        font-family: 'Readex Pro';
+        font-style: normal;
+        font-weight: 160 700;
+        font-display: swap;
+        src: url(fonts/readex-pro-arabic.woff2) format('woff2');
+        unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F,
+          U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
       }
       @font-face {
         font-family: 'Geist Mono';

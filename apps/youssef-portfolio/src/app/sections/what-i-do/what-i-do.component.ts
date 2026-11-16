@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { COMMITS, SIDES, STATS } from '../../data';
+import { COMMITS, SIDES, STATS } from '../../data/what-i-do';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { InspectCardComponent } from './inspect-card.component';
 

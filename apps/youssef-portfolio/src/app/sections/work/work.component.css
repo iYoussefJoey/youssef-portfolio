@@ -29,7 +29,7 @@
   border-radius: 10px;
   background: transparent;
   color: var(--muted);
-  font: 600 15px 'Lexend', sans-serif;
+  font: 600 15px 'Lexend', 'Readex Pro', sans-serif;
   cursor: pointer;
 }
 .filters button.on {
@@ -101,7 +101,7 @@
 }
 /* tags are labels, not buttons: no hover */
 .tags li {
-  font: 500 12px/1 'Geist Mono', monospace;
+  font: 500 12px/1 'Geist Mono', 'Readex Pro', monospace;
   padding: 7px 9px;
   border-radius: 8px;
   border: 1px solid var(--line);
@@ -205,6 +205,7 @@
 }
 .nda-top {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
@@ -248,7 +249,7 @@
   align-items: center;
   gap: 6px;
   margin: 14px 0 8px;
-  font: 500 12px 'Geist Mono', monospace;
+  font: 500 12px 'Geist Mono', 'Readex Pro', monospace;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
@@ -277,7 +278,7 @@
   border: 1px solid var(--line);
   background-color: var(--surf);
   color: var(--text);
-  font: 600 14px 'Lexend', sans-serif;
+  font: 600 14px 'Lexend', 'Readex Pro', sans-serif;
   cursor: pointer;
   box-shadow:
     0 2px 0 var(--line),
@@ -348,7 +349,7 @@
   margin-top: 6px;
 }
 .ba-q {
-  font: 500 12px 'Geist Mono', monospace;
+  font: 500 12px 'Geist Mono', 'Readex Pro', monospace;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
@@ -367,7 +368,7 @@
   border-radius: 10px;
   background: transparent;
   color: var(--muted);
-  font: 600 14px 'Lexend', sans-serif;
+  font: 600 14px 'Lexend', 'Readex Pro', sans-serif;
   cursor: pointer;
   transition:
     background-color 0.2s,
@@ -413,7 +414,7 @@
   border-radius: 999px;
   background: rgba(31, 157, 85, 0.12);
   color: #11713b;
-  font: 600 12px 'Geist Mono', monospace;
+  font: 600 12px 'Geist Mono', 'Readex Pro', monospace;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -571,4 +572,8 @@
   .reveal-on.motion-on .grid-work > .gr:nth-child(even) {
     transition-delay: 0.12s;
   }
+}
+
+html[lang='ar'] .proj h3 {
+  line-height: 1.4;
 }

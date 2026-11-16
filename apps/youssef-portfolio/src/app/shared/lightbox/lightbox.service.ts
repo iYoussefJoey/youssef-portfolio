@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Picture } from '../../data';
+import type { Picture } from '../../data/models';
 
 export interface LightboxImage extends Picture {
   alt: string;

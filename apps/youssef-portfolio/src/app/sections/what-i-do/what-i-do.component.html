@@ -1,14 +1,14 @@
 <section class="sec sec-alt" id="what" aria-labelledby="what-h">
   <div class="wrap">
     <div class="sec-head gr" appReveal>
-      <p class="eyebrow">02 · What I do</p>
-      <h2 class="h2" id="what-h">Two sides, one workflow</h2>
-      <p class="lead">Design and code usually sit with two different people. I do both, so what gets designed is what gets built.</p>
+      <p class="eyebrow" i18n="@@what.eyebrow">02 · What I do</p>
+      <h2 class="h2" id="what-h" i18n="@@what.title">Two sides, one workflow</h2>
+      <p class="lead" i18n="@@what.lead">Design and code usually sit with two different people. I do both, so what gets designed is what gets built.</p>
     </div>
-    <ul class="stats" aria-label="In numbers">
+    <ul class="stats" aria-label="In numbers" i18n-aria-label="@@what.stats">
       @for (s of stats; track s.n) {
         <li class="stat gr" appReveal>
-          <b class="stat-n">{{ s.n }}</b><span class="stat-l">{{ s.label }}</span><span class="stat-s">{{ s.sub }}</span>
+          <b class="stat-n"><bdi dir="ltr">{{ s.n }}</bdi></b><span class="stat-l">{{ s.label }}</span><span class="stat-s">{{ s.sub }}</span>
         </li>
       }
     </ul>
@@ -31,7 +31,7 @@
               <li>{{ t }}</li>
             }
           </ul>
-          <p class="proof">Seen in <b>{{ side.proof[0] }}</b>, <b>{{ side.proof[1] }}</b> and <b>{{ side.proof[2] }}</b></p>
+          <p class="proof" i18n="@@side.proof">Seen in <b>{{ side.proof[0] }}</b>, <b>{{ side.proof[1] }}</b> and <b>{{ side.proof[2] }}</b></p>
         </article>
       }
     </div>
@@ -40,7 +40,7 @@
       <div class="git-wrap gr" appReveal>
         <div class="git-head">
           <span class="side-ic"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="8" r="3"></circle><path d="M6 9v6M18 11a6 6 0 0 1-6 6H9"></path></svg></span>
-          <div><b>How I work</b><span class="d">as a commit history</span></div>
+          <div><b i18n="@@git.title">How I work</b><span class="d" i18n="@@git.sub">as a commit history</span></div>
         </div>
         <ol class="git">
           @for (c of commits; track c.hash) {

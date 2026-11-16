@@ -42,8 +42,10 @@ jobs:
         # Project Pages need the repo name as base href so assets resolve.
         run: npx nx build youssef-portfolio --configuration=production --base-href=$BASE_HREF
 
-      - name: Check the page was prerendered
-        run: grep -q 'Youssef Khamis' "$OUT/index.html"
+      - name: Check both pages were prerendered
+        run: |
+          grep -q 'Youssef Khamis' "$OUT/index.html"
+          grep -q 'lang="ar" dir="rtl"' "$OUT/ar/index.html"
 
       - name: 404 page
         # GitHub Pages serves 404.html for unknown paths (old links like /experience); it is the same page.
