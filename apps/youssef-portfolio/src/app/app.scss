@@ -1,9 +1,0 @@
-/*
- * Page canvas under the header (router-outlet host).
- * Soft grey in light mode via --color-page — header stays --color-header (white).
- */
-.app-page {
-  background: var(--color-page);
-  color: var(--md-sys-color-on-background);
-  min-height: calc(100vh - 4rem);
-}
