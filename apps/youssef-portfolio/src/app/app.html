@@ -1,4 +1,12 @@
-<yk-header-component />
-<main class="app-page">
-  <router-outlet />
-</main>
+<div
+  class="root"
+  [attr.data-theme]="theme.theme()"
+  [class.motion-on]="motion.on()"
+  [class.motion-off]="!motion.on()"
+  [class.reveal-on]="reveal.ready()"
+>
+  <div class="cq">
+    <main>
+    </main>
+  </div>
+</div>

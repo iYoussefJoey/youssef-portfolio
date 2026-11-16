@@ -1,22 +1,26 @@
-import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ThemeService, HeaderComponent } from '@youssef-portfolio/portfolio-ui';
+import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@angular/core';
+import { MotionService } from './shared/motion.service';
+import { RevealObserver } from './shared/reveal.directive';
+import { ThemeService } from './shared/theme.service';
 
 /**
- * Root app shell — sticky header + main router outlet for feature pages.
- * Bootstraps ThemeService so M3 light-dark tokens apply on first paint.
+ * The one-page portfolio. The root carries the theme, the Motion state and the reveal switch.
+ * Header and hero hydrate at once; every section below the fold stays prerendered HTML and loads its code
+ * when it scrolls into view (incremental hydration), which keeps the first load light.
  */
 @Component({
-  imports: [RouterModule, HeaderComponent],
   selector: 'app-root',
+  imports: [
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  protected title = 'youssef-portfolio';
+  protected readonly theme = inject(ThemeService);
+  protected readonly motion = inject(MotionService);
+  protected readonly reveal = inject(RevealObserver);
 
   constructor() {
-    // Apply persisted / OS theme on bootstrap (CSS uses light-dark()).
-    inject(ThemeService);
+    afterNextRender(() => this.reveal.start());
   }
 }
