@@ -23,6 +23,9 @@
   --hov: #dce8ff;
   --hov-t: #1a40a8;
   --ice: #dce8ff;
+  /* YK mark: the code half and its K */
+  --mark-code: #0b1530;
+  --mark-k: #9bb8ff;
 }
 
 .root[data-theme='dark'] {
@@ -48,6 +51,9 @@
   --hov: #24396f;
   --hov-t: #ffffff;
   --ice: #dce8ff;
+  /* lighter than the page so the whole tile stays visible */
+  --mark-code: #172b5e;
+  --mark-k: #9bb8ff;
 }
 
 /* Rising fill: one animatable registered property drives the hover circle. */

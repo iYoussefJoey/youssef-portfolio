@@ -30,17 +30,11 @@
 .logo-name {
   white-space: nowrap;
 }
+/* the YK mark (app-logo-mark) draws its own split tile */
 .mark {
   width: 36px;
   height: 36px;
-  border-radius: 10px;
-  background: var(--primary);
-  color: var(--on-p);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
+  flex: none;
 }
 .head-act {
   display: flex;
@@ -332,7 +326,6 @@
   .mark {
     width: 32px;
     height: 32px;
-    font-size: 13px;
   }
   .logo {
     gap: 8px;

@@ -1,14 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="YK">
-  <rect width="64" height="64" rx="14" fill="#1D46B8" />
-  <text
-    x="32"
-    y="34"
-    font-family="'Segoe UI', Arial, Helvetica, sans-serif"
-    font-size="30"
-    font-weight="700"
-    letter-spacing="-1.5"
-    fill="#ffffff"
-    text-anchor="middle"
-    dominant-baseline="central"
-  >YK</text>
+  <path d="M18 0H32V64H18A18 18 0 0 1 0 46V18A18 18 0 0 1 18 0Z" fill="#1D46B8" />
+  <path d="M32 0H46A18 18 0 0 1 64 18V46A18 18 0 0 1 46 64H32Z" fill="#0B1530" />
+  <g fill="none" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.5 19 16 31.5 23.5 19M16 31.5V46" stroke="#FFFFFF" />
+    <path d="M41 19v27M53 19 41.6 32.5 53 46" stroke="#9BB8FF" />
+  </g>
 </svg>
