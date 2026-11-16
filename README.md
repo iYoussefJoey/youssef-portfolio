@@ -15,7 +15,7 @@ Live: **https://iyoussefjoey.github.io/youssef-portfolio/** · Arabic: **https:/
 | Languages | English at the root, Arabic (RTL) under `/ar/`: Angular i18n, translated at build time, one prerendered page per language |
 | Workspace | Nx |
 | Styles | Plain CSS: Joey Frost UI tokens + one stylesheet per section, container queries at 700px and 1100px |
-| Fonts | Lexend 300–800, Geist Mono 400/500 and Readex Pro 160–700 (Lexend's Arabic companion), self-hosted subsets in `public/fonts`, preloaded, `font-display: swap` |
+| Fonts | Lexend 300–800, Geist Mono 400/500 and Readex Pro 160–700 (Lexend's Arabic companion), self-hosted subsets in `public/fonts`, preloaded; `font-display: swap` for the Latin fonts and `optional` for Readex Pro, so the Arabic page never reflows when its font arrives |
 | Images | WebP in `public/img`, `NgOptimizedImage` with width/height and lazy loading; the hero portrait is a `<picture>` that loads first on tablet/desktop and not at all on phones (it is hidden there) |
 
 ### Performance notes
