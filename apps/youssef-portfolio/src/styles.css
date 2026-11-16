@@ -95,6 +95,76 @@ ol {
   padding: 72px 0;
   scroll-margin-top: 64px;
 }
+/* The sections below the hero skip style, layout and paint until they come near the screen, which takes most of the
+   load-time rendering work off the phone. Until a section first renders it stands in at about its real height for
+   the screen size (--sec-h, set below); after that "auto" keeps its true height, so the scrollbar and jumps to a
+   section (nav links, the language switch) stay accurate. */
+:where(#what, #work, #experience, #skills, #system, #contact).sec {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--sec-h, 1000px);
+}
+/* set by the head script in index.html before a jump to a section, so the jump lands exactly */
+html.cv-off .sec {
+  content-visibility: visible;
+}
+#what {
+  --sec-h: 2850px;
+}
+#work {
+  --sec-h: 5300px;
+}
+#experience {
+  --sec-h: 4700px;
+}
+#skills {
+  --sec-h: 750px;
+}
+#system {
+  --sec-h: 1430px;
+}
+#contact {
+  --sec-h: 830px;
+}
+@container page (min-width: 700px) {
+  #what {
+    --sec-h: 2030px;
+  }
+  #work {
+    --sec-h: 3430px;
+  }
+  #experience {
+    --sec-h: 3030px;
+  }
+  #skills {
+    --sec-h: 920px;
+  }
+  #system {
+    --sec-h: 1030px;
+  }
+  #contact {
+    --sec-h: 850px;
+  }
+}
+@container page (min-width: 1100px) {
+  #what {
+    --sec-h: 1670px;
+  }
+  #work {
+    --sec-h: 3100px;
+  }
+  #experience {
+    --sec-h: 2560px;
+  }
+  #skills {
+    --sec-h: 760px;
+  }
+  #system {
+    --sec-h: 970px;
+  }
+  #contact {
+    --sec-h: 980px;
+  }
+}
 .sec-alt {
   background: var(--surf);
 }
