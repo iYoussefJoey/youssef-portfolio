@@ -1,5 +1,6 @@
-# Build NX Angular app and publish to GitHub Pages on every push to master.
+# Build the Angular app (prerendered to static HTML) and publish it to GitHub Pages on every push to master.
 # Site URL: https://iyoussefjoey.github.io/youssef-portfolio/
+# Custom domain later: add public/CNAME and change BASE_HREF to "/".
 name: Deploy GitHub Pages
 
 on:
@@ -15,6 +16,10 @@ permissions:
 concurrency:
   group: pages
   cancel-in-progress: true
+
+env:
+  BASE_HREF: /youssef-portfolio/
+  OUT: dist/apps/youssef-portfolio/browser
 
 jobs:
   build:
@@ -32,18 +37,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        # Project Pages need the repo name as base href so assets/routes resolve.
-        run: npx nx build youssef-portfolio --configuration=production --base-href=/youssef-portfolio/
+      - name: Build and prerender
+        # Project Pages need the repo name as base href so assets resolve.
+        run: npx nx build youssef-portfolio --configuration=production --base-href=$BASE_HREF
 
-      - name: SPA fallback for deep links
-        # GH Pages serves 404.html for unknown paths; copy index so Angular router can boot.
-        run: cp dist/apps/youssef-portfolio/browser/index.html dist/apps/youssef-portfolio/browser/404.html
+      - name: Check the page was prerendered
+        run: grep -q 'Youssef Khamis' "$OUT/index.html"
+
+      - name: 404 page
+        # GitHub Pages serves 404.html for unknown paths (old links like /experience); it is the same page.
+        run: cp "$OUT/index.html" "$OUT/404.html"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/apps/youssef-portfolio/browser
+          path: ${{ env.OUT }}
 
   deploy:
     needs: build
