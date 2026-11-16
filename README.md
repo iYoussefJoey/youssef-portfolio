@@ -63,7 +63,7 @@ the few Arabic-only rules sit under `html[lang='ar']` / `html[dir='rtl']`.
 - **Grow reveal** once per block, **rising fill** on hover/focus, **loading sheen + line** on press (no spinners).
 - **Hire me** pops every 5s, 3 times, and stops for good at Contact or when pressed.
 - **Scroll spy** underlines the current section in the nav (and a blue bar in the phone menu).
-- **Language** button in the header (ع / EN) links to the other language's page.
+- **Language** button in the header (ع / EN) opens the other language's page at the section in view.
 
 ---
 
