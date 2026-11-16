@@ -1,0 +1,51 @@
+<section class="sec sec-alt" id="system" aria-labelledby="sys-h">
+  <div class="wrap">
+    <div class="sec-head gr" appReveal>
+      <p class="eyebrow">06 · Joey Frost UI</p>
+      <h2 class="h2" id="sys-h">This site runs on Joey Frost UI, my own design system</h2>
+      <p class="lead">One cool blue palette, one font family and three motion rules. Tap a colour to copy its code.</p>
+    </div>
+    <ul class="pal gr" appReveal aria-label="Colour palette">
+      @for (pal of palettes; track pal.theme) {
+        @for (c of pal.colours; track c.role) {
+        <li class="pal-item" [class]="'theme-' + pal.theme">
+          <button
+            type="button"
+            class="cc"
+            [style.background]="c.hex"
+            [style.color]="c.ink"
+            [attr.aria-label]="'Copy ' + c.name + ' colour ' + c.hex"
+            (click)="copy(c)"
+          >
+            <span class="cc-role mono">{{ c.role }}</span><span class="cc-name">{{ c.name }}</span
+            ><span class="cc-hex mono">{{ copied() === c.hex ? 'Copied!' : c.hex }}</span>
+          </button>
+        </li>
+        }
+      }
+    </ul>
+    <div class="sys-row">
+      <div class="sys-card gr" appReveal>
+        <span class="sys-k mono">Type</span>
+        <div class="aa">Aa<span class="aa-m mono">Aa</span></div>
+        <p><b>Lexend</b> 300 to 800 for every word, made for easy reading. <b>Geist Mono</b> for code and labels.</p>
+      </div>
+      <div class="sys-card gr" appReveal>
+        <span class="sys-k mono">Motion</span>
+        <ul class="ticks">
+          <li>Grow reveal as you scroll</li>
+          <li>Rising fill on hover, a loading sheen on press</li>
+          <li>One Motion switch turns it all off</li>
+        </ul>
+      </div>
+      <div class="sys-card gr" appReveal>
+        <span class="sys-k mono">Accessibility</span>
+        <ul class="ticks">
+          <li>WCAG 2.2: AAA contrast on all text</li>
+          <li>Light and dark mode</li>
+          <li>44 px touch targets, visible focus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
